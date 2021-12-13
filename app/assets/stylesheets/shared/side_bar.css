@@ -1,0 +1,29 @@
+.side-bar-lists{
+  display: block;
+  background-color: navy;
+  border-top: 1px solid white;
+  height: 100vh;
+}
+
+.side-bar-links{
+  margin-top: 10px;
+}
+
+.side-bar-link{
+  text-decoration: none;
+  color: white;
+}
+
+.my-page-links{
+  margin-top: 10px;
+}
+
+.more_list{
+  padding-top: 5px;
+}
+
+.my-page-link{
+  text-decoration: none;
+  color: white;
+  padding-right: 3px;
+}
