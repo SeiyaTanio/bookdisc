@@ -1,4 +1,5 @@
 class TweetsController < ApplicationController
+  before_action :authenticate_user!, only: :new
 
   def index
     @tweets = Tweet.includes(:user)
@@ -10,7 +11,11 @@ class TweetsController < ApplicationController
 
   def create
     @tweet = Tweet.new(tweet_params)
-    @tweet.save
+    if @tweet.save
+      redirect_to root_path
+    else
+      render :new
+    end
   end
 
   private 
