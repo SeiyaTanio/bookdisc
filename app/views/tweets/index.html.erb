@@ -1,1 +1,17 @@
-<div>トップページ</div>
+<div class = "top-page ">
+  <% @tweets.each do |tweet| %>
+    <div class = "tweet">
+      <div class = "tweet-top">
+        <div class = "user-image">
+          <%= link_to image_tag("bookdisc-icon-image.png", class:"user-icon"), "#" %>
+        </div>
+        <div class = "user-name">
+          <%= tweet.user.nickname%>
+        </div>
+        <div class = "tweet-date">
+          <%= tweet.updated_at%>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
