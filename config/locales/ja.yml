@@ -3,6 +3,8 @@ ja:
     attributes:
       user:
         nickname: ニックネーム
+      tweet:
+        content: ツイート内容
 
 
   time:
