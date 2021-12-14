@@ -27,7 +27,7 @@ class ProfilesController < ApplicationController
 
   def update
     @profile = Profile.find(params[:id])
-    if @profile.update(profile_params)
+    if @profile.update(profile_update_params)
       redirect_to action: :index
     else
       render :edit
@@ -37,5 +37,9 @@ class ProfilesController < ApplicationController
   private
     def profile_params
       params.permit(:favorite_book, :self_introduction, :image).merge(user_id: current_user.id)
+    end
+
+    def profile_update_params
+      params.require(:profile).permit(:favorite_book, :self_introduction, :image).merge(user_id: current_user.id)
     end
 end

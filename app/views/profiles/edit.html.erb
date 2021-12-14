@@ -1,0 +1,23 @@
+<div class = "profile-new">
+  <h1>プロフィール編集</h1>
+
+  <div class = "profiles-form" >
+    <%= form_with model: @profile, local: true do |f| %>
+      <label class="form-image">
+        <span class="image-file">画像</span>
+        <%= f.file_field :image, class: 'hidden' %>
+      </label>
+      <div class = "introduction-form" >
+        <h3>自己紹介</h3>
+        <%= f.text_area :self_introduction, class: "profile-introduction", maxlength: "150" %>
+      </div>
+      <div class = "books-form" >
+        <h3>お気に入りの本</h3>
+        <%= f.text_area :favorite_book, class: "profile-books", maxlength: "150" %>
+      </div>
+      <div class = "profile-btn-contents">
+        <%= f.submit "登録する", class: "profile-btn" %>
+    <% end %>
+    <%=link_to 'もどる', root_path, class:"back-btn" %>
+  </div>
+</div>
