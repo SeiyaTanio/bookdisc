@@ -1,1 +1,16 @@
-＜編集ページ＞
+<div class = "tweet-new">
+  <h1>ツイート編集</h1>
+
+  <div class = "tweets-form" >
+    <%= form_with model: @tweet, local: true do |f| %>
+      <%= render 'layouts/error_messages', model: f.object %>
+      <div class = "content-form" >
+        <h3>ツイート内容</h3>
+        <%= f.text_area :content, class: "tweets-content", maxlength: "150" %>
+      </div>
+      <div class = "tweet-btn-contents">
+        <%= f.submit "更新する", class: "tweet-btn" %>
+    <% end %>
+    <%=link_to 'もどる', tweet_path(@tweet.id), class:"back-btn" %>
+  </div>
+</div>
