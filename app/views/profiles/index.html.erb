@@ -1,1 +1,27 @@
-＜マイページ＞
+<div class = "my-page">
+  <h1>マイページ</h1>
+
+  <div class = "profile-contents">
+    <div class = "my-nickname">
+        <%= current_user.nickname %>
+    </div>
+
+    <div class = "my-profile">
+      <div class = "my-introduction">
+        <% if @profile.self_introduction != nil %>
+          <%= @profile.self_introduction %>
+        <% else %>
+          データがありません
+        <% end %>
+      </div>
+      <div class = "my-book">
+        <% if @profile.favorite_book != nil %>
+          <%= @profile.favorite_book %>
+        <% else %>
+          データがありません
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

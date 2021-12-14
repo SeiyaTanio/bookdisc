@@ -1,6 +1,11 @@
 class ProfilesController < ApplicationController
 
   def index
+    if Profile.none?
+      render :new
+    else
+      @profile = Profile.find_by(user_id: current_user.id)
+    end
   end
 
   def new
@@ -14,9 +19,10 @@ class ProfilesController < ApplicationController
     else
       render :new
     end
+  end
 
   private
     def profile_params
-      params.require(:profile).permit(:favorite_book, :self_introduction).merge(user_id: current_user.id)
+      params.permit(:favorite_book, :self_introduction).merge(user_id: current_user.id)
     end
 end
