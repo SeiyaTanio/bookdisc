@@ -23,6 +23,6 @@ class ProfilesController < ApplicationController
 
   private
     def profile_params
-      params.permit(:favorite_book, :self_introduction).merge(user_id: current_user.id)
+      params.permit(:favorite_book, :self_introduction, :image).merge(user_id: current_user.id)
     end
 end
