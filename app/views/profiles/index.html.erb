@@ -7,6 +7,13 @@
     </div>
 
     <div class = "my-profile">
+      <div class = "my-icon">
+        <% if @profile.image.attached? %>
+          <%= image_tag @profile.image %>
+        <% else %>
+          <%= image_tag "bookdisc-icon-image.png" %>
+        <% end %>
+      </div>
       <div class = "my-introduction">
         <% if @profile.self_introduction != nil %>
           <%= @profile.self_introduction %>

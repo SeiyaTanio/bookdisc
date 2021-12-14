@@ -3,6 +3,10 @@
 
   <div class = "profiles-form" >
     <%= form_with model: @profile, local: true do |f| %>
+      <label class="form-image">
+        <span class="image-file">画像</span>
+        <%= f.file_field :image, class: 'hidden' %>
+      </label>
       <div class = "introduction-form" >
         <h3>自己紹介</h3>
         <%= f.text_area :self_introduction, class: "profile-introduction", maxlength: "150" %>

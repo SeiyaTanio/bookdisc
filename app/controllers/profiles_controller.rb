@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
 
   def index
-    if Profile.none?
+    if Profile.find_by(user_id: current_user.id) == nil
       render :new
     else
       @profile = Profile.find_by(user_id: current_user.id)
