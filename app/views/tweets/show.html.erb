@@ -24,7 +24,7 @@
   <div class = "tweet-edit-delete-links">
     <% if current_user.id == @tweet.user_id %>
       <%= link_to '編集', edit_tweet_path(@tweet.id), class: "tweet-edit" %>
-      <%= link_to '削除', "#", method: :delete, class: "tweet-delete" %>
+      <%= link_to '削除', tweet_path(@tweet.id), method: :delete, class: "tweet-delete" %>
     <% end %>
   </div>
 </div>
