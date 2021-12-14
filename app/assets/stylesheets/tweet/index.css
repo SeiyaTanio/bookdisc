@@ -1,0 +1,44 @@
+.top-page{
+  margin: 3px;
+}
+
+.tweet{
+  border: 1px solid lightgray;
+  display: flex;
+  width: calc( 100vw - 17vw);
+  margin-bottom: 3px;
+}
+
+.tweet-left{
+  margin-right: 3px;
+}
+
+.user-icon{
+  height: 10vh;
+  width: 10vw;
+}
+
+.tweet-right-upper{
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.tweet-nickname{
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.tweet-date{
+  margin-left: 10px;
+  color: gray;
+}
+
+.tweet-content{
+  color: black;
+  text-decoration: none;
+}
+
+.tweet-show{
+  display: block;
+}

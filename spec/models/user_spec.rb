@@ -7,7 +7,7 @@ RSpec.describe User, type: :model do
 
   describe 'ユーザー新規登録' do
     context '新規登録できる場合' do
-      it "全ての情報が正しく存在すれば登録できる" do
+      it '全ての情報が正しく存在すれば登録できる' do
         expect(@user).to be_valid
       end
     end
@@ -31,36 +31,36 @@ RSpec.describe User, type: :model do
         @user.save
         another_user = FactoryBot.build(:user, email: @user.email)
         another_user.valid?
-        expect(another_user.errors.full_messages).to include("Email has already been taken")
+        expect(another_user.errors.full_messages).to include('Email has already been taken')
       end
       it 'emailに@が含まれないと登録できない' do
         @user.email = 'test'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Email is invalid")
+        expect(@user.errors.full_messages).to include('Email is invalid')
       end
       it 'passwordが５文字以下では登録できない' do
         @user.password = 'abc12'
         @user.password_confirmation = 'abc12'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
+        expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
       end
       it 'passwordが英字のみでは登録できない' do
         @user.password = 'abcdef'
         @user.password_confirmation = 'abcdef'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password が無効です。半角英字と半角数字の両方が必要です。")
+        expect(@user.errors.full_messages).to include('Password が無効です。半角英字と半角数字の両方が必要です。')
       end
       it 'passwordが数字のみでは登録できない' do
         @user.password = '123456'
         @user.password_confirmation = '123456'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password が無効です。半角英字と半角数字の両方が必要です。")
+        expect(@user.errors.full_messages).to include('Password が無効です。半角英字と半角数字の両方が必要です。')
       end
       it 'passwordに英数字以外の文字が入っていると登録できない' do
         @user.password = '123ab-'
         @user.password_confirmation = '123ab-'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password が無効です。半角英字と半角数字の両方が必要です。")
+        expect(@user.errors.full_messages).to include('Password が無効です。半角英字と半角数字の両方が必要です。')
       end
       it 'passwordとpassword_confirmationが不一致では登録できない' do
         @user.password = '123abc'
@@ -72,7 +72,7 @@ RSpec.describe User, type: :model do
         @user.password = '１23abc'
         @user.password_confirmation = '１23abc'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password が無効です。半角英字と半角数字の両方が必要です。")
+        expect(@user.errors.full_messages).to include('Password が無効です。半角英字と半角数字の両方が必要です。')
       end
     end
   end

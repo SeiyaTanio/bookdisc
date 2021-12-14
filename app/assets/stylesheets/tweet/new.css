@@ -1,0 +1,12 @@
+.tweet-new{
+  display: block;
+  margin: 10vh auto;
+}
+
+.tweets-form{
+  margin-top: 5vh;
+}
+
+.tweets-content{
+  width: 100%;
+}
