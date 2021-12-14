@@ -32,6 +32,7 @@ class ProfilesController < ApplicationController
     else
       render :edit
     end
+  end
 
   private
     def profile_params
