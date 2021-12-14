@@ -2,7 +2,7 @@ class TweetsController < ApplicationController
   before_action :authenticate_user!, only: :new
 
   def index
-    @tweets = Tweet.includes(:user).order("updated_at DESC")
+    @tweets = Tweet.includes(:user).order('updated_at DESC')
   end
 
   def new
@@ -41,8 +41,8 @@ class TweetsController < ApplicationController
     redirect_to root_path
   end
 
-  private 
-  
+  private
+
   def tweet_params
     params.require(:tweet).permit(:content).merge(user_id: current_user.id)
   end

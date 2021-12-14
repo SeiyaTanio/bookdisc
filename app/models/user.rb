@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :tweets
 
   validates :nickname, presence: true
-  
+
   PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
   validates_format_of :password, with: PASSWORD_REGEX, message: 'が無効です。半角英字と半角数字の両方が必要です。'
 end
