@@ -39,3 +39,6 @@
   text-decoration: none;
 }
 
+.tweet-show{
+  display: block;
+}

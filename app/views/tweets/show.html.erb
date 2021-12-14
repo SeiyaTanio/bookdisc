@@ -1,1 +1,30 @@
-＜詳細ページ＞
+<!-- CSSはtweets/index.cssを参照 -->
+
+<div class = "tweet-show">
+  <div class = "tweet">
+    <div class = "tweet-left">
+      <div class = "user-image">
+        <%= link_to image_tag("bookdisc-icon-image.png", class:"user-icon"), "#" %>
+      </div>
+    </div>
+    <div class = "tweet-right">
+      <div class = "tweet-right-upper">
+        <div class = "user-name">
+          <%= link_to @tweet.user.nickname, "#", class: "tweet-nickname" %>
+        </div>
+        <div class = "tweet-date">
+          <%= l @tweet.updated_at%>
+        </div>
+      </div>
+      <div class = "tweet-right-under" >
+        <%= @tweet.content %>
+      </div>
+    </div>
+  </div>
+  <div class = "tweet-edit-delete-links">
+    <% if current_user.id == @tweet.user_id %>
+      <%= link_to '編集', "#", class: "tweet-edit" %>
+      <%= link_to '削除', "#", method: :delete, class: "tweet-delete" %>
+    <% end %>
+  </div>
+</div>
