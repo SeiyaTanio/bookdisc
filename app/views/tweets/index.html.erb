@@ -1,19 +1,23 @@
 <div class = "top-page ">
   <% @tweets.each do |tweet| %>
     <div class = "tweet">
-      <div class = "tweet-top">
+      <div class = "tweet-left">
         <div class = "user-image">
           <%= link_to image_tag("bookdisc-icon-image.png", class:"user-icon"), "#" %>
         </div>
-        <div class = "user-name">
-          <%= link_to tweet.user.nickname, "#", class: "user-nickname" %>
-        </div>
-        <div class = "tweet-date">
-          <%= tweet.updated_at%>
-        </div>
       </div>
-      <div class = "tweet-bottom">
-        <%= link_to tweet.content, "#", class: "tweet-content" %>
+      <div class = "tweet-right">
+        <div class = "tweet-right-upper">
+          <div class = "user-name">
+            <%= link_to tweet.user.nickname, "#", class: "tweet-nickname" %>
+          </div>
+          <div class = "tweet-date">
+            <%= l tweet.updated_at%>
+          </div>
+        </div>
+        <div class = "tweet-right-under" >
+          <%= link_to tweet.content, "#", class: "tweet-content" %>
+        </div>
       </div>
     </div>
   <% end %>
