@@ -43,16 +43,16 @@
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
-    <%= f.label :nickname, class: "visually-hidden" %>ニックネーム<br />
+    <%= f.label :nickname, class: "visually-hidden" %>ニックネーム  <span class="badge rounded-pill bg-danger mb-2">必須</span><br />
     <%= f.text_field :nickname, class:"form-control", autofocus: true, autocomplete: "nickname" %>
-    <%= f.label :email, class: "visually-hidden" %>Eメール<br />
+    <%= f.label :email, class: "visually-hidden" %>Eメール  <span class="badge rounded-pill bg-danger mb-2">必須</span><br />
     <%= f.email_field :email, class:"form-control", autocomplete: "email" %>
     <%= f.label :password, class: "visually-hidden" %><br />
     <% if @minimum_password_length %>
-    <em>パスワード(<%= @minimum_password_length %> 文字以上)</em>
+    <em>パスワード(<%= @minimum_password_length %> 文字以上)  <span class="badge rounded-pill bg-danger mb-2">必須</span></em>
     <% end %><br />
     <%= f.password_field :password, class:"form-control", autocomplete: "new-password" %>
-    <%= f.label :password_confirmation, class: "visually-hidden" %>パスワード（確認用）<br />
+    <%= f.label :password_confirmation, class: "visually-hidden" %>パスワード（確認用）  <span class="badge rounded-pill bg-danger mb-2">必須</span><br />
     <%= f.password_field :password_confirmation, class:"form-control", autocomplete: "new-password" %>
     <div class="checkbox mb-3">
       <label>
