@@ -1,24 +1,29 @@
-<div class = "top-page ">
-  <% @tweets.each do |tweet| %>
-    <div class = "tweet">
-      <div class = "tweet-left">
-        <div class = "user-image">
-          <%= link_to image_tag("bookdisc-icon-image.png", class:"user-icon"), "#" %>
-        </div>
-      </div>
-      <div class = "tweet-right">
-        <div class = "tweet-right-upper">
-          <div class = "user-name">
-            <%= link_to tweet.user.nickname, "#", class: "tweet-nickname" %>
-          </div>
-          <div class = "tweet-date">
-            <%= l tweet.updated_at%>
+<%= render "shared/header" %>
+<div class = "main">
+<%= render "shared/side_bar" %>
+
+  <div class = "top-page ">
+    <% @tweets.each do |tweet| %>
+      <div class = "tweet">
+        <div class = "tweet-left">
+          <div class = "user-image">
+            <%= link_to image_tag("bookdisc-icon-image.png", class:"user-icon"), "#" %>
           </div>
         </div>
-        <div class = "tweet-right-under" >
-          <%= link_to tweet.content, tweet_path(tweet.id), class: "tweet-content" %>
+        <div class = "tweet-right">
+          <div class = "tweet-right-upper">
+            <div class = "user-name">
+              <%= link_to tweet.user.nickname, "#", class: "tweet-nickname" %>
+            </div>
+            <div class = "tweet-date">
+              <%= l tweet.updated_at%>
+            </div>
+          </div>
+          <div class = "tweet-right-under" >
+            <%= link_to tweet.content, tweet_path(tweet.id), class: "tweet-content" %>
+          </div>
         </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
