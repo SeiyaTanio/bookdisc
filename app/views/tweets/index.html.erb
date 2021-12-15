@@ -1,8 +1,4 @@
-<%= render "shared/header" %>
-<div class = "main">
-<%= render "shared/side_bar" %>
-
-  <div class = "top-page ">
+<div class = "top-page ">
     <% @tweets.each do |tweet| %>
       <div class = "tweet">
         <div class = "tweet-left">
@@ -25,5 +21,4 @@
         </div>
       </div>
     <% end %>
-  </div>
 </div>

@@ -1,9 +1,6 @@
 .main-header{
   width: 100vw;
   height: 8vh;
-  display: flex;
-  background-color: navy;
-  justify-content: space-between;
 }
 
 .app-name{
