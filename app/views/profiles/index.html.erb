@@ -1,35 +1,91 @@
-<div class = "my-page">
-  <h1>マイページ</h1>
-
-  <div class = "profile-contents">
-    <div class = "my-nickname">
-        <%= current_user.nickname %>
-    </div>
-
-    <div class = "my-profile">
-      <div class = "my-icon">
-        <% if @profile.image.attached? %>
-          <%= image_tag @profile.image %>
-        <% else %>
-          <%= image_tag "bookdisc-icon-image.png" %>
-        <% end %>
+<div class="container mt-auto">
+  <div class="row justify-content-center">
+    <div class="col-8 border py-4">
+      <div class="row justify-content-center">
+        <div class="col-3">
+          <%= image_tag @image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;" %>
+        </div>
+        <div class="col-6">
+          <h3><%= @profile.user.nickname %></h3>
+          <div class="d-flex justify-content-around">
+            <div><b>フォロー</b>  100人</div>
+            <div><b>フォロワー</b>  50人</div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="d-flex justify-content-end">
+            <a class="btn btn-outline-primary" href="/profiles/<%=@profile.id%>/edit" role="button">編集</a>
+          </div>
+        </div>
       </div>
-      <div class = "my-introduction">
-        <% if @profile.self_introduction != nil %>
+      <div class="row mt-3">
+        <p class="fs-5">自己紹介</p>
+        <div class="text-black-50">
           <%= @profile.self_introduction %>
-        <% else %>
-          データがありません
-        <% end %>
+        </div>
       </div>
-      <div class = "my-book">
-        <% if @profile.favorite_book != nil %>
+      <div class="row mt-3">
+        <p class="fs-5">お気に入りの本</p>
+        <div class="text-black-50">
           <%= @profile.favorite_book %>
-        <% else %>
-          データがありません
-        <% end %>
+        </div>
       </div>
+      <div class="row mt-4">
+        <ul class="nav nav-tabs justify-content-evenly">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">ツイート</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="#">ブログ</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">いいね</a>
+          </li>
+        </ul>
+      </div>
+      <% @tweets.each do |tweet| %>
+        <div class="card my-3 mx-auto" >
+          <div class="row g-0 border-bottom position-relative" style="height: 280px">
+            <div class="col-md-4 mt-4" >
+              <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
+                <% if tweet.user.profile.image.present?%>
+                  <%= link_to image_tag(tweet.user.profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
+                <% else %>
+                  <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
+                <% end %>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h3 class="card-title"><%= tweet.user.nickname %></h3>
+                <p class="card-text"><%= tweet.content %></p>
+                <p class="card-text position-absolute bottom-0 mb-2"><small class="text-muted"><%= l tweet.updated_at %></small></p>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2 d-flex justify-content-evenly">
+            <div class="col-3">
+              <p class="card-text"><small class="text-muted">1件のコメント</small></p>
+            </div>
+            <div class="col-3">
+              <p class="card-text"><small class="text-muted">2件のいいね</small></p>
+            </div>
+            <div class="col-3">
+            </div>
+          </div>
+          <div class="row mt-1 d-flex justify-content-evenly">
+            <div class="col-3">
+              <a href="#">コメントする</a>
+            </div>
+            <div class="col-3">
+              <a href="#">いいね</a>
+            </div>
+            <div class="col-3">
+              <a href="/tweets/<%=tweet.id%>">ツイート詳細</a>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
-  <%= link_to "編集", edit_profile_path(@profile.id) %>
 </div>
-

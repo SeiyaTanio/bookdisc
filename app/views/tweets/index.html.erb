@@ -1,24 +1,45 @@
-<div class = "top-page ">
+<div class="container mt-auto d-flex flex-column">
   <% @tweets.each do |tweet| %>
-    <div class = "tweet">
-      <div class = "tweet-left">
-        <div class = "user-image">
-          <%= link_to image_tag("bookdisc-icon-image.png", class:"user-icon"), "#" %>
+  <div class="card mb-3 mx-auto" style="width: 540px; height: 350px">
+    <div class="row g-0 border-bottom position-relative" style="height: 280px">
+      <div class="col-md-4 mt-4" >
+        <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
+        <% if tweet.user.profile.present? && tweet.user.profile.image.present?%>
+          <%= link_to image_tag(tweet.user.profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
+        <% else %>
+          <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
+        <% end %>
         </div>
       </div>
-      <div class = "tweet-right">
-        <div class = "tweet-right-upper">
-          <div class = "user-name">
-            <%= link_to tweet.user.nickname, "#", class: "tweet-nickname" %>
-          </div>
-          <div class = "tweet-date">
-            <%= l tweet.updated_at%>
-          </div>
-        </div>
-        <div class = "tweet-right-under" >
-          <%= link_to tweet.content, tweet_path(tweet.id), class: "tweet-content" %>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h3 class="card-title"><%= tweet.user.nickname %></h3>
+          <p class="card-text"><%= tweet.content %></p>
+          <p class="card-text position-absolute bottom-0 mb-2"><small class="text-muted"><%= l tweet.updated_at %></small></p>
         </div>
       </div>
     </div>
+    <div class="row mt-2 d-flex justify-content-evenly">
+      <div class="col-3">
+        <p class="card-text"><small class="text-muted">1件のコメント</small></p>
+      </div>
+      <div class="col-3">
+        <p class="card-text"><small class="text-muted">2件のいいね</small></p>
+      </div>
+      <div class="col-3">
+      </div>
+    </div>
+    <div class="row mt-1 d-flex justify-content-evenly">
+      <div class="col-3">
+        <a href="#">コメントする</a>
+      </div>
+      <div class="col-3">
+        <a href="#">いいね</a>
+      </div>
+      <div class="col-3">
+        <a href="/tweets/<%=tweet.id%>">ツイート詳細</a>
+      </div>
+    </div>
+  </div>
   <% end %>
 </div>

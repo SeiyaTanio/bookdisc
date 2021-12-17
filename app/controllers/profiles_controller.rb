@@ -5,6 +5,11 @@ class ProfilesController < ApplicationController
       render :new
     else
       @profile = Profile.find_by(user_id: current_user.id)
+      @tweets = Tweet.where(user_id: current_user.id).order('updated_at DESC')
+      @image = @profile.image
+      unless @image.present?
+        @image = "bookdisc-icon-image.png"
+      end
     end
   end
 

@@ -1,23 +1,23 @@
-<div class = "profile-new">
-  <h1>プロフィール編集</h1>
+<div class = "container">
+  <h1 class="h3 mb-5 fw-normal text-center">プロフィール編集</h1>
 
-  <div class = "profiles-form" >
+  <div class="mb-3 ">
     <%= form_with model: @profile, local: true do |f| %>
-      <label class="form-image">
-        <span class="image-file">画像</span>
-        <%= f.file_field :image, class: 'hidden' %>
-      </label>
-      <div class = "introduction-form" >
-        <h3>自己紹介</h3>
-        <%= f.text_area :self_introduction, class: "profile-introduction", maxlength: "150" %>
+      <div class = "mb-3 col-6 mx-auto">
+        <%= f.label :image, class: "visually-hidden " %>プロフィール画像<br />
+        <%= f.file_field :image, class:"form-control" %>
       </div>
-      <div class = "books-form" >
-        <h3>お気に入りの本</h3>
-        <%= f.text_area :favorite_book, class: "profile-books", maxlength: "150" %>
+      <div class = "mb-3 col-6 mx-auto">
+        <%= f.label :self_introduction, class: "visually-hidden" %>自己紹介<br />
+        <%= f.text_area :self_introduction, class: "form-control ", maxlength: "150", rows: "5", autocomplete: "content" %>
       </div>
-      <div class = "profile-btn-contents">
-        <%= f.submit "登録する", class: "profile-btn" %>
+      <div class = "mb-3 col-6 mx-auto">
+        <%= f.label :favorite_book, class: "visually-hidden" %>お気に入りの本<br />
+        <%= f.text_area :favorite_book, class: "form-control ", maxlength: "150", rows: "5", autocomplete: "content" %>
+      </div>
+      <div class = "col-6 mx-auto">
+        <%= f.submit "更新", class:"w-100 btn btn-lg btn-primary" %>
+      </div>
     <% end %>
-    <%=link_to 'もどる', root_path, class:"back-btn" %>
   </div>
 </div>

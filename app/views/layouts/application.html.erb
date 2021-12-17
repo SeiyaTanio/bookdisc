@@ -10,11 +10,8 @@
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-  <%= render "shared/header" %>
-  <div class = "main">
-  <%= render "shared/side_bar" %>
+  <body class="mt-5">
+    <%= render "shared/header" %>
     <%= yield %>
-  </div>
   </body>
 </html>
