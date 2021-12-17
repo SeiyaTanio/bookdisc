@@ -19,15 +19,15 @@ class TweetsController < ApplicationController
   end
 
   def show
-    @tweet = Tweet.find(params[:id])
+    set_tweet
   end
 
   def edit
-    @tweet = Tweet.find(params[:id])
+    set_tweet
   end
 
   def update
-    @tweet = Tweet.find(params[:id])
+    set_tweet
     if @tweet.update(tweet_params)
       redirect_to root_path
     else
@@ -36,7 +36,7 @@ class TweetsController < ApplicationController
   end
 
   def destroy
-    @tweet = Tweet.find(params[:id])
+    set_tweet
     @tweet.destroy
     redirect_to root_path
   end
@@ -45,5 +45,8 @@ class TweetsController < ApplicationController
 
   def tweet_params
     params.require(:tweet).permit(:content).merge(user_id: current_user.id)
+  end
+  def set_tweet
+    @tweet = Tweet.find(params[:id])
   end
 end

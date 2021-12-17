@@ -4,7 +4,11 @@
     <div class="row g-0 border-bottom position-relative" style="height: 280px">
       <div class="col-md-4 mt-4" >
         <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
+        <% if tweet.user.profile.present? && tweet.user.profile.image.present?%>
           <%= link_to image_tag(tweet.user.profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
+        <% else %>
+          <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
+        <% end %>
         </div>
       </div>
       <div class="col-md-8">

@@ -3,7 +3,7 @@
     <div class="col-8 border py-4">
       <div class="row justify-content-center">
         <div class="col-3">
-          <%= image_tag @profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"%>
+          <%= image_tag @image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;" %>
         </div>
         <div class="col-6">
           <h3><%= @profile.user.nickname %></h3>
@@ -48,7 +48,11 @@
           <div class="row g-0 border-bottom position-relative" style="height: 280px">
             <div class="col-md-4 mt-4" >
               <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
-                <%= link_to image_tag(tweet.user.profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
+                <% if tweet.user.profile.image.present?%>
+                  <%= link_to image_tag(tweet.user.profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
+                <% else %>
+                  <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
+                <% end %>
               </div>
             </div>
             <div class="col-md-8">
