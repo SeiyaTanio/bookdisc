@@ -5,6 +5,7 @@ class ProfilesController < ApplicationController
       render :new
     else
       @profile = Profile.find_by(user_id: current_user.id)
+      @tweets = Tweet.includes(:user).order('updated_at DESC')
     end
   end
 
