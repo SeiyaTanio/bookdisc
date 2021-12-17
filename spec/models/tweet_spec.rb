@@ -18,9 +18,9 @@ RSpec.describe Tweet, type: :model do
         expect(@tweet.errors.full_messages).to include("Content can't be blank")
       end
       it 'ユーザーidが空では登録できない' do
-        @tweet.user = nil 
+        @tweet.user = nil
         @tweet.valid?
-        expect(@tweet.errors.full_messages).to include("User must exist")
+        expect(@tweet.errors.full_messages).to include('User must exist')
       end
     end
   end

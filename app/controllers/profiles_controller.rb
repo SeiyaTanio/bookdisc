@@ -1,15 +1,12 @@
 class ProfilesController < ApplicationController
-
   def index
-    if Profile.find_by(user_id: current_user.id) == nil
+    if Profile.find_by(user_id: current_user.id).nil?
       render :new
     else
       @profile = Profile.find_by(user_id: current_user.id)
       @tweets = Tweet.where(user_id: current_user.id).order('updated_at DESC')
       @image = @profile.image
-      unless @image.present?
-        @image = "bookdisc-icon-image.png"
-      end
+      @image = 'bookdisc-icon-image.png' unless @image.present?
     end
   end
 
@@ -40,11 +37,12 @@ class ProfilesController < ApplicationController
   end
 
   private
-    def profile_params
-      params.permit(:favorite_book, :self_introduction, :image).merge(user_id: current_user.id)
-    end
 
-    def profile_update_params
-      params.require(:profile).permit(:favorite_book, :self_introduction, :image).merge(user_id: current_user.id)
-    end
+  def profile_params
+    params.permit(:favorite_book, :self_introduction, :image).merge(user_id: current_user.id)
+  end
+
+  def profile_update_params
+    params.require(:profile).permit(:favorite_book, :self_introduction, :image).merge(user_id: current_user.id)
+  end
 end
