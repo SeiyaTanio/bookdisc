@@ -1,4 +1,6 @@
 class ProfilesController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :edit]
+
   def index
     if Profile.find_by(user_id: current_user.id).nil?
       render :new

@@ -1,4 +1,5 @@
 class BlogsController < ApplicationController
+  before_action :authenticate_user!, only: :new
 
   def index
     @blogs = Blog.includes(:user).order('updated_at DESC')
