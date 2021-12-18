@@ -1,1 +1,35 @@
-＜ブログ一覧＞
+<div class="container mt-auto d-flex flex-column">
+  <% @blogs.each do |blog| %>
+  <div class="card mb-3 mx-auto" style="width: 540px">
+    <div class="row g-0 border-bottom position-relative">
+      <div class="col-md-4 mt-4" >
+        <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
+        <% if blog.user.profile.present? && blog.user.profile.image.present?%>
+          <%= link_to image_tag(blog.user.profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
+        <% else %>
+          <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
+        <% end %>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h3 class="card-title"><%= blog.user.nickname %></h3>
+          <p class="card-text"><%= blog.title %></p>
+          <p class="card-text position-absolute bottom-0 mb-2"><small class="text-muted"><%= l blog.updated_at %></small></p>
+        </div>
+      </div>
+    </div>
+    <div class="row my-2 d-flex justify-content-evenly">
+      <div class="col-3">
+        <p class="card-text"><small class="text-muted">1件のコメント</small></p>
+      </div>
+      <div class="col-3">
+        <p class="card-text"><small class="text-muted">2件のいいね</small></p>
+      </div>
+      <div class="col-3">
+        <a href="/blogs/<%=blog.id%>">ブログ詳細</a>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>

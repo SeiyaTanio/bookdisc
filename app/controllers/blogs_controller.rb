@@ -1,6 +1,7 @@
 class BlogsController < ApplicationController
 
   def index
+    @blogs = Blog.includes(:user).order('updated_at DESC')
   end
 
   def new
