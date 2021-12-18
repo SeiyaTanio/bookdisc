@@ -19,11 +19,28 @@ class BlogsController < ApplicationController
   end
 
   def show
-    @blog = Blog.find(params[:id])
+    set_blog
   end
 
+  def edit
+    set_blog
+  end
+
+  def update
+    set_blog
+    if @blog.update(blog_params)
+      redirect_to blogs_path
+    else
+      render :edit
+    end
+  end
+  
   private
   def blog_params
     params.require(:blog).permit(:title, :article).merge(user_id: current_user.id)
   end 
+
+  def set_blog
+    @blog = Blog.find(params[:id])
+  end
 end
