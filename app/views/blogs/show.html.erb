@@ -13,14 +13,17 @@
           <% end %>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-5">
         <div class="card-body">
           <h3 class="card-title"><%= @blog.user.nickname %></h3>
         </div>
       </div>
-      <div class="col-md-3 p-3">
-        <div class="d-flex justify-content-end">
+      <div class="col-md-4 p-3">
+        <div class="d-flex justify-content-evenly">
+        <% if user_signed_in? && current_user.id == @blog.user_id %>
           <a class="btn btn-outline-primary" href="/blogs/<%=@blog.id%>/edit" role="button">編集</a>
+          <%= link_to '削除', blog_path(params[:id]), method: :delete , class:"btn btn-outline-primary"%>
+        <% end %>
         </div>
       </div>
     </div>

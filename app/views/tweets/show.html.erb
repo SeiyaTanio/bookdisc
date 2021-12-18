@@ -13,16 +13,19 @@
           <% end %>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-5">
         <div class="card-body">
           <h3 class="card-title"><%= @tweet.user.nickname %></h3>
           <p class="card-text"><%= @tweet.content %></p>
           <p class="card-text position-absolute bottom-0 mb-2"><small class="text-muted"><%= l @tweet.updated_at %></small></p>
         </div>
       </div>
-      <div class="col-md-3 p-3">
-        <div class="d-flex justify-content-end">
+      <div class="col-md-4 p-3">
+        <div class="d-flex justify-content-evenly">
+          <% if user_signed_in? && current_user.id == @tweet.user_id %>
           <a class="btn btn-outline-primary" href="/tweets/<%=@tweet.id%>/edit" role="button">編集</a>
+          <%= link_to '削除', tweet_path(params[:id]), method: :delete , class:"btn btn-outline-primary"%>
+          <% end %>
         </div>
       </div>
     </div>
