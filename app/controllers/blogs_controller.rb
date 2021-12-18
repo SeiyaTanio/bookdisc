@@ -35,6 +35,12 @@ class BlogsController < ApplicationController
     end
   end
 
+  def destroy
+    set_blog
+    @blog.destroy
+    redirect_to action: :index
+  end
+
   private
   def blog_params
     params.require(:blog).permit(:title, :article).merge(user_id: current_user.id)

@@ -3,5 +3,5 @@ Rails.application.routes.draw do
   root to: "tweets#index"
   resources :tweets
   resources :profiles, only: [:index, :new, :create, :edit, :update]
-  resources :blogs, only: [:index, :new, :create, :show, :edit, :update]
+  resources :blogs
 end
