@@ -22,6 +22,11 @@ RSpec.describe Tweet, type: :model do
         @tweet.valid?
         expect(@tweet.errors.full_messages).to include('User must exist')
       end
+      it 'ツイートが151文字以上だと登録できない' do
+        @tweet.content = Faker::Lorem.characters(number: 151)
+        @tweet.valid?
+        expect(@tweet.errors.full_messages).to include("Content is too long (maximum is 150 characters)")
+      end
     end
   end
 end
