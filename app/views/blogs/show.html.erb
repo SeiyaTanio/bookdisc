@@ -1,13 +1,13 @@
 <div class="container mt-auto">
-  <div class="card mb-3 mx-auto" style="width: 540px; height: 350px">
+  <div class="card mb-3 mx-auto" style="width: 540px; min-height: 350px">
     <div class="card-header bg-primary text-white">
-      ツイート
+      ブログ
     </div>
-    <div class="row g-0 border-bottom position-relative" style="height: 280px">
+    <div class="row g-0">
       <div class="col-md-3 mt-4" >
         <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
-          <% if @tweet.user.profile.present? && @tweet.user.profile.image.present?%>
-            <%= link_to image_tag(@tweet.user.profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
+          <% if @blog.user.profile.present? && @blog.user.profile.image.present?%>
+            <%= link_to image_tag(@blog.user.profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
           <% else %>
             <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
           <% end %>
@@ -15,17 +15,26 @@
       </div>
       <div class="col-md-5">
         <div class="card-body">
-          <h3 class="card-title"><%= @tweet.user.nickname %></h3>
-          <p class="card-text"><%= @tweet.content %></p>
-          <p class="card-text position-absolute bottom-0 mb-2"><small class="text-muted"><%= l @tweet.updated_at %></small></p>
+          <h3 class="card-title"><%= @blog.user.nickname %></h3>
         </div>
       </div>
       <div class="col-md-4 p-3">
         <div class="d-flex justify-content-evenly">
-          <% if user_signed_in? && current_user.id == @tweet.user_id %>
-          <a class="btn btn-outline-primary" href="/tweets/<%=@tweet.id%>/edit" role="button">編集</a>
-          <%= link_to '削除', tweet_path(params[:id]), method: :delete , class:"btn btn-outline-primary"%>
-          <% end %>
+        <% if user_signed_in? && current_user.id == @blog.user_id %>
+          <a class="btn btn-outline-primary" href="/blogs/<%=@blog.id%>/edit" role="button">編集</a>
+          <%= link_to '削除', blog_path(params[:id]), method: :delete , class:"btn btn-outline-primary"%>
+        <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="row g-0 border-bottom" style="min-height: 280px">
+      <div class="card-body">
+        <div class="row">
+          <p class="card-text "><small class="text-muted"><%= l @blog.updated_at %></small></p>
+          <h3 class="card-title"><%= @blog.title %></h3>
+        </div>
+        <div class="row mt-4">
+          <p class="card-text" style="white-space: pre-wrap; word-wrap: break-word"><%= @blog.article %></p>
         </div>
       </div>
     </div>
