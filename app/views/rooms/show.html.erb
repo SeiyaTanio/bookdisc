@@ -1,1 +1,26 @@
-＜ルーム詳細＞
+<div class="container mt-5">
+  <div class="row justify-content-center ">
+    <div class="col-8 bg-info">
+      <div class="sticky-top p-2">
+        <div class="row"><%= @room.room_name %></div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center" style="height: 80vh;">
+    <div class="col-8 border">
+      <div class="row py-2 position-relative">
+        <div class="col-2" >
+          <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
+            <%= image_tag "bookdisc-icon-image.png", class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;" %>
+          </div>
+        </div>
+        <div class="col-5">
+            ユーザー名
+        </div>
+        <div class="col-5">
+          メッセージ
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
