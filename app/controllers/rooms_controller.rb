@@ -1,6 +1,11 @@
 class RoomsController < ApplicationController
 
   def index
+    if UserRoom.find_by(user_id: current_user.id).nil?
+      render :new
+    else
+      @rooms = current_user.rooms.all.order('updated_at DESC')
+    end
   end
 
   def new
