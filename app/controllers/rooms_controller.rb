@@ -15,20 +15,37 @@ class RoomsController < ApplicationController
   def create
     @room = Room.new(room_params)
     if @room.save
-      redirect_to root_path
+      redirect_to rooms_path
     else
       render :new
     end
   end
 
   def show
-    @room = Room.find(params[:id])
+    set_room
     @host_id = @room.user_rooms[0].user_id
+  end
+
+  def edit
+    set_room
+  end
+
+  def update
+    set_room
+    if @room.update(room_params)
+      redirect_to room_path(params[:id])
+    else
+      render :edit
+    end
   end
 
   private
   def room_params
     params.require(:room).permit(:room_name, user_ids: [])
+  end
+
+  def set_room
+    @room = Room.find(params[:id])
   end
 
 end
