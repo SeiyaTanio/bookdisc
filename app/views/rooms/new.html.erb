@@ -13,8 +13,8 @@
       <div class = "mb-3 col-6 mx-auto">
         <div class="badge rounded-pill bg-danger mb-2">必須</div>
         <input name="room[user_ids][]" type="hidden" value=<%= current_user.id %>>
-        <select name="room[user_ids][]" class="form-select">
-          <option selected>招待するユーザーを選択してください</option>
+        <select name="room[user_ids][]" class="form-select is-invalid">
+          <option selected value="">招待するユーザーを選択してください</option>
           <% User.where.not(id: current_user.id).each do |user| %>
             <option value=<%= user.id %>><%= user.nickname %></option>
           <% end %>
