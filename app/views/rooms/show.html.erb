@@ -7,7 +7,7 @@
             <%= @room.room_name %>
           </div>
           <% if user_signed_in? && current_user.id == @host_id %>
-            <a class="btn btn-outline-primary" href="/tweets/<%=@room.id%>/edit" role="button">編集</a>
+            <a class="btn btn-outline-primary" href="/rooms/<%=@room.id%>/edit" role="button">編集</a>
             <%= link_to '削除', tweet_path(params[:id]), method: :delete , class:"btn btn-outline-primary"%>
           <% end %>
         </div>
