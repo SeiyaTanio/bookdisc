@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   resources :profiles, only: [:index, :new, :create, :edit, :update]
   resources :blogs
   resources :rooms do
-    resources :message, only: [:index, :create]
+    resources :messages, only: [:index, :create]
   end
 end
