@@ -23,6 +23,7 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
+    @host_id = @room.user_rooms[0].user_id
   end
 
   private
