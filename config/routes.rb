@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :tweets
   resources :profiles, only: [:index, :new, :create, :edit, :update]
   resources :blogs
+  resources :rooms
 end
