@@ -5,7 +5,9 @@ Rails.application.routes.draw do
     resources :t_comments, only: [:new, :create]
   end
   resources :profiles, only: [:index, :new, :create, :edit, :update]
-  resources :blogs
+  resources :blogs do
+    resources :b_comments, only: [:new, :create]
+  end
   resources :rooms do
     resources :messages, only: [:index, :create]
   end
