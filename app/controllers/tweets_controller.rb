@@ -20,7 +20,7 @@ class TweetsController < ApplicationController
 
   def show
     set_tweet
-    @t_comments = @tweet.t_comments.includes(:user)
+    @t_comments = @tweet.t_comments.includes(:user).order('updated_at DESC')
   end
 
   def edit
