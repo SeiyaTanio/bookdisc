@@ -20,6 +20,7 @@ class BlogsController < ApplicationController
 
   def show
     set_blog
+    @b_comments = @blog.b_comments.includes(:user)
   end
 
   def edit
