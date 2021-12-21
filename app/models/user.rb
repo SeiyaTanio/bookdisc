@@ -12,6 +12,10 @@ class User < ApplicationRecord
   has_many :messages
   has_many :t_comments
   has_many :b_comments
+  has_many :relationships, dependent: :destroy
+  has_many :followings, through: :rerationships, source: :follower
+  has_many :passive_relationships, class_name: 'Relationship' , foreign_key: 'follower_id', dependent: :destroy
+  has_many :followers, through: :passive_relationships, source: :user
 
   validates :nickname, presence: true
 
