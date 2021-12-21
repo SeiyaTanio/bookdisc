@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_20_233057) do
+ActiveRecord::Schema.define(version: 2021_12_21_061816) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -67,6 +67,16 @@ ActiveRecord::Schema.define(version: 2021_12_20_233057) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "t_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.text "t_text"
+    t.bigint "tweet_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tweet_id"], name: "index_t_comments_on_tweet_id"
+    t.index ["user_id"], name: "index_t_comments_on_user_id"
+  end
+
   create_table "tweets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content", null: false
     t.bigint "user_id", null: false
@@ -102,6 +112,8 @@ ActiveRecord::Schema.define(version: 2021_12_20_233057) do
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "t_comments", "tweets"
+  add_foreign_key "t_comments", "users"
   add_foreign_key "tweets", "users"
   add_foreign_key "user_rooms", "rooms"
   add_foreign_key "user_rooms", "users"
