@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_one :profile
   has_many :user_rooms
   has_many :rooms, through: :user_rooms
+  has_many :messages
 
   validates :nickname, presence: true
 
