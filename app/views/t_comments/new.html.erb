@@ -1,0 +1,38 @@
+<div class = "container">
+  <h1 class="h3 mb-5 fw-normal text-center">コメント投稿</h1>
+
+  <div class="card mb-3 mx-auto" style="width: 540px; height: 350px">
+    <div class="card-header bg-primary text-white">
+      ツイート
+    </div>
+    <div class="row g-0 position-relative" style="height: 280px">
+      <div class="col-md-3 mt-4" >
+        <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
+          <% if @tweet.user.profile.present? && @tweet.user.profile.image.present?%>
+            <%= link_to image_tag(@tweet.user.profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
+          <% else %>
+            <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="card-body">
+          <h3 class="card-title"><%= @tweet.user.nickname %></h3>
+          <p class="card-text"><%= @tweet.content %></p>
+          <p class="card-text position-absolute bottom-0"><small class="text-muted"><%= l @tweet.updated_at %></small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3 ">
+    <%= form_with model: @t_comment, url:tweet_t_comments_path(@tweet.id), local: true do |f| %>
+      <div class = "mb-3 col-6 mx-auto">
+        <%= f.text_area :t_text, class: "form-control ", maxlength: "150", rows: "5", autofocus: true %>
+      </div>
+      <div class = "col-6 mx-auto">
+        <%= f.submit "コメント投稿", class:"w-100 btn btn-lg btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
