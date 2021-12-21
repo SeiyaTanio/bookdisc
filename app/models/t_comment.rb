@@ -1,0 +1,2 @@
+class TComment < ApplicationRecord
+end

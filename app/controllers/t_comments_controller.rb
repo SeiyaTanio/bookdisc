@@ -1,0 +1,2 @@
+class TCommentsController < ApplicationController
+end
