@@ -3,7 +3,11 @@
     <div class="col-8 border py-4">
       <div class="row justify-content-center">
         <div class="col-3">
-          <%= image_tag @image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;" %>
+          <% if @user.profile.nil? %>
+            <%= image_tag 'bookdisc-icon-image.png', class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;" %>
+          <% else %>
+            <%= image_tag @image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;" %>
+          <% end %>
         </div>
         <div class="col-6">
           <h3><%= @user.nickname %></h3>
@@ -15,7 +19,9 @@
         <div class="col-3">
           <div class="d-flex justify-content-end">
             <% if user_signed_in? && current_user.id == @user.id %>
-              <a class="btn btn-outline-primary" href="/profiles/<%=@profile.id%>/edit" role="button">編集</a>
+              <% unless @user.profile.nil? %>
+                <a class="btn btn-outline-primary" href="/profiles/<%=@profile.id%>/edit" role="button">編集</a>
+              <% end %>
             <% elsif current_user.following?(@user) %>
                 <%= link_to 'フォロー解除', user_relationship_path(current_user.id, current_user.relationships.find_by(follower: @user)), method: :delete , class:"btn btn-outline-primary" %>
             <% else %>
@@ -27,13 +33,25 @@
       <div class="row mt-3">
         <p class="fs-5">自己紹介</p>
         <div class="text-black-50">
-          <%= @profile.self_introduction %>
+          <% if @user.profile.nil?%>
+            <p>未登録</p>
+          <% elsif @profile.self_introduction.nil? %>
+            <p>自己紹介を登録してください</p>
+          <% else %>
+            <%= @profile.self_introduction %>
+          <% end %>
         </div>
       </div>
       <div class="row mt-3">
         <p class="fs-5">お気に入りの本</p>
         <div class="text-black-50">
-          <%= @profile.favorite_book %>
+          <% if @user.profile.nil? %>
+            <p>未登録</p>
+          <% elsif @profile.favorite_book.nil? %>
+            <p>お気に入りの本を登録してください</p>
+          <% else %>
+            <%= @profile.favorite_book %>
+          <% end %>
         </div>
       </div>
       <div class="row mt-4">
@@ -54,7 +72,7 @@
           <div class="row g-0 border-bottom position-relative" style="height: 280px">
             <div class="col-md-4 mt-4" >
               <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
-                <% if tweet.user.profile.image.present?%>
+                <% if tweet.user.profile.present? && tweet.user.profile.image.present?%>
                   <%= link_to image_tag(tweet.user.profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
                 <% else %>
                   <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
