@@ -34,9 +34,16 @@
         <a href="#">コメントする</a>
       </div>
       <div class="col-3">
-        <%= form_with(model: @lile, url: likes_path, local: true) do |f| %>
-          <%= f.hidden_field :tweet_id, value: tweet.id %>
-          <%= f.submit 'いいね！' %>
+        <% if current_user.favorites.include?(tweet) %>     
+          <%= form_with(model: @like, url: like_path(id: tweet.id), local: true, method: :delete) do |f| %>
+            <%= f.hidden_field :tweet_id, value: tweet.id %>
+            <%= f.submit 'いいね！解除' %>
+          <% end %>
+        <% else %>
+          <%= form_with(model: @like, url: likes_path, local: true) do |f| %>
+            <%= f.hidden_field :tweet_id, value: tweet.id %>
+            <%= f.submit 'いいね！' %>
+          <% end %>
         <% end %>   
       </div>
       <div class="col-3">
