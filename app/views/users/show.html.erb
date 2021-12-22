@@ -6,15 +6,21 @@
           <%= image_tag @image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;" %>
         </div>
         <div class="col-6">
-          <h3><%= @profile.user.nickname %></h3>
+          <h3><%= @user.nickname %></h3>
           <div class="d-flex justify-content-around">
-            <div><b>フォロー</b>  100人</div>
+            <a href="/users/<%=@user.id%>/relationships"><b>フォロー</b>  100人</a>
             <div><b>フォロワー</b>  50人</div>
           </div>
         </div>
         <div class="col-3">
           <div class="d-flex justify-content-end">
-            <a class="btn btn-outline-primary" href="/profiles/<%=@profile.id%>/edit" role="button">編集</a>
+            <% if user_signed_in? && current_user.id == @user.id %>
+              <a class="btn btn-outline-primary" href="/profiles/<%=@profile.id%>/edit" role="button">編集</a>
+            <% elsif current_user.following?(@user) %>
+                <%= link_to 'フォロー解除', user_relationship_path(current_user.id, current_user.relationships.find_by(follower: @user)), method: :delete , class:"btn btn-outline-primary" %>
+            <% else %>
+                <%= link_to 'フォロー', user_relationships_path(user_id: current_user.id, follower: @user), method: :post, class:"btn btn-outline-primary" %>
+            <% end %>
           </div>
         </div>
       </div>

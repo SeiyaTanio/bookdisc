@@ -1,7 +1,7 @@
 class RelationshipsController < ApplicationController
 
   def index
-    @follow_users = 
+    @follows = Relationship.where(user_id: params[:user_id]).order('updated_at DESC')
   end
 
   def create
