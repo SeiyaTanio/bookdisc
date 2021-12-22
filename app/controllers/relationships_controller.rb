@@ -1,6 +1,7 @@
 class RelationshipsController < ApplicationController
 
   def index
+    @follow_users = 
   end
 
   def create
