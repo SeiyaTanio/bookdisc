@@ -17,6 +17,19 @@ class User < ApplicationRecord
   has_many :passive_relationships, class_name: 'Relationship' , foreign_key: 'follower_id', dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :user
 
+  def follow(other_user)
+    return if self == other_user
+    relationships.find_or_create_by!(follower: other_user)
+  end
+
+  def following?(user)
+    followings.include?(user)
+  end
+
+  def unfollow(relationship_id)
+    relationships.find(relationship_id).destroy!
+  end
+
   validates :nickname, presence: true
 
   PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
