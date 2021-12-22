@@ -16,3 +16,9 @@
  * {
   box-sizing: border-box;
 }
+
+.like-icon {
+  margin-left: 23px;
+  font-size: 25px;
+  color: rgba(255, 0, 157, 0.89);
+}

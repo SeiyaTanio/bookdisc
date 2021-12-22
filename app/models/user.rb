@@ -32,8 +32,20 @@ class User < ApplicationRecord
     relationships.find(relationship_id).destroy!
   end
 
-  def like_this(clicked_tweet)
-    self.likes.find_or_create_by(tweet: clicked_tweet)
+  def own?(object)
+    id == object.user_id
+  end
+
+  def like(tweet)
+    likes.find_or_create_by(tweet: tweet)
+  end
+
+  def like?(tweet)
+    favorites.include?(tweet)
+  end
+
+  def unlike(tweet)
+    favorites.delete(tweet)
   end
 
   validates :nickname, presence: true

@@ -29,22 +29,16 @@
       <div class="col-3">
       </div>
     </div>
-    <div class="row mt-1 d-flex justify-content-evenly">
+    <div class="row mt-1 d-flex justify-content-evenly align-items-center">
       <div class="col-3">
         <a href="#">コメントする</a>
       </div>
       <div class="col-3">
-        <% if current_user.favorites.include?(tweet) %>     
-          <%= form_with(model: @like, url: like_path(id: tweet.id), local: true, method: :delete) do |f| %>
-            <%= f.hidden_field :tweet_id, value: tweet.id %>
-            <%= f.submit 'いいね！解除' %>
-          <% end %>
+        <% if current_user&.like?(tweet) %>     
+          <%= link_to '', like_path(current_user.likes.find_by(tweet: tweet)), method: :delete , class:"bi bi-heart-fill like-icon" %>
         <% else %>
-          <%= form_with(model: @like, url: likes_path, local: true) do |f| %>
-            <%= f.hidden_field :tweet_id, value: tweet.id %>
-            <%= f.submit 'いいね！' %>
-          <% end %>
-        <% end %>   
+          <%= link_to '', likes_path(tweet: tweet), method: :post, class:"bi bi-heart like-icon" %>
+        <% end %>
       </div>
       <div class="col-3">
         <a href="/tweets/<%=tweet.id%>">ツイート詳細</a>
