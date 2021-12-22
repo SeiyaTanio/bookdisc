@@ -32,6 +32,10 @@ class User < ApplicationRecord
     relationships.find(relationship_id).destroy!
   end
 
+  def like_this(clicked_tweet)
+    self.likes.find_or_create_by(tweet: clicked_tweet)
+  end
+
   validates :nickname, presence: true
 
   PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
