@@ -1,0 +1,36 @@
+<div class="container mt-auto">
+  <div class="card mb-3 mx-auto" style="width: 540px; min-height: 350px">
+    <div class="card-header bg-primary text-white">
+      フォロー一覧
+    </div>
+    <% @follows.each do |follow|%>
+      <div class="row g-0 border-bottom position-relative" style="min-height: 280px">
+        <div class="col-md-3 mt-4" >
+          <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
+            <% if follow.follower.profile.present? && follow.follower.profile.image.present?%>
+              <%= link_to image_tag(follow.follower.profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), user_path(follow.follower_id) %>
+            <% else %>
+              <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), user_path(follow.follower_id) %>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="card-body">
+            <h3 class="card-title"><%= follow.follower.nickname %></h3>
+          </div>
+        </div>
+        <div class="col-md-4 p-3">
+          <div class="d-flex justify-content-evenly">
+            <% if user_signed_in? && current_user.id != follow.follower_id %>
+              <% if current_user.following?(follow.follower) %>
+                <%= link_to 'フォロー解除', user_relationship_path(current_user.id, current_user.relationships.find_by(follower: follow.follower)), method: :delete , class:"btn btn-outline-primary"%>
+              <% else %>
+                <%= link_to 'フォロー', user_relationships_path(user_id: current_user.id, follower: follow.follower), method: :post, class:"btn btn-outline-primary"%>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

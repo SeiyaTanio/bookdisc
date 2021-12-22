@@ -5,9 +5,9 @@
       <div class="col-md-4 mt-4" >
         <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
         <% if tweet.user.profile.present? && tweet.user.profile.image.present?%>
-          <%= link_to image_tag(tweet.user.profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
+          <%= link_to image_tag(tweet.user.profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), user_path(tweet.user_id) %>
         <% else %>
-          <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
+          <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), user_path(tweet.user_id) %>
         <% end %>
         </div>
       </div>
