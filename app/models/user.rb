@@ -16,6 +16,8 @@ class User < ApplicationRecord
   has_many :followings, through: :relationships, source: :follower
   has_many :passive_relationships, class_name: 'Relationship' , foreign_key: 'follower_id', dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :user
+  has_many :likes
+  has_many :favorites, through: :likes, source: :tweet
 
   def follow(other_user)
     return if self == other_user
@@ -28,6 +30,22 @@ class User < ApplicationRecord
 
   def unfollow(relationship_id)
     relationships.find(relationship_id).destroy!
+  end
+
+  def own?(object)
+    id == object.user_id
+  end
+
+  def like(tweet)
+    likes.find_or_create_by(tweet: tweet)
+  end
+
+  def like?(tweet)
+    favorites.include?(tweet)
+  end
+
+  def unlike(tweet)
+    favorites.delete(tweet)
   end
 
   validates :nickname, presence: true

@@ -37,12 +37,16 @@
         <p class="card-text"><small class="text-muted">2件のいいね</small></p>
       </div>
     </div>
-    <div class="row mt-1 d-flex justify-content-evenly">
+    <div class="row mt-1 d-flex justify-content-evenly align-items-center">
       <div class="col-3">
         <a href="/tweets/<%=@tweet.id%>/t_comments/new">コメントする</a>
       </div>
       <div class="col-3">
-        <a href="#">いいね</a>
+        <% if current_user&.like?(@tweet) %>     
+          <%= link_to '', like_path(current_user.likes.find_by(tweet: @tweet)), method: :delete , class:"bi bi-heart-fill like-icon" %>
+        <% else %>
+          <%= link_to '', likes_path(tweet: @tweet), method: :post, class:"bi bi-heart like-icon" %>
+        <% end %>
       </div>
     </div>
   </div>

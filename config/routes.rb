@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   resources :users, only: :show do
     resources :relationships, only: [:index, :create, :destroy]
   end
+  resources :likes, only: [:create, :destroy]
 end
