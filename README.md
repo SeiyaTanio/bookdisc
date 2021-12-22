@@ -9,7 +9,7 @@
 | 洗い出した要件 | https://docs.google.com/spreadsheets/d/1Bh3J4-rOjwt-zblmZBulAmzFeZei9AUFX0dPWhaeXDQ/edit#gid=982722306 |
 | 実装した機能についての画像やGIFおよびその説明 | 実装した機能について、それぞれどのような特徴があるのかを列挙する形で記述。画像はGyazoで、GIFはGyazoGIFで撮影すること。 |
 | 実装予定の機能 | 洗い出した要件の中から、今後実装予定の機能がある場合は、その機能を記述。 |
-| データベース設計 | [![Image from Gyazo](https://i.gyazo.com/895aa041aac1ffb9a52c959395fe15bd.png)](https://gyazo.com/895aa041aac1ffb9a52c959395fe15bd) |
+| データベース設計 | [![Image from Gyazo](https://i.gyazo.com/759d06cd3c05f885953263a1bf5d0646.png)](https://gyazo.com/759d06cd3c05f885953263a1bf5d0646) |
 | 画面遷移図 | [![Image from Gyazo](https://i.gyazo.com/d3b22fc00b0030abc233013d1ecbeda3.png)](https://gyazo.com/d3b22fc00b0030abc233013d1ecbeda3) |
 | 開発環境 | 使用した言語・サービスを記述。 |
 | ローカルでの動作方法 | git cloneしてから、ローカルで動作をさせるまでに必要なコマンドを記述。 |
