@@ -1,0 +1,2 @@
+class TTag < ApplicationRecord
+end

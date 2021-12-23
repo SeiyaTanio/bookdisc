@@ -1,0 +1,2 @@
+class TweetTTag < ApplicationRecord
+end
