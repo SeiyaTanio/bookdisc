@@ -26,11 +26,15 @@ class TweetsController < ApplicationController
 
   def edit
     set_tweet
+    tweet_attributes = @tweet.attributes
+    @tweet_form = TweetForm.new(tweet_attributes)
   end
 
   def update
     set_tweet
-    if @tweet.update(tweet_params)
+    @tweet_form = TweetForm.new(tweet_form_params)
+    if @tweet_form.valid?
+      @tweet_form.update(tweet_form_params, @tweet)
       redirect_to root_path
     else
       render :edit
