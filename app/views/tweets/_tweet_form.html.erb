@@ -1,0 +1,10 @@
+<div class="mb-3 ">
+  <%= form_with model: @tweet_form, url: url, method: method, local: true do |f| %>
+    <div class = "mb-3 col-6 mx-auto">
+      <%= f.text_area :content, class: "form-control ", maxlength: "150", rows: "5", autofocus: true, autocomplete: "content" %>
+    </div>
+    <div class = "col-6 mx-auto">
+      <%= f.submit "投稿", class:"w-100 btn btn-lg btn-primary" %>
+    </div>
+  <% end %>
+</div>
