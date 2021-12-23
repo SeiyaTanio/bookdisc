@@ -48,6 +48,12 @@ class TweetsController < ApplicationController
     redirect_to root_path
   end
 
+  def search
+    return nil if params[:keyword] == ""
+    t_tag = TTag.where(['t_tag_name LIKE ?', "%#{params[:keyword]}%"] )
+    render json:{ keyword: t_tag }
+  end
+
   private
 
   def tweet_form_params

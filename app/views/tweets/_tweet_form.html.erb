@@ -5,9 +5,45 @@
     </div>
     <div class = "mb-3 col-6 mx-auto">
       <%= f.text_field :t_tag_name, class: "form-control ",placeholder: 'タグ', autocomplete: "t_tag_name" %>
+      <div id="search-result"></div>
     </div>
     <div class = "col-6 mx-auto">
       <%= f.submit "投稿", class:"w-100 btn btn-lg btn-primary" %>
     </div>
   <% end %>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+const  tTagNameInput = document.querySelector("#tweet_form_t_tag_name");
+  if (tTagNameInput){
+    const inputElement = document.getElementById("tweet_form_t_tag_name");
+    inputElement.addEventListener("input", () => {
+      const keyword = document.getElementById("tweet_form_t_tag_name").value;
+      const XHR = new XMLHttpRequest();
+      XHR.open("GET", `/tweets/search/?keyword=${keyword}`, true);
+      XHR.responseType = "json";
+      XHR.send();
+      XHR.onload = () => {
+        const searchResult = document.getElementById("search-result");
+        searchResult.innerHTML = "";
+        if (XHR.response) {
+          const tTagName = XHR.response.keyword;
+          tTagName.forEach((tag) => {
+            const childElement = document.createElement("div");
+            childElement.setAttribute("class", "child");
+            childElement.setAttribute("id", tag.id);
+            childElement.innerHTML = tag.t_tag_name;
+            searchResult.appendChild(childElement);
+            const clickElement = document.getElementById(tag.id);
+            clickElement.addEventListener("click", () => {
+              document.getElementById("tweet_form_t_tag_name").value = clickElement.textContent;
+              clickElement.remove();
+            });
+          });
+        };
+      };
+    });
+  };
+});
+</script>
