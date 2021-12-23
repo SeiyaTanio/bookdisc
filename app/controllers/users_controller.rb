@@ -15,4 +15,13 @@ class UsersController < ApplicationController
       end
     end
   end
+
+  def search
+    if params[:q]&.dig(:nickname)
+      squished_keywords = params[:q][:nickname].squish
+      params[:q][:nickname_cont_any] = squished_keywords.split(" ")
+    end
+    @q = User.ransack(params[:q])
+    @users = @q.result
+  end
 end
