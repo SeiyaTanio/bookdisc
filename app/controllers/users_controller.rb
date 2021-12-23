@@ -16,8 +16,8 @@ class UsersController < ApplicationController
     end
   end
 
+  # @q,@usersはapplication_controller.rbにbefore_actionで定義
   def search
-    @q = User.ransack(params[:q])
-    @users = @q.result
+    
   end
 end
