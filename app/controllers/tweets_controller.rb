@@ -6,12 +6,13 @@ class TweetsController < ApplicationController
   end
 
   def new
-    @tweet = Tweet.new
+    @tweet_form = TweetForm.new
   end
 
   def create
-    @tweet = Tweet.new(tweet_params)
-    if @tweet.save
+    @tweet_form = TweetForm.new(tweet_form_params)
+    if @tweet_form.valid?
+      @tweet_form.save
       redirect_to root_path
     else
       render :new
@@ -44,8 +45,8 @@ class TweetsController < ApplicationController
 
   private
 
-  def tweet_params
-    params.require(:tweet).permit(:content).merge(user_id: current_user.id)
+  def tweet_form_params
+    params.require(:tweet_form).permit(:content).merge(user_id: current_user.id)
   end
 
   def set_tweet
