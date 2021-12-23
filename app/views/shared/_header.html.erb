@@ -48,8 +48,8 @@
           <% end %>
         </li>
       </ul>
-      <%= search_form_for @q, url: search_users_path, class: "d-flex", html: {id: "detailed-search-form"} do |f|  %>
-        <%= f.text_field :nickname_cont, class:"form-control me-2", placeholder: "Search" %>
+      <%= search_form_for User.ransack(params[:q]), url: search_users_path, class: "d-flex", html: {id: "search-form"} do |f|  %>
+        <%= f.text_field :nickname, class:"form-control me-2", placeholder: "Search", value: params[:q]&.dig(:nickname) %>
         <%= f.submit 'Search', class:"btn btn-outline-success" %>
       <% end %>
     </div>

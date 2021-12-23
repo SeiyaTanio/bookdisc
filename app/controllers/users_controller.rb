@@ -16,8 +16,12 @@ class UsersController < ApplicationController
     end
   end
 
-  # @q,@usersはapplication_controller.rbにbefore_actionで定義
   def search
-    
+    if params[:q]&.dig(:nickname)
+      squished_keywords = params[:q][:nickname].squish
+      params[:q][:nickname_cont_any] = squished_keywords.split(" ")
+    end
+    @q = User.ransack(params[:q])
+    @users = @q.result
   end
 end
