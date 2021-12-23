@@ -50,7 +50,7 @@ class TweetsController < ApplicationController
   private
 
   def tweet_form_params
-    params.require(:tweet_form).permit(:content).merge(user_id: current_user.id)
+    params.require(:tweet_form).permit(:content, :t_tag_name).merge(user_id: current_user.id)
   end
 
   def set_tweet
