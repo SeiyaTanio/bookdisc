@@ -28,6 +28,7 @@ class TweetsController < ApplicationController
     set_tweet
     tweet_attributes = @tweet.attributes
     @tweet_form = TweetForm.new(tweet_attributes)
+    @tweet_form.t_tag_name = @tweet.t_tags&.first&.t_tag_name
   end
 
   def update
