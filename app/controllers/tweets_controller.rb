@@ -6,12 +6,13 @@ class TweetsController < ApplicationController
   end
 
   def new
-    @tweet = Tweet.new
+    @tweet_form = TweetForm.new
   end
 
   def create
-    @tweet = Tweet.new(tweet_params)
-    if @tweet.save
+    @tweet_form = TweetForm.new(tweet_form_params)
+    if @tweet_form.valid?
+      @tweet_form.save
       redirect_to root_path
     else
       render :new
@@ -25,11 +26,16 @@ class TweetsController < ApplicationController
 
   def edit
     set_tweet
+    tweet_attributes = @tweet.attributes
+    @tweet_form = TweetForm.new(tweet_attributes)
+    @tweet_form.t_tag_name = @tweet.t_tags&.first&.t_tag_name
   end
 
   def update
     set_tweet
-    if @tweet.update(tweet_params)
+    @tweet_form = TweetForm.new(tweet_form_params)
+    if @tweet_form.valid?
+      @tweet_form.update(tweet_form_params, @tweet)
       redirect_to root_path
     else
       render :edit
@@ -42,10 +48,16 @@ class TweetsController < ApplicationController
     redirect_to root_path
   end
 
+  def search
+    return nil if params[:keyword] == ""
+    t_tag = TTag.where(['t_tag_name LIKE ?', "%#{params[:keyword]}%"] )
+    render json:{ keyword: t_tag }
+  end
+
   private
 
-  def tweet_params
-    params.require(:tweet).permit(:content).merge(user_id: current_user.id)
+  def tweet_form_params
+    params.require(:tweet_form).permit(:content, :t_tag_name).merge(user_id: current_user.id)
   end
 
   def set_tweet
