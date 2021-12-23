@@ -19,8 +19,10 @@
         <div class="col-3">
           <div class="d-flex justify-content-end">
             <% if user_signed_in? && current_user.id == @user.id %>
-              <% unless @user.profile.nil? %>
+              <% if @user.profile.present? %>
                 <a class="btn btn-outline-primary" href="/profiles/<%=@profile.id%>/edit" role="button">編集</a>
+              <% else %>
+                <a class="btn btn-outline-primary" href="/profiles/new" role="button">作成</a>
               <% end %>
             <% elsif current_user.following?(@user) %>
                 <%= link_to 'フォロー解除', user_relationship_path(current_user.id, current_user.relationships.find_by(follower: @user)), method: :delete , class:"btn btn-outline-primary" %>

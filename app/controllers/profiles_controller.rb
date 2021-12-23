@@ -31,6 +31,7 @@ class ProfilesController < ApplicationController
 
   def update
     @profile = Profile.find(params[:id])
+    @profile.image ||= @profile.image.blob
     if @profile.update(profile_update_params)
       redirect_to action: :index
     else
