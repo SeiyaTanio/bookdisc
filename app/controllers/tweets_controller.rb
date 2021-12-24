@@ -56,11 +56,7 @@ class TweetsController < ApplicationController
 
   def mine
     tweets = Tweet.includes(:user).order('updated_at DESC')
-    if tweets.find_by(user_id: params[:id]).present?
-      @tweets = tweets.where(user_id: params[:id])
-    else
-      render :new
-    end
+    @tweets = tweets.where(user_id: params[:id])
   end
 
   private

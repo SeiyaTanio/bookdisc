@@ -44,11 +44,7 @@ class BlogsController < ApplicationController
 
   def mine
     blogs = Blog.includes(:user).order('updated_at DESC')
-    if blogs.find_by(user_id: params[:id]).present?
-      @blogs = blogs.where(user_id: params[:id])
-    else
-      render :new
-    end
+    @blogs = blogs.where(user_id: params[:id])
   end
 
   private
