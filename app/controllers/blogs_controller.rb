@@ -29,7 +29,7 @@ class BlogsController < ApplicationController
 
   def update
     set_blog
-    if @blog.update(blog_params)
+    if @blog.update(blog_update_params)
       redirect_to blog_path(params[:id])
     else
       render :edit
@@ -42,10 +42,23 @@ class BlogsController < ApplicationController
     redirect_to action: :index
   end
 
+  def mine
+    blogs = Blog.includes(:user).order('updated_at DESC')
+    if blogs.find_by(user_id: params[:id]).present?
+      @blogs = blogs.where(user_id: params[:id])
+    else
+      render :new
+    end
+  end
+
   private
   def blog_params
+    params.permit(:title, :article).merge(user_id: current_user.id)
+  end
+
+  def blog_update_params
     params.require(:blog).permit(:title, :article).merge(user_id: current_user.id)
-  end 
+  end
 
   def set_blog
     @blog = Blog.find(params[:id])
