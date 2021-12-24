@@ -6,6 +6,9 @@ Rails.application.routes.draw do
     collection do
       get 'search'
     end
+    member do
+      get 'mine'
+    end
   end
   resources :profiles, only: [:index, :new, :create, :edit, :update]
   resources :blogs do

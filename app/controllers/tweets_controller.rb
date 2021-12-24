@@ -54,6 +54,11 @@ class TweetsController < ApplicationController
     render json:{ keyword: t_tag }
   end
 
+  def mine
+    tweets = Tweet.includes(:user).order('updated_at DESC')
+    @tweets = tweets.where(user_id: params[:id])
+  end
+
   private
 
   def tweet_form_params
