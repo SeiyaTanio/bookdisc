@@ -1,11 +1,6 @@
 class RoomsController < ApplicationController
 
   def index
-    if UserRoom.find_by(user_id: current_user.id).nil?
-      render :new
-    else
-      @rooms = current_user.rooms.all.order('updated_at DESC')
-    end
   end
 
   def new
@@ -15,15 +10,18 @@ class RoomsController < ApplicationController
   def create
     @room = Room.new(room_params)
     if @room.save
-      redirect_to rooms_path
+      redirect_to room_messages_path(@room.id)
     else
       render :new
     end
   end
 
   def show
-    set_room
-    @host_id = @room.user_rooms[0].user_id
+    if UserRoom.find_by(user_id: current_user.id).nil?
+      render :index
+    else
+      @rooms = current_user.rooms.all.order('updated_at DESC')
+    end
   end
 
   def edit
@@ -42,7 +40,7 @@ class RoomsController < ApplicationController
   def destroy
     set_room
     @room.destroy
-    redirect_to rooms_path
+    redirect_to room_path(current_user.id)
   end
 
   private
