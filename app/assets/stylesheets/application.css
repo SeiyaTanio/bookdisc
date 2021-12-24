@@ -18,7 +18,6 @@
 }
 
 .like-icon {
-  margin-left: 23px;
   font-size: 25px;
   color: rgba(255, 0, 157, 0.89);
 }
@@ -33,4 +32,18 @@
   background-color: #F4F4F4;
   padding: 5px;
   font-size: 15px;
+}
+
+.user-icon{
+  width: 70px; 
+  height: 70px;
+}
+
+.bg-bookdisc{
+  background-color: navy;
+}
+
+.sticky-nav{
+  position: sticky;
+  top: 55px;
 }
