@@ -1,77 +1,53 @@
 <div class="container mt-auto">
-  <div class="card mb-3 mx-auto" style="width: 540px; min-height: 350px">
-    <div class="card-header bg-primary text-white">
-      ツイート
+  <div class="row">
+    <div class="col-2">
     </div>
-    <div class="row g-0 border-bottom position-relative" style="min-height: 280px">
-      <div class="col-md-3 mt-4" >
-        <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
-          <% if @tweet.user.profile.present? && @tweet.user.profile.image.present?%>
-            <%= link_to image_tag(@tweet.user.profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
-          <% else %>
-            <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
-          <% end %>
-        </div>
-      </div>
-      <div class="col-md-5">
-        <div class="card-body">
-          <h3 class="card-title"><%= @tweet.user.nickname %></h3>
-          <p class="card-text"><%= @tweet.content %></p>
-          <p class="card-text"><%= @tweet.t_tags&.first&.t_tag_name %></p>
-          <p class="card-text position-absolute bottom-0 mb-2"><small class="text-muted"><%= l @tweet.updated_at %></small></p>
-        </div>
-      </div>
-      <div class="col-md-4 p-3">
-        <div class="d-flex justify-content-evenly">
-          <% if user_signed_in? && current_user.id == @tweet.user_id %>
-          <a class="btn btn-outline-primary" href="/tweets/<%=@tweet.id%>/edit" role="button">編集</a>
-          <%= link_to '削除', tweet_path(params[:id]), method: :delete , class:"btn btn-outline-primary"%>
-          <% end %>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-2 d-flex justify-content-evenly">
-      <div class="col-3">
-        <p class="card-text"><small class="text-muted">1件のコメント</small></p>
-      </div>
-      <div class="col-3">
-        <p class="card-text"><small class="text-muted">2件のいいね</small></p>
-      </div>
-    </div>
-    <div class="row mt-1 d-flex justify-content-evenly align-items-center">
-      <div class="col-3">
-        <a href="/tweets/<%=@tweet.id%>/t_comments/new">コメントする</a>
-      </div>
-      <div class="col-3">
-        <% if current_user&.like?(@tweet) %>     
-          <%= link_to '', like_path(current_user.likes.find_by(tweet: @tweet)), method: :delete , class:"bi bi-heart-fill like-icon" %>
-        <% else %>
-          <%= link_to '', likes_path(tweet: @tweet), method: :post, class:"bi bi-heart like-icon" %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-  <% @t_comments.each do |t_comment|%>
-    <div class="card mb-3 mx-auto" style="width: 540px;">
-      <div class="card-header">
-        コメント
-      </div>
-      <div class="row">
-        <div class="col-md-4 mt-2">
-          <% if t_comment.user.profile.present? && t_comment.user.profile.image.present?%>
-            <%= link_to image_tag(t_comment.user.profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
-          <% else %>
-            <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
-          <% end %>
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h3 class="card-title"><%= t_comment.user.nickname %></h3>
-            <p class="card-text"><%= t_comment.t_text %></p>
-            <p class="card-text position-absolute bottom-0 mb-2"><small class="text-muted"><%=l t_comment.updated_at %></small></p>
+    <div class="col-8">
+      <div class="row sticky-nav py-1 bg-primary text-white">
+        <div class="d-flex align-items-center">
+          <div class="col-4"></div>
+          <div class="col-4">
+            <div class="text-center">ツイート詳細</div>
+          </div>
+          <div class="col-4">
+            <% if user_signed_in? && current_user == @tweet.user %>
+              <div class="text-end">
+                <%= link_to '編集', edit_tweet_path(@tweet.id), class:"btn btn-outline-light" %>
+                <%= link_to '削除', tweet_path(@tweet.id), method: :delete , class:"btn btn-outline-light" %>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>
+      <%= render partial:'tweet_view', locals: {tweet: @tweet} %>
+      <div class="row sticky-nav pt-2 bg-primary text-white">
+        <p class="text-center">コメント</p>
+      </div>
+      <% @t_comments.each do |t_comment|%>
+        <div class="row border">
+          <div class="row g-0 mt-3">
+            <div class="col-3">
+              <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
+                <% if t_comment.user.profile.present? && t_comment.user.profile.image.present?%>
+                  <%= link_to image_tag(t_comment.user.profile.image, class:"rounded-circle mx-auto d-block user-icon"), user_path(t_comment.user_id) %>
+                <% else %>
+                  <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded-circle mx-auto d-block user-icon"), user_path(t_comment.user_id) %>
+                <% end %>
+              </div>
+            </div>
+            <div class="col-9 my-auto">
+                <h4 class="text-truncate"><%= t_comment.user.nickname %></h4>
+            </div>
+          </div>
+          <div class="row g-0 p-3">
+            <p class="card-text"><%= t_comment.t_text %></p>
+          </div>
+          <div class="row g-0 ps-3">
+            <p class=""><small class="text-muted"><%=l t_comment.updated_at %></small></p>
+          </div>
+        </div>
+      <% end %>
     </div>
-  <% end %>
+    <div class="col-2"></div>
+  </div>
 </div>
