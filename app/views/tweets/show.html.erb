@@ -1,4 +1,4 @@
-<div class="container container-style" >
+<div class="container container-style">
   <div class="row mb-3">
     <div class="col-2">
     </div>
@@ -20,33 +20,7 @@
         </div>
       </div>
       <%= render partial:'tweet_view', locals: {tweet: @tweet} %>
-      <div class="row sticky-nav py-1 bg-primary">
-        <div class="d-flex align-items-center justify-content-center text-white">コメント</div>
-      </div>
-      <% @t_comments.each do |t_comment|%>
-        <div class="row border">
-          <div class="row g-0 mt-3">
-            <div class="col-3">
-              <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
-                <% if t_comment.user.profile.present? && t_comment.user.profile.image.present?%>
-                  <%= link_to image_tag(t_comment.user.profile.image, class:"rounded-circle mx-auto d-block user-icon"), user_path(t_comment.user_id) %>
-                <% else %>
-                  <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded-circle mx-auto d-block user-icon"), user_path(t_comment.user_id) %>
-                <% end %>
-              </div>
-            </div>
-            <div class="col-9 my-auto">
-                <h4 class="text-truncate"><%= t_comment.user.nickname %></h4>
-            </div>
-          </div>
-          <div class="row g-0 p-3">
-            <p class="card-text"><%= t_comment.t_text %></p>
-          </div>
-          <div class="row g-0 ps-3">
-            <p class=""><small class="text-muted"><%=l t_comment.updated_at %></small></p>
-          </div>
-        </div>
-      <% end %>
+      <%= render partial:'shared/comment', locals: {comments: @t_comments} %>
     </div>
     <div class="col-2"></div>
   </div>
