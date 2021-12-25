@@ -4,17 +4,19 @@
     </div>
     <div class="col-8">
       <div class="row sticky-nav py-1 bg-primary">
-        <% if controller.action_name == "new" %>
-          <div class="d-flex align-items-center justify-content-center text-white">ツイート新規投稿</div>
-        <% else %>
-          <div class="d-flex align-items-center justify-content-center text-white">ツイート編集</div>
-        <% end %>
+        <div class="d-flex align-items-center justify-content-center text-white">
+          <% if controller.action_name == "new" %>
+            ツイート新規投稿
+          <% else %>
+            ツイート編集
+          <% end %>
+        </div>
       </div>
       <div class="row border" style="height: 390px">
         <%= form_with model: @tweet_form, url: url, method: method, class: "needs-validation", html: {novalidate: true}, local: true do |f| %>
           <div class="row g-0 mt-3">
             <div class="col-3">
-              <% if @user.profile.present? && @user.profile.image.present?%>
+              <% if @user&.profile&.image%>
                 <%= image_tag @user.profile.image, class:"rounded-circle mx-auto d-block user-icon" %>
               <% else %>
                 <%= image_tag "bookdisc-icon-image.png", class:"rounded-circle mx-auto d-block user-icon" %>
