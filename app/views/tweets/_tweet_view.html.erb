@@ -1,4 +1,4 @@
-<div class="row border" style=" height: 350px">
+<div class="row border" style="min-height: 350px">
   <div class="row g-0 mt-3">
     <div class="col-3">
       <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
@@ -10,11 +10,11 @@
       </div>
     </div>
     <div class="col-9 my-auto">
-        <h3 class="text-truncate"><%= tweet.user.nickname %></h3>
+        <div class="fs-3 text-truncate"><%= tweet.user.nickname %></div>
     </div>
   </div>
-  <div class="row g-0 p-3" style="height: 150px">
-    <div><%= tweet.content %></div>
+  <div class="row g-0 p-3" style="min-height: 150px">
+    <div class="new-line"><%= tweet.content %></div>
   </div>
   <div class="row g-0 border-bottom ps-3">
     <div class="col-3">

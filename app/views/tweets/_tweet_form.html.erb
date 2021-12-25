@@ -1,17 +1,34 @@
-<div class="mb-3 ">
+<div class="row border" style="height: 360px">
   <%= form_with model: @tweet_form, url: url, method: method, local: true do |f| %>
-    <div class = "mb-3 col-6 mx-auto">
-      <%= f.text_area :content, class: "form-control ", maxlength: "150", rows: "5", autofocus: true %>
+    <div class="row g-0 mt-3">
+      <div class="col-3">
+        <% if @user.profile.present? && @user.profile.image.present?%>
+          <%= image_tag @user.profile.image, class:"rounded-circle mx-auto d-block user-icon" %>
+        <% else %>
+          <%= image_tag "bookdisc-icon-image.png", class:"rounded-circle mx-auto d-block user-icon" %>
+        <% end %>
+      </div>
+      <div class="col-7 my-auto">
+        <div class="fs-3 text-truncate"><%= @user.nickname %></div>
+      </div>
+      <div class="col-2 my-auto">
+        <div class="text-center">
+          <%= f.submit "投稿", class:"btn btn-lg btn-primary"%>
+        </div>
+      </div>
     </div>
-    <div class = "mb-3 col-6 mx-auto">
-      <%= f.text_field :t_tag_name, class: "form-control ",placeholder: 'タグ',maxlength: "40", autocomplete: "t_tag_name" %>
+    <div class="row g-0 p-3">
+      <div>
+        <%= f.text_area :content, class: "form-control", placeholder: 'ツイートしましょう（150文字まで）', maxlength: "150", rows: "7", autofocus: true %>
+      </div>
+    </div>
+    <div class="row g-0 px-3">
+      <%= f.text_field :t_tag_name, class: "form-control ",placeholder: 'タグ（40文字まで）',maxlength: "40", autocomplete: "t_tag_name" %>
       <div id="search-result" class="mt-1"></div>
-    </div>
-    <div class = "col-6 mx-auto">
-      <%= f.submit "投稿", class:"w-100 btn btn-lg btn-primary" %>
     </div>
   <% end %>
 </div>
+
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -40,6 +57,7 @@ const  tTagNameInput = document.querySelector("#tweet_form_t_tag_name");
             clickElement.addEventListener("click", () => {
               document.getElementById("tweet_form_t_tag_name").value = clickElement.textContent;
               clickElement.remove();
+              searchResult.innerHTML = "";
             });
           });
         };

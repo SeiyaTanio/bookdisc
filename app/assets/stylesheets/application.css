@@ -58,3 +58,8 @@
   margin-top: auto;
   height: 90vh;
 }
+
+.new-line{
+  white-space: pre-wrap; 
+  word-wrap: break-word;
+}

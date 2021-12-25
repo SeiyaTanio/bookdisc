@@ -6,10 +6,12 @@ class TweetsController < ApplicationController
   end
 
   def new
+    @user = User.find(current_user.id)
     @tweet_form = TweetForm.new
   end
 
   def create
+    @user = User.find(current_user.id)
     @tweet_form = TweetForm.new(tweet_form_params)
     if @tweet_form.valid?
       @tweet_form.save
