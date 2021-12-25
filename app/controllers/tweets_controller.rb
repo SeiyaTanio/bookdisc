@@ -28,6 +28,7 @@ class TweetsController < ApplicationController
 
   def edit
     set_tweet
+    @user = @tweet.user
     tweet_attributes = @tweet.attributes
     @tweet_form = TweetForm.new(tweet_attributes)
     @tweet_form.t_tag_name = @tweet.t_tags&.first&.t_tag_name
@@ -35,6 +36,7 @@ class TweetsController < ApplicationController
 
   def update
     set_tweet
+    @user = @tweet.user
     @tweet_form = TweetForm.new(tweet_form_params)
     if @tweet_form.valid?
       @tweet_form.update(tweet_form_params, @tweet)
