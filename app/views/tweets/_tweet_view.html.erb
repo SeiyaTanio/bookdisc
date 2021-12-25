@@ -14,10 +14,17 @@
     </div>
   </div>
   <div class="row g-0 p-3" style="height: 150px">
-    <p class="card-text"><%= tweet.content %></p>
+    <div><%= tweet.content %></div>
   </div>
   <div class="row g-0 border-bottom ps-3">
-    <p class=""><small class="text-muted"><%= l tweet.updated_at %></small></p>
+    <div class="col-3">
+      <p><small class="text-muted"><%= l tweet.updated_at %></small></p>
+    </div>
+    <div class="col-9 text-truncate">
+      <% if tweet.t_tags&.first&.t_tag_name%>
+        <p><i class="bi bi-tags-fill text-muted"></i><small class="text-muted"><%= tweet.t_tags&.first&.t_tag_name %></small></p>
+      <% end %>
+    </div>
   </div>
   <div class="row g-0 align-items-center">
     <div class="col-4">
