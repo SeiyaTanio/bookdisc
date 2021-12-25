@@ -1,10 +1,10 @@
 <div class="container mt-auto d-flex flex-column">
-  <div class="row">
+  <div class="row mb-3">
     <div class="col-2">
     </div>
     <div class="col-8">
-      <div class="row sticky-nav pt-2 bg-primary text-white">
-        <p class="text-center">ツイート一覧</p>
+      <div class="row sticky-nav py-1 bg-primary">
+        <div class="d-flex align-items-center justify-content-center text-white">ツイート一覧</div>
       </div>
       <% @tweets.each do |tweet| %>
         <%= render partial:'tweet_view', locals: {tweet: tweet} %>
