@@ -1,37 +1,56 @@
-<div class="row border" style="height: 390px">
-  <%= form_with model: @tweet_form, url: url, method: method, class: "needs-validation", html: {novalidate: true}, local: true do |f| %>
-    <div class="row g-0 mt-3">
-      <div class="col-3">
-        <% if @user.profile.present? && @user.profile.image.present?%>
-          <%= image_tag @user.profile.image, class:"rounded-circle mx-auto d-block user-icon" %>
+<div class="container container-style">
+  <div class="row pb-3">
+    <div class="col-2">
+    </div>
+    <div class="col-8">
+      <div class="row sticky-nav py-1 bg-primary">
+        <% if controller.action_name == "new" %>
+          <div class="d-flex align-items-center justify-content-center text-white">ツイート新規投稿</div>
         <% else %>
-          <%= image_tag "bookdisc-icon-image.png", class:"rounded-circle mx-auto d-block user-icon" %>
+          <div class="d-flex align-items-center justify-content-center text-white">ツイート編集</div>
         <% end %>
       </div>
-      <div class="col-7 my-auto">
-        <div class="fs-3 text-truncate"><%= @user.nickname %></div>
-      </div>
-      <div class="col-2 my-auto">
-        <div class="text-center">
-          <%= f.submit "投稿", class:"btn btn-lg btn-primary"%>
-        </div>
+      <div class="row border" style="height: 390px">
+        <%= form_with model: @tweet_form, url: url, method: method, class: "needs-validation", html: {novalidate: true}, local: true do |f| %>
+          <div class="row g-0 mt-3">
+            <div class="col-3">
+              <% if @user.profile.present? && @user.profile.image.present?%>
+                <%= image_tag @user.profile.image, class:"rounded-circle mx-auto d-block user-icon" %>
+              <% else %>
+                <%= image_tag "bookdisc-icon-image.png", class:"rounded-circle mx-auto d-block user-icon" %>
+              <% end %>
+            </div>
+            <div class="col-7 my-auto">
+              <div class="fs-3 text-truncate"><%= @user.nickname %></div>
+            </div>
+            <div class="col-2 my-auto">
+              <div class="text-center">
+                <% if controller.action_name == "new" %>
+                  <%= f.submit "投稿", class:"btn btn-lg btn-primary"%>
+                <% else %>
+                  <%= f.submit "更新", class:"btn btn-lg btn-primary"%>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="row g-0 p-3" style="height: 230px">
+            <div>
+              <%= f.text_area :content, class: "form-control", placeholder: 'ツイートしましょう（150文字まで）', maxlength: "150", rows: "7", autofocus: true, required: true %>
+              <div class="invalid-feedback">
+                内容を入力してください
+              </div>
+            </div>
+          </div>
+          <div class="row g-0 px-3">
+            <%= f.text_field :t_tag_name, class: "form-control ",placeholder: 'タグ（40文字まで）',maxlength: "40", autocomplete: "t_tag_name" %>
+            <div id="search-result" class="mt-1"></div>
+          </div>
+        <% end %>
       </div>
     </div>
-    <div class="row g-0 p-3" style="height: 230px">
-      <div>
-        <%= f.text_area :content, class: "form-control", placeholder: 'ツイートしましょう（150文字まで）', maxlength: "150", rows: "7", autofocus: true, required: true %>
-        <div class="invalid-feedback">
-          内容を入力してください
-        </div>
-      </div>
-    </div>
-    <div class="row g-0 px-3">
-      <%= f.text_field :t_tag_name, class: "form-control ",placeholder: 'タグ（40文字まで）',maxlength: "40", autocomplete: "t_tag_name" %>
-      <div id="search-result" class="mt-1"></div>
-    </div>
-  <% end %>
+    <div class="col-2"></div>
+  </div>
 </div>
-
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
