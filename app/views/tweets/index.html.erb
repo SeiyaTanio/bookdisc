@@ -1,15 +1,1 @@
-<div class="container container-style">
-  <div class="row pb-3">
-    <div class="col-2">
-    </div>
-    <div class="col-8">
-      <div class="row sticky-nav py-1 bg-primary">
-        <div class="d-flex align-items-center justify-content-center text-white">ツイート一覧</div>
-      </div>
-      <% @tweets.each do |tweet| %>
-        <%= render partial:'tweet_view', locals: {tweet: tweet} %>
-      <% end %>
-    </div>
-    <div class="col-2"></div>
-  </div>
-</div>
+<%= render partial:'tweet_views', locals: {tweets: @tweets} %>
