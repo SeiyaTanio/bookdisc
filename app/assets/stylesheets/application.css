@@ -63,3 +63,16 @@
   white-space: pre-wrap; 
   word-wrap: break-word;
 }
+
+.max-4-line{
+  /** 4行以上で省略 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  
+  /** webkit以外のフォールバック */
+  line-height: 24px;
+  max-height: calc(24px*4);
+}
