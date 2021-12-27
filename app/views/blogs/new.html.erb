@@ -6,7 +6,7 @@
           <div class="d-flex align-items-center">
             <div class="col-4"></div>
             <div class="col-4">
-              <div class="my-auto text-center text-white">
+              <div class="text-center text-white">
                 New Blog
               </div>
             </div>
@@ -24,6 +24,10 @@
               <div class="invalid-feedback">
                 タイトルを入力してください
               </div>
+            </div>
+            <div class="my-2">
+              <%= f.label :blog_image, class: "visually-hidden " %>プロフィール画像<br />
+              <%= f.file_field :blog_image, class:"form-control" %>
             </div>
             <div class="my-2">
               <%= f.text_area :article, class: "form-control ", placeholder: 'ブログを書きましょう', style: "height: 90vh", required: true %>

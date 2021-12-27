@@ -10,8 +10,12 @@
       <div class="row border mb-5" style="min-height: 350px">
         <div class="row g-0 p-3 border-bottom" style="min-height: 150px">
           <h2><%= @blog.title %></h2>
-          <p class=""><small class="text-muted"><%= l @blog.updated_at %></small></p>
-          <%= image_tag "no-image.png", class:"my-4"%>
+          <p><small class="text-muted"><%= l @blog.updated_at %></small></p>
+          <% if @blog&.blog_image %>
+            <%= image_tag @blog.blog_image, class:"my-4"%>
+          <% else %>
+            <%= image_tag "no-image.png", class:"my-4"%>
+          <% end %>
           <div class="new-line py-4"><%= @blog.article %></div>
         </div>
         <div class="row g-0 align-items-center justify-content-center">

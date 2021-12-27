@@ -1,6 +1,10 @@
 <div class="col-4 py-2">
   <div class="card m-2">
-    <%= image_tag "no-image.png", class:"", style:"height: 150px;"%>
+    <% if blog.blog_image.attached? %>
+      <%= image_tag blog.blog_image, style:"height: 150px;"%>
+    <% else %>
+      <%= image_tag "no-image.png", style:"height: 150px;"%>
+    <% end %>
     <div class="p-3" style="height: 240px">
       <div class="card-title fs-4" style="height: 75px" ><%= blog.title.truncate(24) %></div>
       <p><small class="text-muted"><%= l blog.updated_at %></small></p>

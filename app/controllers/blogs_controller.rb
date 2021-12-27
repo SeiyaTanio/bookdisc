@@ -30,7 +30,7 @@ class BlogsController < ApplicationController
 
   def update
     set_blog
-    if @blog.update(blog_update_params)
+    if @blog.update(blog_params)
       redirect_to blog_path(params[:id])
     else
       render :edit
@@ -50,11 +50,7 @@ class BlogsController < ApplicationController
 
   private
   def blog_params
-    params.require(:blog).permit(:title, :article).merge(user_id: current_user.id)
-  end
-
-  def blog_update_params
-    params.require(:blog).permit(:title, :article).merge(user_id: current_user.id)
+    params.require(:blog).permit(:title, :article, :blog_image).merge(user_id: current_user.id)
   end
 
   def set_blog
