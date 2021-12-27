@@ -11,7 +11,7 @@
         <div class="row g-0 p-3 border-bottom" style="min-height: 150px">
           <h2><%= @blog.title %></h2>
           <p><small class="text-muted"><%= l @blog.updated_at %></small></p>
-          <% if @blog&.blog_image %>
+          <% if @blog.blog_image.attached? %>
             <%= image_tag @blog.blog_image, class:"my-4"%>
           <% else %>
             <%= image_tag "no-image.png", class:"my-4"%>
