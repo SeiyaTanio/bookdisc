@@ -5,34 +5,6 @@
         Blogs
       </div>
     </div>
-    <% @blogs.each do |blog| %>
-      <div class="col-4 py-2">
-        <div class="card m-2">
-          <%= image_tag "no-image.png", class:"", style:"height: 150px;"%>
-          <div class="p-3" style="height: 240px">
-            <div class="card-title fs-4" style="height: 75px" ><%= blog.title.truncate(24) %></div>
-            <p><small class="text-muted"><%= l blog.updated_at %></small></p>
-            <div class="new-line max-4-line"><%= blog.article %></div>
-          </div>
-          <div class="mx-auto my-2">
-            <%= link_to 'Read More', blog_path(blog.id), class:"btn btn-outline-primary"%>
-          </div>
-          <div class="row g-0 py-3 border-top">
-            <div class="col-2">
-              <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
-                <% if blog.user.profile.present? && blog.user.profile.image.present?%>
-                  <%= link_to image_tag(blog.user.profile.image, class:"rounded-circle mx-auto d-block", style:"height: 30px; width: 30px"), user_path(blog.user_id) %>
-                <% else %>
-                  <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded-circle mx-auto d-block", style:"height: 30px; width: 30px"), user_path(blog.user_id) %>
-                <% end %>
-              </div>
-            </div>
-            <div class="col-9 my-auto">
-              <div class="fs-6 text-truncate"><%= blog.user.nickname %></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
+    <%= render partial:'blog', collection: @blogs%>
   </div>
 </div>

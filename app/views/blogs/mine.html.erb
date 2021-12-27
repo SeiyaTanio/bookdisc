@@ -1,45 +1,22 @@
-<div class="container mt-auto d-flex flex-column">
-  <% if @blogs.present? %>
-    <% @blogs.each do |blog| %>
-    <div class="card mb-3 mx-auto" style="width: 540px">
-      <div class="row g-0 border-bottom position-relative">
-        <div class="col-md-4 mt-4" >
-          <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
-          <% if blog.user.profile.present? && blog.user.profile.image.present?%>
-            <%= link_to image_tag(blog.user.profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
-          <% else %>
-            <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
-          <% end %>
-          </div>
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h3 class="card-title"><%= blog.user.nickname %></h3>
-            <p class="card-text"><%= blog.title %></p>
-            <p class="card-text position-absolute bottom-0 mb-2"><small class="text-muted"><%= l blog.updated_at %></small></p>
-          </div>
-        </div>
-      </div>
-      <div class="row my-2 d-flex justify-content-evenly">
-        <div class="col-3">
-          <p class="card-text"><small class="text-muted">1件のコメント</small></p>
-        </div>
-        <div class="col-3">
-          <p class="card-text"><small class="text-muted">2件のいいね</small></p>
-        </div>
-        <div class="col-3">
-          <a href="/blogs/<%=blog.id%>">ブログ詳細</a>
-        </div>
+<div class="container-fluid container-style">
+  <div class="row border border-top-0 pb-3">
+    <div class="row g-0 bg-dark mb-3" style="height: 50px;">
+      <div class="my-auto text-center text-white">
+        My Blogs
       </div>
     </div>
+    <% if @blogs.present? %>
+       <%= render partial:'blog', collection: @blogs%>
+    <% else %>
+      <div class="row p-2">
+        <h3 class="text-center">ブログがありません</h3>
+        <div class="p-2">
+          <p class="text-center">新規ブログ作成はこちらのボタンから</p>
+          <div class="text-center">
+            <%= link_to 'ブログ作成', new_blog_path, class:"btn btn-outline-primary"%>
+          </div>
+        </div>
+      </div>
     <% end %>
-  <% else %>
-    <div class="row justify-content-center">
-      <div class="col-8 border">
-        <h3>ブログが存在しません</h3>
-        <p>新規ブログ作成はこちら</p>
-        <%= link_to 'ブログ作成', new_blog_path, class:"btn btn-outline-primary"%>
-      </div>
-    </div>
-  <% end %>
+  </div>
 </div>
