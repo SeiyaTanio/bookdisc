@@ -62,7 +62,7 @@
 
     <div class="col-3 sticky-nav">
       <div class="row px-2 mt-3" style="max-height: 90vh; overflow: scroll;">
-        <% if user_signed_in? && current_user.id == @blog.user_id %>
+        <% if user_signed_in? && current_user == @blog.user %>
           <h3 class="text-center fst-italic fw-light text-decoration-underline">Blog</h3>
           <div class="p-2 mb-3 d-flex justify-content-around">
             <a class="btn btn-outline-primary" href="/blogs/<%=@blog.id%>/edit" role="button">編集</a>
@@ -93,7 +93,7 @@
           <h3 class="text-center fst-italic fw-light text-decoration-underline">Profile</h3>
           <div class="mt-2" >
             <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
-              <% if @blog.user.profile.present? && @blog.user.profile.image.present?%>
+              <% if @blog.user&.profile&.image %>
                 <%= link_to image_tag(@blog.user.profile.image, class:"rounded-circle mx-auto d-block user-icon"), user_path(@blog.user_id) %>
               <% else %>
                 <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded-circle mx-auto d-block user-icon"), user_path(@blog.user_id) %>
@@ -112,8 +112,8 @@
             </div>
           </div>
           <div class="mt-3 d-flex justify-content-center">
-            <% if user_signed_in? && current_user.id == @blog.user_id %>
-              <% if @blog.user.profile.present? %>
+            <% if user_signed_in? && current_user == @blog.user %>
+              <% if @blog.user&.profile %>
                 <a class="btn btn-outline-primary" href="/profiles/<%=@blog.user.profile.id%>/edit" role="button">プロフィール編集</a>
               <% else %>
                 <a class="btn btn-outline-primary" href="/profiles/new" role="button">プロフィール作成</a>
@@ -127,24 +127,24 @@
           <div class="row mt-3">
             <div class="mb-1">自己紹介</div>
             <div class="text-black-50"><small>
-              <% if @blog.user.profile.nil?%>
-                未登録
-              <% elsif @blog.user.profile.self_introduction.nil? %>
-                自己紹介を登録してください
-              <% else %>
+              <% if @blog.user&.profile&.self_introduction%>
                 <%= @blog.user.profile.self_introduction %>
+              <% elsif @blog.user&.profile %>
+                自己紹介 未登録
+              <% else %>
+                プロフィール未登録
               <% end %>
             </small></div>
           </div>
           <div class="row mt-3">
             <div class="mb-1">お気に入りの本</div>
             <div class="text-black-50"><small>
-              <% if @blog.user.profile.nil? %>
-                未登録
-              <% elsif @blog.user.profile.favorite_book.nil? %>
-                お気に入りの本を登録してください
-              <% else %>
+              <% if @blog.user&.profile&.favorite_book%>
                 <%= @blog.user.profile.favorite_book %>
+              <% elsif @blog.user&.profile %>
+                お気に入りの本 未登録
+              <% else %>
+                プロフィール未登録
               <% end %>
             </small></div>
           </div>
