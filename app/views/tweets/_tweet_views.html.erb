@@ -32,7 +32,7 @@
       </div>
       <% case controller.action_name %>
       <% when "index" %>
-        <%= render partial:'tweet', collection: tweets, as: "tweet" %>
+        <%= render partial:'tweet', collection: tweets %>
       <% when "show" %>
         <%= render partial:'tweet', locals: {tweet: tweets} %>
         <div class="row sticky-nav py-1 bg-secondary">
@@ -64,7 +64,7 @@
         <% end %>
       <% when "mine" %>
         <% if tweets.present? %>
-          <%= render partial:'tweet', collection: tweets, as: "tweet" %>
+          <%= render partial:'tweet', collection: tweets%>
         <% else %>
           <div class="row border p-2">
             <h3>ツイートがありません</h3>
