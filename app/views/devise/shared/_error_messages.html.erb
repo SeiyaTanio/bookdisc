@@ -1,5 +1,6 @@
 <% if resource.errors.any? %>
   <div id="error_explanation">
+    <div class="text-decoration-underline fs-5 mb-1">入力エラー</div>
     <ul>
       <% resource.errors.full_messages.each do |message| %>
         <li class="pb-1"><%= message %></li>
