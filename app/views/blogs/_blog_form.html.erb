@@ -7,7 +7,11 @@
             <div class="col-4"></div>
             <div class="col-4">
               <div class="text-center text-white">
-                New Blog
+                <% if controller.action_name == "new"%>
+                  New Blog
+                <% else %>
+                  Edit Blog
+                <% end %>
               </div>
             </div>
             <div class="col-4">
@@ -28,13 +32,16 @@
             <div class="my-2">
               <div class="row g-0">
                 <div class="col-10">
-                <%= f.file_field :blog_image, class:"form-control" %>
+                <%= f.file_field :blog_image, class:"form-control", id:"blog-image", value: @blog.blog_image%>
                 </div>
                 <div class="col-2">
                 <%= f.label :blog_image, class: "input-group-text bg-dark text-white" %>
                 </div>
               </div>
               <div class="form-text">「.png」または「.jpeg」の画像のみ</div>
+              <% if controller.action_name == "edit"%>
+                <div class="form-text">「ファイルを選択」しなければ元の画像のまま。</div>
+              <% end %>
               <div id="previews" class="mt-2"></div>
             </div>
             <div class="my-2">
