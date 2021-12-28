@@ -23,7 +23,9 @@
               <% if user_signed_in? && current_user == tweets.user %>
                 <div class="text-end">
                   <%= link_to '編集', edit_tweet_path(tweets.id), class:"btn btn-outline-light" %>
-                  <%= link_to '削除', tweet_path(tweets.id), method: :delete , class:"btn btn-outline-light" %>
+                  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#destroyBackdrop">
+                    削除
+                  </button>
                 </div>
               <% end %>
             <% end %>
@@ -81,3 +83,5 @@
     <div class="col-2"></div>
   </div>
 </div>
+
+<!-- Modal -->

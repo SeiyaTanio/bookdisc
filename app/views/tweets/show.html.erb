@@ -1,1 +1,2 @@
 <%= render partial:'tweet_views', locals: {tweets: @tweet} %>
+<%= render partial: 'shared/destroy_modal', locals: {url: tweet_path(@tweet.id)} %>

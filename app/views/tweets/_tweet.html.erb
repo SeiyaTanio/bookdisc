@@ -21,7 +21,7 @@
       <p><small class="text-muted"><%= l tweet.updated_at %></small></p>
     </div>
     <div class="col-9 text-truncate">
-      <% if tweet.t_tags&.first&.t_tag_name%>
+      <% if tweet.t_tags&.first&.t_tag_name.present?%>
         <p><i class="bi bi-tags-fill text-muted"></i><small class="text-muted"><%= tweet.t_tags&.first&.t_tag_name %></small></p>
       <% end %>
     </div>
