@@ -23,7 +23,7 @@
               <% if user_signed_in? && current_user == tweets.user %>
                 <div class="text-end">
                   <%= link_to '編集', edit_tweet_path(tweets.id), class:"btn btn-outline-light" %>
-                  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#destroyBackdrop">
+                  <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#destroyBackdrop">
                     削除
                   </button>
                 </div>
