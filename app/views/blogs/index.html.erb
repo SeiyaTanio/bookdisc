@@ -5,6 +5,10 @@
         Blogs
       </div>
     </div>
-    <%= render partial:'blog', collection: @blogs%>
+    <% if @blogs.present? %>
+      <%= render partial:'blog', collection: @blogs%>
+    <% else %>
+      <%= render partial: 'shared/none_data', locals: {data: 'ブログ', url: new_blog_path} %>
+    <% end %>
   </div>
 </div>
