@@ -7,11 +7,12 @@
         <div class="d-flex align-items-center text-white">
           <div class="col-4"></div>
           <div class="col-4">
-            <div class="text-center">
-              Follows
-            </div>
+            <div class="text-center">フォロー</div>
           </div>
           <div class="col-4">
+            <div class="text-end">
+              <i class="bi bi-person-circle me-1"></i><%= @user.nickname %>
+            </div>
           </div>
         </div>
       </div>
@@ -32,7 +33,7 @@
                 <h4 class="mt-2"><%= follow.follower.nickname %></h4>
                 <div class="d-flex justify-content-around">
                   <a href="/users/<%=follow.follower_id%>/relationships" class="link-secondary text-decoration-none"><b>フォロー</b>  <%= follow.follower.followings.count %>人</a>
-                  <a href="#" class="link-secondary text-decoration-none"><b>フォロワー</b>  <%= follow.follower.followers.count %>人</a>
+                  <a href="/users/<%=follow.follower_id%>/relationships/list" class="link-secondary text-decoration-none"><b>フォロワー</b>  <%= follow.follower.followers.count %>人</a>
                 </div>
               </div>
               <div class="col-3 d-flex justify-content-end align-items-center">

@@ -21,7 +21,11 @@ Rails.application.routes.draw do
     resources :messages, only: [:index, :create]
   end
   resources :users, only: :show do
-    resources :relationships, only: [:index, :create, :destroy]
+    resources :relationships, only: [:index, :create, :destroy] do
+      collection do
+        get 'list'
+      end
+    end
     collection do
       get 'search'
     end
