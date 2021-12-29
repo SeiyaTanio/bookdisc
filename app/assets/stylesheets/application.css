@@ -39,7 +39,6 @@
   height: 80px;
   object-fit: contain;
   border: 1px solid lightgray;
-  color: #e2f2ff;
 }
 
 .bg-bookdisc{
@@ -82,7 +81,7 @@ textarea.form-control:focus{
   outline: none;
 }
 
-.preview-image{
+.preview-blog-image{
   max-height: 100%;
   max-width: 100%;
 }
