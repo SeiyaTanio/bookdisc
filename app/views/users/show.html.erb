@@ -27,8 +27,8 @@
           <div class="col-6">
             <h3><%= @user.nickname %></h3>
             <div class="d-flex justify-content-around">
-              <a href="/users/<%=@user.id%>/relationships" class="link-secondary text-decoration-none"><b>フォロー</b>  100人</a>
-              <a href="#" class="link-secondary text-decoration-none"><b>フォロワー</b>  50人</a>
+              <a href="/users/<%=@user.id%>/relationships" class="link-secondary text-decoration-none"><b>フォロー</b>  <%= @user.followings.count %>人</a>
+              <a href="#" class="link-secondary text-decoration-none"><b>フォロワー</b>  <%= @user.followers.count %>人</a>
             </div>
           </div>
           <div class="col-3">
@@ -105,7 +105,7 @@
               </div>
             </div>
             <div class="tab-pane fade" id="nav-blog" role="tabpanel" aria-labelledby="nav-blog-tab">
-              <div class="px-3">
+              <div class="row px-3">
                 <% if @blogs.present? %>
                   <%= render partial:'blogs/blog', collection: @blogs%>
                 <% else %>
