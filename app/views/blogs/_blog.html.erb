@@ -1,4 +1,8 @@
+<% if controller.controller_name == 'users'%>
+<div class="col-6 py-2">
+<% else%>
 <div class="col-4 py-2">
+<% end %>
   <div class="card m-2">
     <% if blog.blog_image.attached? %>
       <%= image_tag blog.blog_image, style:"height: 150px;"%>

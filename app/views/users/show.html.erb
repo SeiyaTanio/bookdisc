@@ -1,117 +1,132 @@
-<div class="container mt-auto">
-  <div class="row justify-content-center">
-    <div class="col-8 border py-4">
-      <div class="row justify-content-center">
-        <div class="col-3">
-          <% if @user.profile.nil? %>
-            <%= image_tag 'bookdisc-icon-image.png', class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;" %>
-          <% else %>
-            <%= image_tag @image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;" %>
-          <% end %>
-        </div>
-        <div class="col-6">
-          <h3><%= @user.nickname %></h3>
-          <div class="d-flex justify-content-around">
-            <a href="/users/<%=@user.id%>/relationships"><b>フォロー</b>  100人</a>
-            <div><b>フォロワー</b>  50人</div>
+<div class="container container-style">
+  <div class="row pb-3">
+    <div class="col-2">
+    </div>
+    <div class="col-8">
+      <div class="row py-1 bg-primary" style="height:50px;">
+        <div class="d-flex align-items-center text-white">
+          <div class="col-4"></div>
+          <div class="col-4">
+            <div class="text-center">
+              User Page
+            </div>
+          </div>
+          <div class="col-4">
           </div>
         </div>
-        <div class="col-3">
-          <div class="d-flex justify-content-end">
-            <% if user_signed_in? && current_user.id == @user.id %>
-              <% if @user.profile.present? %>
-                <a class="btn btn-outline-primary" href="/profiles/<%=@profile.id%>/edit" role="button">編集</a>
-              <% else %>
-                <a class="btn btn-outline-primary" href="/profiles/new" role="button">作成</a>
-              <% end %>
-            <% elsif current_user.following?(@user) %>
-                <%= link_to 'フォロー解除', user_relationship_path(current_user.id, current_user.relationships.find_by(follower: @user)), method: :delete , class:"btn btn-outline-primary" %>
+      </div>
+      <div class="row border px-2 py-3">
+        <div class="row g-0">
+          <div class="col-3">
+            <% if @user&.profile&.image.present? %>
+              <%= image_tag @user&.profile&.image, class:"rounded-circle mx-auto d-block user-icon" %>
             <% else %>
-                <%= link_to 'フォロー', user_relationships_path(user_id: current_user.id, follower: @user), method: :post, class:"btn btn-outline-primary" %>
+              <%= image_tag 'bookdisc-icon-image.png', class:"rounded-circle mx-auto d-block user-icon" %>
+            <% end %>
+          </div>
+          <div class="col-6">
+            <h3><%= @user.nickname %></h3>
+            <div class="d-flex justify-content-around">
+              <a href="/users/<%=@user.id%>/relationships" class="link-secondary text-decoration-none"><b>フォロー</b>  100人</a>
+              <a href="#" class="link-secondary text-decoration-none"><b>フォロワー</b>  50人</a>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="d-flex justify-content-end">
+              <% if user_signed_in? && current_user == @user %>
+                <% if @user&.profile %>
+                  <a class="btn btn-outline-primary" href="/profiles/<%=@user.profile.id%>/edit" role="button">プロフ編集</a>
+                <% else %>
+                  <a class="btn btn-outline-primary" href="/profiles/new" role="button">プロフ作成</a>
+                <% end %>
+              <% elsif current_user.following?(@user) %>
+                  <%= link_to 'フォロー解除', user_relationship_path(current_user.id, current_user.relationships.find_by(follower: @user)), method: :delete , class:"btn btn-outline-primary" %>
+              <% else %>
+                  <%= link_to 'フォロー', user_relationships_path(user_id: current_user.id, follower: @user), method: :post, class:"btn btn-outline-primary" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="fs-5 mb-1">自己紹介</div>
+          <div class="text-black-50">
+            <% if @user&.profile&.self_introduction%>
+              <%= @user.profile.self_introduction %>
+            <% elsif @user&.profile %>
+              自己紹介 未登録
+            <% else %>
+              プロフィール未登録
             <% end %>
           </div>
         </div>
-      </div>
-      <div class="row mt-3">
-        <p class="fs-5">自己紹介</p>
-        <div class="text-black-50">
-          <% if @user.profile.nil?%>
-            <p>未登録</p>
-          <% elsif @profile.self_introduction.nil? %>
-            <p>自己紹介を登録してください</p>
-          <% else %>
-            <%= @profile.self_introduction %>
-          <% end %>
+        <div class="row my-3">
+          <div class="fs-5 mb-1">お気に入りの本</div>
+          <div class="text-black-50">
+            <% if @user&.profile&.favorite_book%>
+              <%= @user.profile.favorite_book %>
+            <% elsif @user&.profile %>
+              お気に入りの本 未登録
+            <% else %>
+              プロフィール未登録
+            <% end %>
+          </div>
         </div>
-      </div>
-      <div class="row mt-3">
-        <p class="fs-5">お気に入りの本</p>
-        <div class="text-black-50">
-          <% if @user.profile.nil? %>
-            <p>未登録</p>
-          <% elsif @profile.favorite_book.nil? %>
-            <p>お気に入りの本を登録してください</p>
-          <% else %>
-            <%= @profile.favorite_book %>
-          <% end %>
-        </div>
-      </div>
-      <div class="row mt-4">
-        <ul class="nav nav-tabs justify-content-evenly">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">ツイート</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " aria-current="page" href="#">ブログ</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">いいね</a>
-          </li>
-        </ul>
-      </div>
-      <% @tweets.each do |tweet| %>
-        <div class="card my-3 mx-auto" >
-          <div class="row g-0 border-bottom position-relative" style="height: 280px">
-            <div class="col-md-4 mt-4" >
-              <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
-                <% if tweet.user.profile.present? && tweet.user.profile.image.present?%>
-                  <%= link_to image_tag(tweet.user.profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
+        <div class="row g-0 mt-4">
+          <nav>
+            <div class="nav nav-tabs justify-content-evenly" id="nav-tab" role="tablist">
+              <button 
+                class="nav-link active" id="nav-tweet-tab" data-bs-toggle="tab" data-bs-target="#nav-tweet" 
+                type="button" role="tab" aria-controls="nav-tweet"aria-selected="true"
+              >
+                ツイート
+              </button>
+              <button 
+                class="nav-link" id="nav-blog-tab" data-bs-toggle="tab" data-bs-target="#nav-blog"
+                type="button" role="tab" aria-controls="nav-blog" aria-selected="false"
+              >
+                ブログ
+              </button>
+              <button 
+                class="nav-link" id="nav-like-tab" data-bs-toggle="tab" data-bs-target="#nav-like"
+                type="button" role="tab" aria-controls="nav-like" aria-selected="false"
+              >
+                いいね
+              </button>
+            </div>
+          </nav>
+          <div class="tab-content my-2" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-tweet" role="tabpanel" aria-labelledby="nav-tweet-tab">
+              <div class="px-3">
+                <% if @tweets.present? %>
+                  <%= render partial:'tweets/tweet', collection: @tweets%>
                 <% else %>
-                  <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
+                  <%= render partial: 'shared/none_data', locals: {data: 'ツイート', url: new_tweet_path} %>
                 <% end %>
               </div>
             </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h3 class="card-title"><%= tweet.user.nickname %></h3>
-                <p class="card-text"><%= tweet.content %></p>
-                <p class="card-text position-absolute bottom-0 mb-2"><small class="text-muted"><%= l tweet.updated_at %></small></p>
+            <div class="tab-pane fade" id="nav-blog" role="tabpanel" aria-labelledby="nav-blog-tab">
+              <div class="px-3">
+                <% if @blogs.present? %>
+                  <%= render partial:'blogs/blog', collection: @blogs%>
+                <% else %>
+                  <%= render partial: 'shared/none_data', locals: {data: 'ブログ', url: new_blog_path} %>
+                <%  end %>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="nav-like" role="tabpanel" aria-labelledby="nav-like-tab">
+              <div class="px-3">
+                <% if @likes.present? %>
+                  <%= render partial:'tweets/tweet', collection: @likes%>
+                <% else %>
+                  <h4 class="text-center mt-4 text-decoration-underline">いいねがありません</h4>
+                <% end %>
               </div>
             </div>
           </div>
-          <div class="row mt-2 d-flex justify-content-evenly">
-            <div class="col-3">
-              <p class="card-text"><small class="text-muted">1件のコメント</small></p>
-            </div>
-            <div class="col-3">
-              <p class="card-text"><small class="text-muted">2件のいいね</small></p>
-            </div>
-            <div class="col-3">
-            </div>
-          </div>
-          <div class="row mt-1 d-flex justify-content-evenly">
-            <div class="col-3">
-              <a href="#">コメントする</a>
-            </div>
-            <div class="col-3">
-              <a href="#">いいね</a>
-            </div>
-            <div class="col-3">
-              <a href="/tweets/<%=tweet.id%>">ツイート詳細</a>
-            </div>
-          </div>
         </div>
-      <% end %>
+      </div>
+    </div>
+    <div class="col-2">
     </div>
   </div>
 </div>
