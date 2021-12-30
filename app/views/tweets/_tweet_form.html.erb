@@ -2,9 +2,10 @@
   <div class="row pb-3">
     <%= form_with model: @tweet_form, url: url, method: method, class: "needs-validation", html: {novalidate: true}, local: true do |f| %>
       <div class="col-8 mx-auto">
-        <div class="row sticky-nav py-1 bg-primary">
+        <div class="row sticky-nav p-1 bg-primary">
           <div class="d-flex align-items-center">
-            <div class="col-4"></div>
+            <div class="col-4">
+            </div>
             <div class="col-4">
               <div class="text-center text-white">
                 <% if controller.action_name == "new"%>
@@ -17,9 +18,9 @@
             <div class="col-4">
               <div class="text-end">
                 <% if controller.action_name == "new" %>
-                  <%= f.submit "投稿", class:"btn btn-outline-light me-3"%>
+                  <%= f.submit "投稿", class:"btn btn-outline-light"%>
                 <% else %>
-                  <%= f.submit "更新", class:"btn btn-outline-light me-3"%>
+                  <%= f.submit "更新", class:"btn btn-outline-light"%>
                 <% end %>
               </div>
             </div>

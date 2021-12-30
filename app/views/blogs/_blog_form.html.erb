@@ -2,10 +2,9 @@
   <div class="row">
     <%= form_with(model: @blog, url: url, class: "needs-validation", id: "new_post", html: {novalidate: true}, local: true) do |f| %>
       <div class="col-9 mx-auto">
-        <div class="row g-0 sticky-nav bg-dark">
+        <div class="row g-0 sticky-nav bg-dark px-3">
           <div class="d-flex align-items-center">
             <div class="col-4 my-auto">
-              <%= link_to "", :back, class:"bi bi-arrow-left-circle fs-3 ms-3 text-white"%>
             </div>
             <div class="col-4">
               <div class="text-center text-white">
@@ -18,7 +17,7 @@
             </div>
             <div class="col-4">
               <div class="text-end">
-                <%= f.submit "投稿", class:"btn btn-primary me-3" %>
+                <%= f.submit "投稿", class:"btn btn-primary" %>
               </div>
             </div>
           </div>

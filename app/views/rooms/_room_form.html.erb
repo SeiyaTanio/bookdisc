@@ -2,9 +2,10 @@
   <div class="row pb-3">
     <%= form_with(model: @room, url: url, class: "needs-validation", id: "new_post", html: {novalidate: true}, local: true) do |f| %>
       <div class="col-8 mx-auto">
-        <div class="row g-0 sticky-nav bg-primary">
+        <div class="row sticky-nav px-1 bg-primary">
           <div class="d-flex align-items-center">
-            <div class="col-4"></div>
+            <div class="col-4">
+            </div>
             <div class="col-4">
               <div class="text-center text-white">
                 <% if controller.action_name == "new"%>
@@ -17,15 +18,15 @@
             <div class="col-4">
               <div class="text-end">
                 <% if controller.action_name == "new"%>
-                  <%= f.submit "作成", class:"btn btn-outline-light me-3" %>
+                  <%= f.submit "作成", class:"btn btn-outline-light" %>
                 <% else %>
-                  <%= f.submit "更新", class:"btn btn-outline-light me-3" %>
+                  <%= f.submit "更新", class:"btn btn-outline-light" %>
                 <% end %>
               </div>
             </div>
           </div>
         </div>
-        <div class="row g-0 border mb-5 px-3 pt-4">
+        <div class="row border mb-5 px-3 pt-4">
           <%= render 'shared/post_user' %>
           <div class="row g-0 my-4">
             <div class="mb-4">

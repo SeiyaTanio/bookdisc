@@ -2,9 +2,10 @@
   <div class="row pb-3">
     <%= form_with(model: @profile, url: url, id: "new_post", local: true) do |f| %>
       <div class="col-8 mx-auto">
-        <div class="row g-0 sticky-nav bg-dark">
+        <div class="row g-0 sticky-nav px-2 bg-dark">
           <div class="d-flex align-items-center">
-            <div class="col-4"></div>
+            <div class="col-4">
+            </div>
             <div class="col-4">
               <div class="text-center text-white">
                 <% if controller.action_name == "new"%>
@@ -17,9 +18,9 @@
             <div class="col-4">
               <div class="text-end">
                 <% if controller.action_name == "new" %>
-                  <%= f.submit "投稿", class:"btn btn-primary me-3"%>
+                  <%= f.submit "投稿", class:"btn btn-primary"%>
                 <% else %>
-                  <%= f.submit "更新", class:"btn btn-primary me-3"%>
+                  <%= f.submit "更新", class:"btn btn-primary"%>
                 <% end %>
               </div>
             </div>
