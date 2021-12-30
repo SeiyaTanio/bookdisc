@@ -25,7 +25,7 @@
           <div class="row g-0 p-3" style="min-height: 150px">
             <div class="my-4">
               <div class="row g-0">
-                <%= f.text_field :room_name, class: "form-control form-control-lg", placeholder: 'ルーム名（最大50文字）【必須】', maxlength: "50", autofocus: true , required: true %>
+                <%= f.text_field :room_name, class: "form-control form-control-lg is-valid", placeholder: 'ルーム名（最大30文字）【必須】', maxlength: "30", autofocus: true , required: true %>
                 <div class="invalid-feedback">
                   ルーム名を入力してください
                 </div>
@@ -47,14 +47,14 @@
               <div id="previews" class="mt-3 ms-2"></div>
             </div>
             <div class="my-2">
-              <input name="room[user_ids][]" type="hidden" value=<%= current_user.id %>>
-                <select name="room[user_ids][]" class="form-select is-invalid">
-                  <option selected value="">招待するユーザーを選択してください</option>
-                  <% User.where.not(id: current_user.id).each do |user| %>
-                    <option value=<%= user.id %>><%= user.nickname %></option>
-                  <% end %>
-                </select>
-              <div class="invalid-feedback">
+              <input name="room[user_ids][]" class="" type="hidden" value=<%= current_user.id %>>
+              <select name="room[user_ids][]" class="form-select is-valid" aria-describedby="validationUserFeedback" required>
+                <option selected value="">招待するユーザーを選択してください【必須】</option>
+                <% User.where.not(id: current_user.id).each do |user| %>
+                  <option value=<%= user.id %>><%= user.nickname %></option>
+                <% end %>
+              </select>
+              <div id="validationUserFeedback" class="invalid-feedback">
                 ユーザーを選択してください
               </div>
             </div>
