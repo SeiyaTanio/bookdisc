@@ -25,9 +25,10 @@
             </div>
           </div>
         </div>
-        <div class="row g-0 border mb-5" style="min-height: 350px">
-          <div class="row g-0 p-3" style="min-height: 150px">
-            <div class="my-4">
+        <div class="row g-0 border mb-5 px-3 pt-4">
+          <%= render 'shared/post_user' %>
+          <div class="row g-0 my-4">
+            <div class="mb-4">
               <div class="row g-0">
                 <%= f.text_field :room_name, class: "form-control form-control-lg is-valid", placeholder: 'ルーム名（最大30文字）【必須】', maxlength: "30", autofocus: true , required: true %>
                 <div class="invalid-feedback">
@@ -35,7 +36,7 @@
                 </div>
               </div>
             </div>
-            <div class="my-2">
+            <div class="mb-2">
               <div class="row g-0">
                 <div class="col-10">
                 <%= f.file_field :room_image, class:"form-control", id:"room-image"%>
@@ -50,7 +51,7 @@
               <% end %>
               <div id="previews" class="mt-3 ms-2"></div>
             </div>
-            <div class="my-2">
+            <div>
               <input name="room[user_ids][]" class="" type="hidden" value=<%= current_user.id %>>
               <select name="room[user_ids][]" class="form-select is-valid" aria-describedby="validationUserFeedback" required>
                 <option selected value="">招待するユーザーを選択してください【必須】</option>

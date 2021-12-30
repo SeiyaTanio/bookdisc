@@ -1,5 +1,5 @@
 <div class="container container-style">
-  <div class="row pb-3">
+  <div class="row">
     <%= form_with(model: @blog, url: url, class: "needs-validation", id: "new_post", html: {novalidate: true}, local: true) do |f| %>
       <div class="col-9 mx-auto">
         <div class="row g-0 sticky-nav bg-dark">
@@ -17,19 +17,20 @@
             <div class="col-4">
               <div class="text-end">
                 <%= f.submit "投稿", class:"btn btn-primary me-3" %>
-                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="row g-0 border mb-5" style="min-height: 350px">
-          <div class="row g-0 p-3" style="min-height: 150px">
-            <div class="my-4">
+        <div class="row g-0 border mb-5 px-3 pt-4">
+          <%= render 'shared/post_user' %>
+          <div class="row g-0 my-4">
+            <div class="mb-4">
               <%= f.text_field :title, class: "form-control form-control-lg", placeholder: 'タイトル（最大50文字）【必須】', maxlength: "50", autofocus: true , required: true %>
               <div class="invalid-feedback">
                 タイトルを入力してください
               </div>
             </div>
-            <div class="my-2">
+            <div class="mb-4">
               <div class="row g-0">
                 <div class="col-10">
                 <%= f.file_field :blog_image, class:"form-control", id:"blog-image"%>
@@ -44,7 +45,7 @@
               <% end %>
               <div id="previews" class="mt-2"></div>
             </div>
-            <div class="my-2">
+            <div>
               <%= f.text_area :article, class: "form-control", placeholder: 'ブログを書きましょう【必須】', style: "height: 90vh", required: true %>
               <div class="invalid-feedback">
                 内容を記述してください
