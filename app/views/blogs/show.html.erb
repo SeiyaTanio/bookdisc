@@ -43,7 +43,7 @@
           <div class="row g-0 mt-3">
             <div class="col-3">
               <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
-                <% if comment.user&.profile&.image %>
+                <% if comment.user&.profile&.image.attached? %>
                   <%= link_to image_tag(comment.user.profile.image, class:"rounded-circle mx-auto d-block user-icon"), user_path(comment.user_id) %>
                 <% else %>
                   <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded-circle mx-auto d-block user-icon"), user_path(comment.user_id) %>
@@ -97,7 +97,7 @@
           <h3 class="text-center fst-italic fw-light text-decoration-underline">Profile</h3>
           <div class="mt-2" >
             <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
-              <% if @blog.user&.profile&.image %>
+              <% if @blog.user&.profile&.image.attached? %>
                 <%= link_to image_tag(@blog.user.profile.image, class:"rounded-circle mx-auto d-block user-icon"), user_path(@blog.user_id) %>
               <% else %>
                 <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded-circle mx-auto d-block user-icon"), user_path(@blog.user_id) %>
@@ -116,16 +116,12 @@
             </div>
           </div>
           <div class="mt-3 d-flex justify-content-center">
-            <% if user_signed_in? && current_user == @blog.user %>
-              <% if @blog.user&.profile %>
-                <a class="btn btn-outline-primary" href="/profiles/<%=@blog.user.profile.id%>/edit" role="button">プロフィール編集</a>
+            <% if user_signed_in? && current_user != @blog.user %>
+              <% if current_user.following?(@blog.user) %>
+                  <%= link_to 'フォロー解除', user_relationship_path(current_user.id, current_user.relationships.find_by(follower: @blog.user)), method: :delete , class:"btn btn-outline-primary" %>
               <% else %>
-                <a class="btn btn-outline-primary" href="/profiles/new" role="button">プロフィール作成</a>
+                  <%= link_to 'フォロー', user_relationships_path(user_id: current_user.id, follower: @blog.user), method: :post, class:"btn btn-outline-primary" %>
               <% end %>
-            <% elsif current_user.following?(@blog.user) %>
-                <%= link_to 'フォロー解除', user_relationship_path(current_user.id, current_user.relationships.find_by(follower: @blog.user)), method: :delete , class:"btn btn-outline-primary" %>
-            <% else %>
-                <%= link_to 'フォロー', user_relationships_path(user_id: current_user.id, follower: @blog.user), method: :post, class:"btn btn-outline-primary" %>
             <% end %>
           </div>
           <div class="row mt-3">
@@ -160,36 +156,54 @@
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <%= form_with model: @b_comment, url:blog_b_comments_path(@blog.id), local: true do |f| %>
+  <% if user_signed_in? %>
+    <div class="modal-dialog">
+      <%= form_with model: @b_comment, url:blog_b_comments_path(@blog.id), local: true do |f| %>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">コメント</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-0 pb-2">
+              <div class="col-1">
+                <div>
+                  <% if current_user&.profile&.image %>
+                    <%= image_tag current_user.profile.image, class:"rounded-circle d-block", style:"height: 40px; width: 40px" %>
+                  <% else %>
+                    <%= image_tag "bookdisc-icon-image.png", class:"rounded-circle d-block", style:"height: 40px; width: 40px" %>
+                  <% end %>
+                </div>
+              </div>
+              <div class="col-10 my-auto ps-3">
+                <div class="fs-6 text-truncate"><%= current_user.nickname %></div>
+              </div>
+            </div>
+            <%= f.text_area :b_text, class: "form-control ", maxlength: "150", rows: "5", autofocus: true %>
+          </div>
+          <div class="modal-footer">
+            <%= f.submit "投稿", class:"btn btn-primary" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">コメント</h5>
+          <h5 class="modal-title" id="staticBackdropLabel">ログインしていません</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="row g-0 pb-2">
-            <div class="col-1">
-              <div>
-                <% if current_user&.profile&.image %>
-                  <%= image_tag current_user.profile.image, class:"rounded-circle d-block", style:"height: 40px; width: 40px" %>
-                <% else %>
-                  <%= image_tag "bookdisc-icon-image.png", class:"rounded-circle d-block", style:"height: 40px; width: 40px" %>
-                <% end %>
-              </div>
-            </div>
-            <div class="col-10 my-auto ps-3">
-              <div class="fs-6 text-truncate"><%= current_user.nickname %></div>
-            </div>
-          </div>
-          <%= f.text_area :b_text, class: "form-control ", maxlength: "150", rows: "5", autofocus: true %>
+          <div class="my-2">ログインかアカウント作成をしてください</div>
         </div>
         <div class="modal-footer">
-          <%= f.submit "投稿", class:"btn btn-primary" %>
+          <%= link_to "ログイン", new_user_session_path, class: "btn btn-primary" %>
+          <%= link_to "アカウント作成", new_user_registration_path, class: "btn btn-primary" %>
         </div>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>
 
 <%= render partial: 'shared/destroy_modal', locals: {url: blog_path(params[:id])} %>
