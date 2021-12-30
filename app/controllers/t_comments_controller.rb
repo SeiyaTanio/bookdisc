@@ -1,4 +1,5 @@
 class TCommentsController < ApplicationController
+  before_action :authenticate_user!
 
   def new
     @t_comment = TComment.new
