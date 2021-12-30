@@ -2,7 +2,7 @@
   <div class="row pb-3">
     <%= form_with(model: @profile, url: url, id: "new_post", local: true) do |f| %>
       <div class="col-8 mx-auto">
-        <div class="row g-0 sticky-nav px-2 bg-dark">
+        <div class="row g-0 sticky-nav px-2 bg-success">
           <div class="d-flex align-items-center">
             <div class="col-4">
             </div>
@@ -18,9 +18,9 @@
             <div class="col-4">
               <div class="text-end">
                 <% if controller.action_name == "new" %>
-                  <%= f.submit "投稿", class:"btn btn-primary"%>
+                  <%= f.submit "投稿", class:"btn btn-outline-light"%>
                 <% else %>
-                  <%= f.submit "更新", class:"btn btn-primary"%>
+                  <%= f.submit "更新", class:"btn btn-outline-light"%>
                 <% end %>
               </div>
             </div>
@@ -34,8 +34,8 @@
                 <div class="col-10">
                 <%= f.file_field :image, class:"form-control", id:"profile-image"%>
                 </div>
-                <div class="col-2 d-flex justify-content-center bg-dark rounded">
-                <%= f.label :image, class: "input-group-text bg-dark text-white border-0" %>
+                <div class="col-2 d-flex justify-content-center bg-success rounded">
+                <%= f.label :image, class: "input-group-text bg-success text-white border-0" %>
                 </div>
               </div>
               <div class="form-text">「.png」または「.jpeg」の画像のみ</div>
