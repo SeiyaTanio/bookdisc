@@ -1,25 +1,53 @@
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-8 border border-bottom-0">
-      <% @rooms.each do |room| %>
-        <div class="row border-bottom py-2 position-relative">
-          <div class="col-2" >
-            <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
-              <%= image_tag "bookdisc-icon-image.png", class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;" %>
+<div class="container container-style">
+  <div class="row pb-3">
+    <div class="col-2">
+    </div>
+    <div class="col-8">
+      <div class="row py-1 bg-primary" style="height:50px;">
+        <div class="d-flex align-items-center text-white">
+          <div class="col-4"></div>
+          <div class="col-4">
+            <div class="text-center">
+              My Room
             </div>
           </div>
-          <div class="col-5">
-            <a href="/rooms/<%= room.id %>/messages" class="stretched-link text-decoration-none link-dark"><%= room.room_name %></a>
-          </div>
-          <div class="col-5">
-            <div class="row text-truncate text-black-50">
-              <% room.users.each do |user|%>
-                <%= user.nickname %>
-              <% end %>
-            </div>
+          <div class="col-4">
           </div>
         </div>
-      <% end %>
+      </div>
+      <div class="row">
+        <% if @rooms.present?%>
+          <% @rooms.each do |room|%>
+            <div class="row g-0 border p-2 position-relative">
+              <div class="col-2">
+                <%= image_tag 'bookdisc-icon-image.png', class:"rounded-circle mx-auto d-block user-icon" %>
+              </div>
+              <div class="col-6 d-flex align-items-center">
+                <a href="/rooms/<%= room.id %>/messages" class="stretched-link text-decoration-none link-dark fs-5">
+                  <%= room.room_name %>
+                  <div class="text-black-50 fs-6 ms-1">
+                    (<%= room.users.count %>)
+                  </div>
+                </a>
+              </div>
+              <div class="col-1 text-end pe-1">
+                <i class="bi bi-person-circle text-black-50"></i>
+              </div>
+              <div class="col-3 text-black-50">
+                <div>
+                  <% room.users.each do |user|%>
+                    <div class="text-truncate"><%= user.nickname %></div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <%= render partial: 'shared/none_data', locals: {data: 'ルーム', url: new_room_path} %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-2">
     </div>
   </div>
 </div>
