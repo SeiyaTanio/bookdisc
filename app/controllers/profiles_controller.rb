@@ -1,17 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit]
 
-  def index
-    if Profile.find_by(user_id: current_user.id).nil?
-      render :new
-    else
-      @profile = Profile.find_by(user_id: current_user.id)
-      @tweets = Tweet.where(user_id: current_user.id).order('updated_at DESC')
-      @image = @profile.image
-      @image = 'bookdisc-icon-image.png' unless @image.present?
-    end
-  end
-
   def new
     @profile = Profile.new
   end

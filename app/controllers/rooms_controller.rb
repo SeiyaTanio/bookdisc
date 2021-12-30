@@ -1,9 +1,6 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!, only: [:new,:show, :edit]
 
-  def index
-  end
-
   def new
     @room = Room.new
   end
