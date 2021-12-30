@@ -1,14 +1,1 @@
-<div class="container-fluid container-style">
-  <div class="row border border-top-0 pb-3">
-    <div class="row g-0 bg-dark mb-3" style="height: 50px;">
-      <div class="my-auto text-center text-white">
-        Blogs
-      </div>
-    </div>
-    <% if @blogs.present? %>
-      <%= render partial:'blog', collection: @blogs%>
-    <% else %>
-      <%= render partial: 'shared/none_data', locals: {data: 'ブログ', url: new_blog_path} %>
-    <% end %>
-  </div>
-</div>
+<%= render 'blog_views' %>
