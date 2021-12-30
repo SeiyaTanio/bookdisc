@@ -1,38 +1,95 @@
-<div class = "container">
-  <h1 class="h3 mb-5 fw-normal text-center">コメント投稿</h1>
-
-  <div class="card mb-3 mx-auto" style="width: 540px; height: 350px">
-    <div class="card-header bg-primary text-white">
-      ツイート
+<div class="container container-style">
+  <div class="row pb-3">
+    <div class="col-2">
     </div>
-    <div class="row g-0 position-relative" style="height: 280px">
-      <div class="col-md-3 mt-4" >
-        <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
-          <% if @tweet.user.profile.present? && @tweet.user.profile.image.present?%>
-            <%= link_to image_tag(@tweet.user.profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
-          <% else %>
-            <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
-          <% end %>
+    <div class="col-8">
+      <%= form_with model: @t_comment, url:tweet_t_comments_path(@tweet.id), class: "needs-validation", html: {novalidate: true}, local: true do |f| %>
+        <div class="row sticky-nav p-1 bg-secondary">
+          <div class="d-flex align-items-center text-white">
+            <div class="col-4">
+            </div>
+            <div class="col-4">
+              <div class="text-center">
+                コメント
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="text-end">
+                <%= f.submit "投稿", class:"btn btn-outline-light" %>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="col-md-5">
-        <div class="card-body">
-          <h3 class="card-title"><%= @tweet.user.nickname %></h3>
-          <p class="card-text"><%= @tweet.content %></p>
-          <p class="card-text position-absolute bottom-0"><small class="text-muted"><%= l @tweet.updated_at %></small></p>
+        <div class="row border">
+          <div class="row g-0 px-3 pt-4">
+            <%= render 'shared/post_user' %>
+            <div class="row g-0 my-4">
+              <%= f.text_area :t_text, class: "form-control ", placeholder: "コメント（150文字まで)【必須】", maxlength: "150", rows: "5", autofocus: true, required: true %>
+              <div class="invalid-feedback">
+                コメントを入力してください
+              </div>
+            </div>
+          </div>
+          <div class="row g-0 py-1 bg-primary">
+            <div class="d-flex align-items-center text-white">
+              <div class="col-4"></div>
+              <div class="col-4">
+                <div class="text-center">
+                  ツイート
+                </div>
+              </div>
+              <div class="col-4">
+              </div>
+            </div>
+          </div>
+          <div class="row g-0 mt-3">
+            <div class="col-3">
+              <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
+                <% if @tweet.user&.profile&.image.present?%>
+                  <%= image_tag @tweet.user.profile.image, class:"rounded-circle mx-auto d-block user-icon" %>
+                <% else %>
+                  <%= image_tag "bookdisc-icon-image.png", class:"rounded-circle mx-auto d-block user-icon" %>
+                <% end %>
+              </div>
+            </div>
+            <div class="col-9 my-auto">
+                <div class="fs-3 text-truncate"><%= @tweet.user.nickname %></div>
+            </div>
+          </div>
+          <div class="row g-0 p-3" style="min-height: 150px">
+            <div class="new-line"><%= @tweet.content %></div>
+          </div>
+          <div class="row g-0 ps-3">
+            <div class="col-3">
+              <p><small class="text-muted"><%= l @tweet.updated_at %></small></p>
+            </div>
+            <div class="col-9 text-truncate">
+              <% if @tweet.t_tags&.first&.t_tag_name.present?%>
+                <p><i class="bi bi-tags-fill text-muted"></i><small class="text-muted"><%= @tweet.t_tags&.first&.t_tag_name %></small></p>
+              <% end %>
+            </div>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
-  </div>
-
-  <div class="mb-3 ">
-    <%= form_with model: @t_comment, url:tweet_t_comments_path(@tweet.id), local: true do |f| %>
-      <div class = "mb-3 col-6 mx-auto">
-        <%= f.text_area :t_text, class: "form-control ", maxlength: "150", rows: "5", autofocus: true %>
-      </div>
-      <div class = "col-6 mx-auto">
-        <%= f.submit "コメント投稿", class:"w-100 btn btn-lg btn-primary" %>
-      </div>
-    <% end %>
+    <div class="col-2">
+    </div>
   </div>
 </div>
+
+<script>
+  (function () {
+    'use strict';
+      var forms = document.querySelectorAll('.needs-validation')
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+          }, false)
+        })
+  })()
+</script>

@@ -1,0 +1,82 @@
+<div class="container container-style">
+  <div class="row pb-3">
+    <%= form_with(model: @profile, url: url, id: "new_post", local: true) do |f| %>
+      <div class="col-8 mx-auto">
+        <div class="row g-0 sticky-nav px-2 bg-success">
+          <div class="d-flex align-items-center">
+            <div class="col-4">
+            </div>
+            <div class="col-4">
+              <div class="text-center text-white">
+                <% if controller.action_name == "new"%>
+                  New Profile
+                <% else %>
+                  Edit Profile
+                <% end %>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="text-end">
+                <% if controller.action_name == "new" %>
+                  <%= f.submit "投稿", class:"btn btn-outline-light"%>
+                <% else %>
+                  <%= f.submit "更新", class:"btn btn-outline-light"%>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row g-0 border mb-5 px-3 pt-4">
+          <%= render 'shared/post_user' %>
+          <div class="row g-0 my-4">
+            <div class="mb-2">
+              <div class="row g-0">
+                <div class="col-10">
+                <%= f.file_field :image, class:"form-control", id:"profile-image"%>
+                </div>
+                <div class="col-2 d-flex justify-content-center bg-success rounded">
+                <%= f.label :image, class: "input-group-text bg-success text-white border-0" %>
+                </div>
+              </div>
+              <div class="form-text">「.png」または「.jpeg」の画像のみ</div>
+              <% if controller.action_name == "edit"%>
+                <div class="form-text">「ファイルを選択」しなければ元の画像のまま</div>
+              <% end %>
+              <div id="previews" class="mt-3 ms-2"></div>
+            </div>
+            <div class="mb-4">
+              <%= f.text_area :self_introduction, class: "form-control", placeholder: '自己紹介を書きましょう（最大150文字）', maxlength: "150", rows: "5"%>
+            </div>
+            <div>
+              <%= f.text_area :favorite_book, class: "form-control", placeholder: 'お気に入りの本を書きましょう（最大150文字）', maxlength: "150", rows: "5"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const postForm = document.getElementById('new_post');
+  const previewList = document.getElementById('previews');
+  if (!postForm) return null;
+  const fileField = document.querySelector('input[type="file"][name="profile[image]"]');
+  fileField.addEventListener('change', function(e){
+    const alreadyPreview = document.querySelector('.preview');
+    if (alreadyPreview) {
+      alreadyPreview.remove();
+    };
+    const file = e.target.files[0];
+    const blob = window.URL.createObjectURL(file);
+    const previewWrapper = document.createElement('div');
+    previewWrapper.setAttribute('class', 'preview');
+    const previewImage = document.createElement('img');
+    previewImage.setAttribute('class', 'rounded-circle user-icon');
+    previewImage.setAttribute('src', blob);
+    previewWrapper.appendChild(previewImage);
+    previewList.appendChild(previewWrapper);
+  });
+});
+</script>

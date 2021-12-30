@@ -1,15 +1,17 @@
 class TweetsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit]
+  before_action :authenticate_user!, only: [:new, :edit, :mine]
 
   def index
     @tweets = Tweet.includes(:user).order('updated_at DESC')
   end
 
   def new
+    @user = User.find(current_user.id)
     @tweet_form = TweetForm.new
   end
 
   def create
+    @user = User.find(current_user.id)
     @tweet_form = TweetForm.new(tweet_form_params)
     if @tweet_form.valid?
       @tweet_form.save
@@ -26,6 +28,7 @@ class TweetsController < ApplicationController
 
   def edit
     set_tweet
+    @user = @tweet.user
     tweet_attributes = @tweet.attributes
     @tweet_form = TweetForm.new(tweet_attributes)
     @tweet_form.t_tag_name = @tweet.t_tags&.first&.t_tag_name
@@ -33,6 +36,7 @@ class TweetsController < ApplicationController
 
   def update
     set_tweet
+    @user = @tweet.user
     @tweet_form = TweetForm.new(tweet_form_params)
     if @tweet_form.valid?
       @tweet_form.update(tweet_form_params, @tweet)
@@ -52,6 +56,11 @@ class TweetsController < ApplicationController
     return nil if params[:keyword] == ""
     t_tag = TTag.where(['t_tag_name LIKE ?', "%#{params[:keyword]}%"] )
     render json:{ keyword: t_tag }
+  end
+
+  def mine
+    tweets = Tweet.includes(:user).order('updated_at DESC')
+    @tweets = tweets.where(user_id: params[:id])
   end
 
   private

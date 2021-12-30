@@ -1,81 +1,213 @@
-<div class="container mt-auto">
-  <div class="card mb-3 mx-auto" style="width: 540px; min-height: 350px">
-    <div class="card-header bg-primary text-white">
-      ブログ
+<div class="container container-style">
+  <div class="row p-4 p-md-5 my-4 text-white rounded bg-dark">
+    <div class="col-md-6 px-0">
+      <h1 class="display-4 fst-italic">Blog</h1>
+      <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
     </div>
-    <div class="row g-0">
-      <div class="col-md-3 mt-4" >
-        <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
-          <% if @blog.user.profile.present? && @blog.user.profile.image.present?%>
-            <%= link_to image_tag(@blog.user.profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
+  </div>
+  <div class="row pb-3">
+    <div class="col-9">
+      <div class="row border mb-5" style="min-height: 350px">
+        <div class="row g-0 p-3 border-bottom" style="min-height: 150px">
+          <h2><%= @blog.title %></h2>
+          <p><small class="text-muted"><%= l @blog.updated_at %></small></p>
+          <% if @blog.blog_image.attached? %>
+            <%= image_tag @blog.blog_image, class:"my-4"%>
           <% else %>
-            <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
+            <%= image_tag "no-image.png", class:"my-4"%>
           <% end %>
+          <div class="new-line py-4"><%= @blog.article %></div>
+        </div>
+        <div class="row g-0 align-items-center justify-content-center">
+          <div class="col-4">
+            <div class="text-center"><small class="text-muted"><%= @blog.b_comments.count %>件のコメント</small></div>
+            <div class="d-flex justify-content-center">
+              <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <i class="bi bi-chat-left" style="font-size: 25px;"></i>
+              </button>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="text-center"><small class="text-muted">1件のいいね</small></div>
+            <div class="d-flex justify-content-center">
+              <%= link_to '', "#", class:"bi bi-heart-fill like-icon" %>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-md-5">
-        <div class="card-body">
-          <h3 class="card-title"><%= @blog.user.nickname %></h3>
-        </div>
+      <div class="row py-1 bg-secondary" style="height: 50px;">
+        <div class="d-flex align-items-center justify-content-center text-white">コメント</div>
       </div>
-      <div class="col-md-4 p-3">
-        <div class="d-flex justify-content-evenly">
-        <% if user_signed_in? && current_user.id == @blog.user_id %>
-          <a class="btn btn-outline-primary" href="/blogs/<%=@blog.id%>/edit" role="button">編集</a>
-          <%= link_to '削除', blog_path(params[:id]), method: :delete , class:"btn btn-outline-primary"%>
+      <% @b_comments.each do |comment|%>
+        <div class="row border">
+          <div class="row g-0 mt-3">
+            <div class="col-3">
+              <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
+                <% if comment.user&.profile&.image.attached? %>
+                  <%= link_to image_tag(comment.user.profile.image, class:"rounded-circle mx-auto d-block user-icon"), user_path(comment.user_id) %>
+                <% else %>
+                  <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded-circle mx-auto d-block user-icon"), user_path(comment.user_id) %>
+                <% end %>
+              </div>
+            </div>
+            <div class="col-9 my-auto">
+                <h4 class="text-truncate"><%= comment.user.nickname %></h4>
+            </div>
+          </div>
+          <div class="row g-0 p-3">
+            <p class="new-line"><%= comment.b_text %></p>
+          </div>
+          <div class="row g-0 ps-3">
+            <p class=""><small class="text-muted"><%=l comment.updated_at %></small></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="col-3 sticky-nav">
+      <div class="row px-2 mt-3" style="max-height: 90vh; overflow: scroll;">
+        <% if user_signed_in? && current_user == @blog.user %>
+          <h3 class="text-center fst-italic fw-light text-decoration-underline">Blog</h3>
+          <div class="row g-0 align-items-center text-center">
+          <div class="col-6">
+            <a class="btn btn-link text-info" href="/blogs/<%=@blog.id%>/edit" role="button"><i class="bi bi-pencil-square fs-2"></i></a>
+          </div>
+          <div class="col-6">
+            <button type="button" class="btn btn-link text-secondary" data-bs-toggle="modal" data-bs-target="#destroyBackdrop">
+              <i class="bi bi-trash fs-2"></i>
+            </button>
+          </div>
+          </div>
         <% end %>
+        <div class="row g-0 align-items-center">
+          <div class="col-6">
+            <div class="text-center"><small class="text-muted"><%= @blog.b_comments.count %>件のコメント</small></div>
+            <div class="d-flex justify-content-center">
+              <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <i class="bi bi-chat-left" style="font-size: 25px;"></i>
+              </button>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="text-center"><small class="text-muted">1件のいいね</small></div>
+            <div class="d-flex justify-content-center">
+              <button type="button" class="btn btn-link">
+              <%= link_to '', "#", class:"bi bi-heart-fill like-icon" %>
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="row g-0 border-bottom" style="min-height: 280px">
-      <div class="card-body">
-        <div class="row">
-          <p class="card-text "><small class="text-muted"><%= l @blog.updated_at %></small></p>
-          <h3 class="card-title"><%= @blog.title %></h3>
+        <div class="row g-0 border shadow py-2 my-2">
+          <h3 class="text-center fst-italic fw-light text-decoration-underline">Profile</h3>
+          <div class="mt-2" >
+            <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
+              <% if @blog.user&.profile&.image.attached? %>
+                <%= link_to image_tag(@blog.user.profile.image, class:"rounded-circle mx-auto d-block user-icon"), user_path(@blog.user_id) %>
+              <% else %>
+                <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded-circle mx-auto d-block user-icon"), user_path(@blog.user_id) %>
+              <% end %>
+            </div>
+          </div>
+          <div class="mt-2">
+            <h4 class="text-center"><%= @blog.user.nickname %></h4>
+          </div>
+          <div class="text-center">
+            <div>
+              <a href="/users/<%=@blog.user_id%>/relationships" class="link-secondary text-decoration-none"><b>フォロー</b>  100人</a>
+            </div>
+            <div>
+              <a href="#" class="link-secondary text-decoration-none"><b>フォロワー</b>  50人</a>
+            </div>
+          </div>
+          <div class="mt-3 d-flex justify-content-center">
+            <% if user_signed_in? && current_user != @blog.user %>
+              <% if current_user.following?(@blog.user) %>
+                  <%= link_to 'フォロー解除', user_relationship_path(current_user.id, current_user.relationships.find_by(follower: @blog.user)), method: :delete , class:"btn btn-outline-primary" %>
+              <% else %>
+                  <%= link_to 'フォロー', user_relationships_path(user_id: current_user.id, follower: @blog.user), method: :post, class:"btn btn-outline-primary" %>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="row mt-3">
+            <div class="mb-1">自己紹介</div>
+            <div class="text-black-50"><small>
+              <% if @blog.user&.profile&.self_introduction%>
+                <%= @blog.user.profile.self_introduction %>
+              <% elsif @blog.user&.profile %>
+                自己紹介 未登録
+              <% else %>
+                プロフィール未登録
+              <% end %>
+            </small></div>
+          </div>
+          <div class="row mt-3">
+            <div class="mb-1">お気に入りの本</div>
+            <div class="text-black-50"><small>
+              <% if @blog.user&.profile&.favorite_book%>
+                <%= @blog.user.profile.favorite_book %>
+              <% elsif @blog.user&.profile %>
+                お気に入りの本 未登録
+              <% else %>
+                プロフィール未登録
+              <% end %>
+            </small></div>
+          </div>
         </div>
-        <div class="row mt-4">
-          <p class="card-text" style="white-space: pre-wrap; word-wrap: break-word"><%= @blog.article %></p>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-2 d-flex justify-content-evenly">
-      <div class="col-3">
-        <p class="card-text"><small class="text-muted">1件のコメント</small></p>
-      </div>
-      <div class="col-3">
-        <p class="card-text"><small class="text-muted">2件のいいね</small></p>
-      </div>
-    </div>
-    <div class="row mt-1 d-flex justify-content-evenly">
-      <div class="col-3">
-        <a href="/blogs/<%=@blog.id%>/b_comments/new">コメントする</a>
-      </div>
-      <div class="col-3">
-        <a href="#">いいね</a>
       </div>
     </div>
   </div>
-  <% @b_comments.each do |b_comment|%>
-    <div class="card mb-3 mx-auto" style="width: 540px;">
-      <div class="card-header">
-        コメント
-      </div>
-      <div class="row">
-        <div class="col-md-4 mt-2">
-          <% if b_comment.user.profile.present? && b_comment.user.profile.image.present?%>
-            <%= link_to image_tag(b_comment.user.profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
-          <% else %>
-            <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), "#" %>
-          <% end %>
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h3 class="card-title"><%= b_comment.user.nickname %></h3>
-            <p class="card-text"><%= b_comment.b_text %></p>
-            <p class="card-text position-absolute bottom-0 mb-2"><small class="text-muted"><%=l b_comment.updated_at %></small></p>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <% if user_signed_in? %>
+    <div class="modal-dialog">
+      <%= form_with model: @b_comment, url:blog_b_comments_path(@blog.id), local: true do |f| %>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">コメント</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
+          <div class="modal-body">
+            <div class="row g-0 pb-2">
+              <div class="col-1">
+                <div>
+                  <% if current_user&.profile&.image %>
+                    <%= image_tag current_user.profile.image, class:"rounded-circle d-block", style:"height: 40px; width: 40px" %>
+                  <% else %>
+                    <%= image_tag "bookdisc-icon-image.png", class:"rounded-circle d-block", style:"height: 40px; width: 40px" %>
+                  <% end %>
+                </div>
+              </div>
+              <div class="col-10 my-auto ps-3">
+                <div class="fs-6 text-truncate"><%= current_user.nickname %></div>
+              </div>
+            </div>
+            <%= f.text_area :b_text, class: "form-control ", maxlength: "150", rows: "5", autofocus: true %>
+          </div>
+          <div class="modal-footer">
+            <%= f.submit "投稿", class:"btn btn-primary" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">ログインしていません</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="my-2">ログインするかアカウント作成をしてください</div>
+        </div>
+        <div class="modal-footer">
+          <%= link_to "ログイン", new_user_session_path, class: "btn btn-primary" %>
+          <%= link_to "アカウント作成", new_user_registration_path, class: "btn btn-primary" %>
         </div>
       </div>
     </div>
   <% end %>
 </div>
+
+<%= render partial: 'shared/destroy_modal', locals: {url: blog_path(params[:id])} %>

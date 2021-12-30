@@ -6,16 +6,26 @@ Rails.application.routes.draw do
     collection do
       get 'search'
     end
+    member do
+      get 'mine'
+    end
   end
-  resources :profiles, only: [:index, :new, :create, :edit, :update]
+  resources :profiles, only: [:new, :create, :edit, :update]
   resources :blogs do
     resources :b_comments, only: [:new, :create]
+    member do
+      get 'mine'
+    end
   end
-  resources :rooms do
+  resources :rooms, only: [:new, :create, :show, :edit, :update, :destroy] do
     resources :messages, only: [:index, :create]
   end
   resources :users, only: :show do
-    resources :relationships, only: [:index, :create, :destroy]
+    resources :relationships, only: [:index, :create, :destroy] do
+      collection do
+        get 'list'
+      end
+    end
     collection do
       get 'search'
     end

@@ -1,5 +1,5 @@
 class BlogsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit]
+  before_action :authenticate_user!, only: [:new, :edit, :mine]
 
   def index
     @blogs = Blog.includes(:user).order('updated_at DESC')
@@ -20,6 +20,7 @@ class BlogsController < ApplicationController
 
   def show
     set_blog
+    @b_comment = BComment.new
     @b_comments = @blog.b_comments.includes(:user).order('updated_at DESC')
   end
 
@@ -42,10 +43,15 @@ class BlogsController < ApplicationController
     redirect_to action: :index
   end
 
+  def mine
+    blogs = Blog.includes(:user).order('updated_at DESC')
+    @blogs = blogs.where(user_id: params[:id])
+  end
+
   private
   def blog_params
-    params.require(:blog).permit(:title, :article).merge(user_id: current_user.id)
-  end 
+    params.require(:blog).permit(:title, :article, :blog_image).merge(user_id: current_user.id)
+  end
 
   def set_blog
     @blog = Blog.find(params[:id])

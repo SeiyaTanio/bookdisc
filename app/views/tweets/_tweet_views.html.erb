@@ -1,0 +1,76 @@
+<div class="container container-style">
+  <div class="row pb-3">
+    <div class="col-2">
+    </div>
+    <div class="col-8">
+      <div class="row sticky-nav p-1 bg-primary">
+        <div class="d-flex align-items-center text-white">
+          <div class="col-4">
+          </div>
+          <div class="col-4">
+            <div class="text-center">
+              <% case controller.action_name %>
+              <% when "index" %>
+                ツイート一覧
+              <% when "show" %>
+                ツイート詳細
+              <% when "mine" %>
+                マイツイート一覧
+              <% end %>
+            </div>
+          </div>
+          <div class="col-4">
+            <% if controller.action_name == "show" %>
+              <% if user_signed_in? && current_user == tweets.user %>
+                <div class="text-end">
+                  <%= link_to '編集', edit_tweet_path(tweets.id), class:"btn btn-outline-light" %>
+                  <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#destroyBackdrop">
+                    削除
+                  </button>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <% case controller.action_name %>
+      <% when "show" %>
+        <%= render partial:'tweet', locals: {tweet: tweets} %>
+        <div class="row sticky-nav py-1 bg-secondary">
+          <div class="d-flex align-items-center justify-content-center text-white">コメント</div>
+        </div>
+        <% @t_comments.each do |comment|%>
+          <div class="row border">
+            <div class="row g-0 mt-3">
+              <div class="col-3">
+                <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
+                  <% if comment.user.profile.present? && comment.user.profile.image.present?%>
+                    <%= link_to image_tag(comment.user.profile.image, class:"rounded-circle mx-auto d-block user-icon"), user_path(comment.user_id) %>
+                  <% else %>
+                    <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded-circle mx-auto d-block user-icon"), user_path(comment.user_id) %>
+                  <% end %>
+                </div>
+              </div>
+              <div class="col-9 my-auto">
+                  <h4 class="text-truncate"><%= comment.user.nickname %></h4>
+              </div>
+            </div>
+            <div class="row g-0 p-3">
+              <p class="new-line"><%= comment.t_text %></p>
+            </div>
+            <div class="row g-0 ps-3">
+              <p class=""><small class="text-muted"><%=l comment.updated_at %></small></p>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <% if tweets.present? %>
+          <%= render partial:'tweet', collection: tweets%>
+        <% else %>
+          <%= render partial: 'shared/none_data', locals: {data: 'ツイート', url: new_tweet_path} %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>

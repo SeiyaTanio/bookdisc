@@ -1,36 +1,60 @@
-<div class="container mt-auto">
-  <div class="card mb-3 mx-auto" style="width: 540px; min-height: 350px">
-    <div class="card-header bg-primary text-white">
-      検索結果一覧
+<div class="container container-style">
+  <div class="row pb-3">
+    <div class="col-2">
     </div>
-    <% @users.each do |user|%>
-      <div class="row g-0 position-relative" style="min-height: 280px">
-        <div class="col-md-3 mt-4" >
-          <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
-            <% if user.profile.present? && user.profile.image.present?%>
-              <%= link_to image_tag(user.profile.image, class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), user_path(user.id) %>
-            <% else %>
-              <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded mx-auto d-block", style: "max-width: 100px; max-height: 100px;"), user_path(user.id) %>
-            <% end %>
+    <div class="col-8">
+      <div class="row sticky-nav p-1 bg-primary">
+        <div class="d-flex align-items-center text-white">
+          <div class="col-4">
           </div>
-        </div>
-        <div class="col-md-5">
-          <div class="card-body">
-            <h3 class="card-title"><%= user.nickname %></h3>
+          <div class="col-4">
+            <div class="text-center">
+              Search Result
+            </div>
           </div>
-        </div>
-        <div class="col-md-4 p-3">
-          <div class="d-flex justify-content-evenly">
-            <% if user_signed_in? && current_user.id != user.id %>
-              <% if current_user.following?(user) %>
-                <%= link_to 'フォロー解除', user_relationship_path(current_user.id, current_user.relationships.find_by(follower: user)), method: :delete , class:"btn btn-outline-primary"%>
-              <% else %>
-                <%= link_to 'フォロー', user_relationships_path(user_id: current_user.id, follower: user), method: :post, class:"btn btn-outline-primary"%>
-              <% end %>
-            <% end %>
+          <div class="col-4">
           </div>
         </div>
       </div>
-    <% end %>
+      <div class="row">
+        <% if @users.present?%>
+        <% @users.each do |user|%>
+          <div class="row g-0 border p-2">
+            <div class="col-3">
+              <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
+                <% if user&.profile&.image.present? %>
+                  <%= link_to image_tag(user&.profile&.image, class:"rounded-circle mx-auto d-block user-icon"), user_path(user.id) %>
+                <% else %>
+                  <%= link_to image_tag('bookdisc-icon-image.png', class:"rounded-circle mx-auto d-block user-icon"), user_path(user.id) %>
+                <% end %>
+              </div>
+            </div>
+            <div class="col-6">
+              <h4 class="mt-2"><%= user.nickname %></h4>
+              <div class="d-flex justify-content-around">
+                <a href="/users/<%=user.id%>/relationships" class="link-secondary text-decoration-none"><b>フォロー</b>  <%= user.followings.count %>人</a>
+                <a href="/users/<%=user.id%>/relationships/list" class="link-secondary text-decoration-none"><b>フォロワー</b>  <%= user.followers.count %>人</a>
+              </div>
+            </div>
+            <div class="col-3 d-flex justify-content-end align-items-center">
+              <% if user_signed_in? && current_user != user %>
+                <% if current_user.following?(user) %>
+                    <%= link_to 'フォロー解除', user_relationship_path(current_user.id, current_user.relationships.find_by(follower: user)), method: :delete , class:"btn btn-outline-primary" %>
+                <% else %>
+                    <%= link_to 'フォロー', user_relationships_path(user_id: current_user.id, follower: user), method: :post, class:"btn btn-outline-primary" %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <% else %>
+          <div class="row g-0 border py-4">
+            <h4 class="text-center">該当するユーザーが見つかりません</h4>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-2">
+    </div>
   </div>
 </div>
