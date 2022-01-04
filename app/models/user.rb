@@ -6,8 +6,8 @@ class User < ApplicationRecord
 
   validates :nickname, presence: true
 
-  PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
-  validates_format_of :password, with: PASSWORD_REGEX, message: 'が無効です。半角英字と半角数字の両方が必要です。'
+  PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,}+\z/i.freeze
+  validates_format_of :password, with: PASSWORD_REGEX, message: 'が無効です。8文字以上で半角英字と半角数字の両方が必要です。'
 
   has_many :tweets
   has_many :blogs
