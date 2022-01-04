@@ -11,7 +11,7 @@
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class = "mb-3">
           <div class="d-flex align-items-center mb-1">
-            <%= f.label :email, class: "visually-hidden" %>Eメール<br />
+            <%= f.label :email %>
             <div class="badge bg-danger ms-2">必須</div>
           </div>
           <%= f.email_field :email, class: "form-control "%>
@@ -20,7 +20,7 @@
           <div class="d-flex align-items-center mb-1">
             <%= f.label :password %>
             <% if @minimum_password_length %>
-              パスワード(<%= @minimum_password_length %> 文字以上)<br />
+              (<%= @minimum_password_length %> 文字以上)<br />
             <% end %>
             <div class="badge bg-danger ms-2">必須</div>
           </div>
@@ -30,6 +30,14 @@
           <%= f.submit "ログイン", class:"btn btn-primary" %>
         </div>
       <% end %>
+      <div class="mt-4 text-center">
+        <i class="bi bi-facebook fs-5"></i>
+        <%= link_to "Facebookアカウントでログイン", user_facebook_omniauth_authorize_path, method: :post, class:"text-decoration-none link-secondary" %>
+      </div>
+      <div class="mt-2 text-center">
+        <i class="bi bi-google fs-5"></i>
+        <%= link_to "Googleアカウントでログイン", user_google_oauth2_omniauth_authorize_path, method: :post, class:"text-decoration-none link-secondary" %>
+      </div>
     </div>
   </div>
 </div>
