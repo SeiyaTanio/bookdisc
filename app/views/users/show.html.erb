@@ -3,8 +3,8 @@
     <div class="col-2">
     </div>
     <div class="col-8">
-      <div class="row p-1 bg-primary" style="height:50px;">
-        <div class="d-flex align-items-center text-white">
+      <div class="row bg-primary" style="height:50px;">
+        <div class="d-flex g-0 align-items-center text-white h-100">
           <div class="col-4">
           </div>
           <div class="col-4">
@@ -13,6 +13,13 @@
             </div>
           </div>
           <div class="col-4">
+            <% if user_signed_in? && current_user == @user %>
+              <div class="text-end">
+                <button type="button" class="btn btn-link text-dark" data-bs-toggle="modal" data-bs-target="#destroyBackdrop">
+                  <i class="bi bi-trash-fill fs-2"></i>
+                </button>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>
@@ -133,3 +140,4 @@
     </div>
   </div>
 </div>
+<%= render partial: 'shared/destroy_modal', locals: {url: user_path(@user.id)} %>
