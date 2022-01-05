@@ -22,7 +22,7 @@ class ProfilesController < ApplicationController
     @profile = Profile.find(params[:id])
     @profile.image ||= @profile.image.blob
     if @profile.update(profile_update_params)
-      redirect_to action: :index
+      redirect_to user_path(params[:id])
     else
       render :edit
     end

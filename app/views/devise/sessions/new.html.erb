@@ -1,8 +1,7 @@
-<div class = "container my-auto">
-  <h3 class="my-3 text-center">ログイン</h3>
-  
-  <div class="row mb-5">
-    <div class="col-4 mx-auto">
+<div class = "container">
+  <div class="row py-5">
+    <div class="col-4 mx-auto pt-3">
+      <h3 class="my-5 text-center">ログイン</h3>
       <%# ログイン時のエラーメッセージ  %>
       <div class='login-flash-message text-danger mb-4'><small>
         <%= flash[:notice] %>
@@ -38,6 +37,9 @@
         <i class="bi bi-google fs-5"></i>
         <%= link_to "Googleアカウントでログイン", user_google_oauth2_omniauth_authorize_path, method: :post, class:"text-decoration-none link-secondary" %>
       </div>
+<!--      <div class="mt-5 text-center">
+        <%= link_to "パスワードを忘れた方はこちら", new_user_password_path ,class:"text-decoration-none link-secondary" %>
+      </div> -->
     </div>
   </div>
 </div>
