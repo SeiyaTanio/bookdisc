@@ -3,17 +3,45 @@
     <div class="col-2">
     </div>
     <div class="col-8">
-      <div class="row p-1 bg-primary" style="height:50px;">
-        <div class="d-flex align-items-center text-white">
-          <div class="col-4">
+      <div class="row bg-primary p-1" style="height:50px;">
+        <div class="col-4">
+        </div>
+        <div class="col-4 d-flex align-items-center justify-content-center h-100">
+          <div class="text-white">
+            User Page
           </div>
-          <div class="col-4">
-            <div class="text-center">
-              User Page
+        </div>
+        <div class="col-4 g-0">
+          <% if user_signed_in? && current_user == @user %>
+            <div class="text-end">
+              <button class="btn btn-link text-white-50" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                <i class="bi bi-gear-fill fs-5"></i>
+              </button>
             </div>
-          </div>
-          <div class="col-4">
-          </div>
+            <div class="collapse" id="collapseExample">
+              <div class="card w-75 ms-auto">
+                <div class="card-header">
+                  <i class="bi bi-pencil-square"></i> 編集
+                </div>
+                <div class="py-1">
+                  <%= link_to "アカウント編集", edit_user_registration_path ,class:"dropdown-item"%>
+                  <% if @user&.profile %>
+                    <%= link_to "プロフィール編集", edit_profile_path(params[:id]) ,class:"dropdown-item"%>
+                  <% else %>
+                    <%= link_to "プロフィール作成", new_profile_path ,class:"dropdown-item"%>
+                  <% end %>
+                </div>
+                <div class="card-header border-top">
+                  <i class="bi bi-trash-fill"></i> 削除
+                </div>
+                <div class="py-1">
+                  <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#destroyBackdrop">
+                    アカウント削除
+                  </button>
+                </div>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
       <div class="row border px-2 py-3">
@@ -34,14 +62,8 @@
           </div>
           <div class="col-3">
             <div class="d-flex justify-content-end">
-              <% if user_signed_in?%>
-                <% if current_user == @user %>
-                  <% if @user&.profile %>
-                    <a class="btn btn-outline-primary" href="/profiles/<%=@user.profile.id%>/edit" role="button">プロフ編集</a>
-                  <% else %>
-                    <a class="btn btn-outline-primary" href="/profiles/new" role="button">プロフ作成</a>
-                  <% end %>
-                <% elsif current_user.following?(@user) %>
+              <% if user_signed_in? && current_user != @user %>
+                <% if current_user.following?(@user) %>
                     <%= link_to 'フォロー解除', user_relationship_path(current_user.id, current_user.relationships.find_by(follower: @user)), method: :delete , class:"btn btn-outline-primary" %>
                 <% else %>
                     <%= link_to 'フォロー', user_relationships_path(user_id: current_user.id, follower: @user), method: :post, class:"btn btn-outline-primary" %>
@@ -133,3 +155,4 @@
     </div>
   </div>
 </div>
+<%= render partial: 'shared/destroy_modal', locals: {url: user_path(@user.id)} %>

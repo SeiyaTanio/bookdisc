@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    registrations: 'users/registrations'
+  }
   root to: "tweets#index"
   resources :tweets do
     resources :t_comments, only: [:new, :create]
@@ -20,7 +23,7 @@ Rails.application.routes.draw do
   resources :rooms, only: [:new, :create, :show, :edit, :update, :destroy] do
     resources :messages, only: [:index, :create]
   end
-  resources :users, only: :show do
+  resources :users, only: [:show, :destroy] do
     resources :relationships, only: [:index, :create, :destroy] do
       collection do
         get 'list'

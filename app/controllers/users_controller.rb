@@ -7,6 +7,12 @@ class UsersController < ApplicationController
     @likes = @user.favorites.order('updated_at DESC')
   end
 
+  def destroy
+    user = User.find(params[:id])
+    user.destroy
+    redirect_to root_path
+  end
+
   def search
     if params[:q]&.dig(:nickname)
       squished_keywords = params[:q][:nickname].squish

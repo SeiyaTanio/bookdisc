@@ -5,6 +5,12 @@
         <h6 class="modal-title" id="destroyBackdropLabel">削除してもよろしいですか？</h6>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <% if controller.controller_name == "users"%>
+      <div class="modal-body">
+        <div class="mb-2 text-danger">アカウントを削除するとBookdiscの全てのデータが削除されます。</div>
+        <div>よろしければOKボタンを押してください。</div>
+      </div>
+      <% end %>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cansel</button>
         <%= link_to 'OK', url, method: :delete , class:"btn btn-primary"%>

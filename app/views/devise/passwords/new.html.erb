@@ -1,16 +1,28 @@
-<h2>Forgot your password?</h2>
-
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class = "container container-style">
+  <div class="row py-5">
+    <div class="col-4 mx-auto">
+      <h3 class="my-5 text-center">パスワードリセット</h3>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <div class="text-danger">
+          <small><%= render "devise/shared/error_messages", resource: resource %></small>
+        </div>
+        <div class = "mb-3">
+          <div class="d-flex align-items-center mb-1">
+            <%= f.label :email %>
+            <div class="badge bg-danger ms-2">必須</div>
+          </div>
+          <%= f.email_field :email, class: "form-control "%>
+        </div>
+        <div class="text-center mb-3">
+          <%= f.submit "メール送信", class:"btn btn-primary" %>
+        </div>
+      <% end %>
+      <div class="mt-4 text-center">
+        <%= link_to "ログイン", new_user_session_path, class:"text-decoration-none link-secondary" %>
+      </div>
+      <div class="mt-2 text-center">
+        <%= link_to "アカウント作成", new_user_registration_path, class:"text-decoration-none link-secondary" %>
+      </div>
+    </div>
   </div>
-
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

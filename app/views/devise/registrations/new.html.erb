@@ -9,39 +9,48 @@
         </div>
         <div class = "mb-3">
           <div class="d-flex align-items-center mb-1">
-            <%= f.label  :nickname, class: "visually-hidden" %>ニックネーム<br />
+            <%= f.label  :nickname %>
             <div class="badge bg-danger ms-2">必須</div>
           </div>
           <%= f.text_field :nickname, class: "form-control ", autofocus: true%>
         </div>
         <div class = "mb-3">
           <div class="d-flex align-items-center mb-1">
-            <%= f.label :email, class: "visually-hidden" %>Eメール<br />
+            <%= f.label :email %>
             <div class="badge bg-danger ms-2">必須</div>
           </div>
           <%= f.email_field :email, class: "form-control "%>
         </div>
-        <div class = "mb-3">
-          <div class="d-flex align-items-center mb-1">
-            <%= f.label :password, class: "visually-hidden" %>
-            <% if @minimum_password_length %>
-            パスワード(<%= @minimum_password_length %> 文字以上)<br />
-            <% end %>
-            <div class="badge bg-danger ms-2">必須</div>
+        <% if @sns_id.present? %>
+          <%= hidden_field_tag :sns_auth, true %>
+        <% else %>
+          <div class = "mb-3">
+            <div class="d-flex align-items-center mb-1">
+              <%= f.label :password %>（8文字以上）
+              <div class="badge bg-danger ms-2">必須</div>
+            </div>
+            <%= f.password_field :password, class:"form-control"%>
           </div>
-          <%= f.password_field :password, class:"form-control"%>
-        </div>
-        <div class = "mb-3">
-          <div class="d-flex align-items-center mb-1">
-            <%= f.label :password_confirmation, class: "visually-hidden" %>パスワード(確認用)<br />
-            <div class="badge bg-danger ms-2">必須</div>
+          <div class = "mb-3">
+            <div class="d-flex align-items-center mb-1">
+              <%= f.label :password_confirmation%>
+              <div class="badge bg-danger ms-2">必須</div>
+            </div>
+            <%= f.password_field :password_confirmation, class:"form-control"%>
           </div>
-          <%= f.password_field :password_confirmation, class:"form-control"%>
-        </div>
-        <div class="text-center">
+        <% end %>
+        <div class="text-center mb-3">
           <%= f.submit "アカウント作成", class:"btn btn-primary" %>
         </div>
       <% end %>
+      <div class="mt-4 text-center">
+        <i class="bi bi-facebook fs-5"></i>
+        <%= link_to "Facebookアカウントで登録", user_facebook_omniauth_authorize_path, method: :post, class:"text-decoration-none link-secondary" %>
+      </div>
+      <div class="mt-2 text-center">
+        <i class="bi bi-google fs-5"></i>
+        <%= link_to "Googleアカウントで登録", user_google_oauth2_omniauth_authorize_path, method: :post, class:"text-decoration-none link-secondary" %>
+      </div>
     </div>
   </div>
 </div>

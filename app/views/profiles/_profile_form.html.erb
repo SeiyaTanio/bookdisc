@@ -5,6 +5,9 @@
         <div class="row g-0 sticky-nav px-2 bg-success">
           <div class="d-flex align-items-center">
             <div class="col-4">
+              <% if params[:profile_sort] == "0" %>
+                <%= link_to "スキップ", root_path, class:"btn btn-outline-light" %>
+              <% end %>
             </div>
             <div class="col-4">
               <div class="text-center text-white">

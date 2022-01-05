@@ -43,7 +43,7 @@
         <% end %>
       </div>
     </div>
-    <% unless controller.action_name == "show" %>
+    <% unless controller.controller_name == "tweets" && controller.action_name == "show" %>
     <div class="col-4">
       <div class="text-center"><small class="text-muted">ツイート詳細</small></div>
       <div class="d-flex justify-content-center">
