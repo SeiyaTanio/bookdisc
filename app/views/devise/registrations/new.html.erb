@@ -26,10 +26,7 @@
         <% else %>
           <div class = "mb-3">
             <div class="d-flex align-items-center mb-1">
-              <%= f.label :password %>
-              <% if @minimum_password_length %>
-              (<%= @minimum_password_length %> 文字以上)<br />
-              <% end %>
+              <%= f.label :password %>（8文字以上）
               <div class="badge bg-danger ms-2">必須</div>
             </div>
             <%= f.password_field :password, class:"form-control"%>
