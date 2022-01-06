@@ -10,7 +10,7 @@
 | 実装した機能についての画像やGIFおよびその説明 | 実装した機能について、それぞれどのような特徴があるのかを列挙する形で記述。画像はGyazoで、GIFはGyazoGIFで撮影すること。（後日撮影予定） |
 | 実装予定の機能 | ブログに本の購入リンクを記載しアフィリエイト機能を追加予定 |
 | データベース設計 | [![Image from Gyazo](https://i.gyazo.com/759d06cd3c05f885953263a1bf5d0646.png)](https://gyazo.com/759d06cd3c05f885953263a1bf5d0646) |
-| 画面遷移図 | [![Image from Gyazo](https://i.gyazo.com/ff8339ff0bdcffa93bc3a397e653fb2b.png)](https://gyazo.com/ff8339ff0bdcffa93bc3a397e653fb2b) |
+| 画面遷移図 | [![Image from Gyazo](https://i.gyazo.com/3d4dfe22b1ead2e9f264dc5d0990f28f.png)](https://gyazo.com/3d4dfe22b1ead2e9f264dc5d0990f28f) |
 | 開発環境 | ・フロントエンド：HTML,CSS(BootStrap5) / JavaScript<br>・バックエンド：Ruby(ver 2.6.5) / Ruby on Rails (ver 6.0.0)<br>・インフラ：Heroku , AWS(S3) , MySQL<br>・テスト：RSpec<br>・テキストエディタ：Visual Studio Code<br>・タスク管理：GitHubプロジェクトボード |
 | ローカルでの動作方法 | % git clone https://bookdisc.herokuapp.com/bookdisc.git<br>% cd bookdisc<br>% bundle install<br>% yarn install<br>% rails db:create<br>% rails db:migrate<br>% rails s |
 
