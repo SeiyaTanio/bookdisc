@@ -36,9 +36,11 @@
       <% case controller.action_name %>
       <% when "show" %>
         <%= render partial:'tweet', locals: {tweet: tweets} %>
+        <% if @t_comments.present? %>
         <div class="row sticky-nav py-1 bg-secondary">
           <div class="d-flex align-items-center justify-content-center text-white">コメント</div>
         </div>
+        <% end %>
         <% @t_comments.each do |comment|%>
           <div class="row border">
             <div class="row g-0 mt-3 ps-4">
