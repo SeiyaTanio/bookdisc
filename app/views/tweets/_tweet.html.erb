@@ -1,4 +1,4 @@
-<div class="row border" style="min-height: 350px">
+<div class="row border">
   <div class="row g-0 mt-3">
     <div class="col-3">
       <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
@@ -18,7 +18,9 @@
     <% if tweet.tweet_images.present? %>
       <% tweet.tweet_images.each do |tweet_image| %>
         <div class="col-6 border rounded d-flex justify-content-center align-items-center">
-          <%= image_tag tweet_image, class:"img-fluid" %>
+          <%= link_to tweet_image, "data-lightbox": tweet_image do %>
+            <%= image_tag tweet_image, class:"img-fluid" %>
+          <% end %>
         </div>
       <% end %>
     <% end %>
