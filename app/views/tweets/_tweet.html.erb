@@ -14,8 +14,16 @@
     </div>
   </div>
   <div class="row g-0 p-3" style="min-height: 150px">
-    <div class="new-line"><%= tweet.content %></div>
+    <div class="new-line mb-3"><%= tweet.content %></div>
+    <% if tweet.tweet_images.present? %>
+      <% tweet.tweet_images.each do |tweet_image| %>
+        <div class="col-6 border rounded d-flex justify-content-center align-items-center">
+          <%= image_tag tweet_image, class:"img-fluid" %>
+        </div>
+      <% end %>
+    <% end %>
   </div>
+  
   <div class="row g-0 border-bottom ps-3">
     <div class="col-3">
       <p><small class="text-muted"><%= l tweet.updated_at %></small></p>
