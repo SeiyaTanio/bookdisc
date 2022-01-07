@@ -1,16 +1,16 @@
 <div class="row border">
-  <div class="row g-0 mt-3">
-    <div class="col-3">
-      <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
+  <div class="row g-0 mt-3 ps-4">
+    <div class="d-flex align-items-center">
+      <div class="me-3">
         <% if tweet.user&.profile&.image.present?%>
           <%= link_to image_tag(tweet.user.profile.image, class:"rounded-circle mx-auto d-block user-icon"), user_path(tweet.user_id) %>
         <% else %>
           <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded-circle mx-auto d-block user-icon"), user_path(tweet.user_id) %>
         <% end %>
       </div>
-    </div>
-    <div class="col-9 my-auto">
-        <div class="fs-3 text-truncate"><%= tweet.user.nickname %></div>
+      <div class="fs-3 text-truncate ps-2">
+        <%= tweet.user.nickname %>
+      </div>
     </div>
   </div>
   <div class="row g-0 p-3" style="min-height: 150px">
