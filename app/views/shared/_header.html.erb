@@ -32,22 +32,11 @@
             <li><a class="dropdown-item" href="/rooms/new">ルーム作成</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="/blogs">ブログ一覧</a></li>
-          </ul>
-        </li>
-        <% if user_signed_in? %>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            マイメニュー
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="/users/<%=current_user.id%>">マイページ</a></li>
-            <li><a class="dropdown-item" href="/tweets/<%=current_user.id%>/mine">マイツイート一覧</a></li>
+            <% if user_signed_in? %>
             <li><a class="dropdown-item" href="/rooms/<%=current_user.id%>">マイルーム一覧</a></li>
-            <li><a class="dropdown-item" href="/blogs/<%=current_user.id%>/mine">マイブログ一覧</a></li>
-            <li><a class="dropdown-item" href="/users/<%=current_user.id%>/relationships">フォロー一覧</a></li>
+            <% end %>
           </ul>
         </li>
-        <% end %>
       </ul>
       <%= search_form_for User.ransack(params[:q]), url: search_users_path, class: "d-flex", html: {id: "search-form"} do |f|  %>
         <%= f.text_field :nickname, class:"form-control me-2", placeholder: "Search", value: params[:q]&.dig(:nickname) %>
