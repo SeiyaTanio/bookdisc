@@ -13,7 +13,6 @@ class TweetsController < ApplicationController
   def create
     @user = User.find(current_user.id)
     @tweet_form = TweetForm.new(tweet_form_params)
-    binding.pry
     if @tweet_form.valid?
       @tweet_form.save
       redirect_to root_path
