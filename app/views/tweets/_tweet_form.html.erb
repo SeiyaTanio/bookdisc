@@ -78,8 +78,11 @@ document.addEventListener('DOMContentLoaded', function(){
     const previewWrapper = document.createElement('div');
     previewWrapper.setAttribute('class', 'preview col-6 border rounded d-flex justify-content-center align-items-center');
     previewWrapper.setAttribute('data-index', dataIndex);
+    const lightBox = document.createElement('a');
+    lightBox.setAttribute('href', blob);
+    lightBox.setAttribute('data-lightbox', 'tweet-image');
     const previewImage = document.createElement('img');
-    previewImage.setAttribute('class', 'img-fluid');
+    previewImage.setAttribute('class', 'tweet-image-size');
     previewImage.setAttribute('src', blob);
     const deleteButton = document.createElement("div");
     deleteButton.setAttribute("class", "delete-botton btn btn-secondary mb-1");
@@ -87,7 +90,8 @@ document.addEventListener('DOMContentLoaded', function(){
     const deleteIcon = document.createElement("i");
     deleteIcon.setAttribute("class", "bi bi-trash");
     deleteButton.addEventListener("click", () => deleteImage(dataIndex));
-    previewWrapper.appendChild(previewImage);
+    previewWrapper.appendChild(lightBox);
+    lightBox.appendChild(previewImage);
     deleteList.appendChild(deleteButton);
     deleteButton.appendChild(deleteIcon);
     previewList.appendChild(previewWrapper);
