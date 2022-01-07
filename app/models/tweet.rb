@@ -5,4 +5,5 @@ class Tweet < ApplicationRecord
 
   has_many :tweet_t_tags, dependent: :destroy
   has_many :t_tags, through: :tweet_t_tags
+  has_many_attached :tweet_images
 end

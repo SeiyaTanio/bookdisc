@@ -1,6 +1,6 @@
 <div class="container container-style">
   <div class="row pb-3">
-    <%= form_with model: @tweet_form, url: url, method: method, class: "needs-validation", html: {novalidate: true}, local: true do |f| %>
+    <%= form_with model: @tweet_form, url: url, method: method, class: "needs-validation", id: "new_tweet", html: {novalidate: true}, local: true do |f| %>
       <div class="col-8 mx-auto">
         <div class="row sticky-nav p-1 bg-primary">
           <div class="d-flex align-items-center">
@@ -40,11 +40,110 @@
             <%= f.text_field :t_tag_name, class: "form-control ",placeholder: 'タグ（40文字まで）',maxlength: "40", autocomplete: "t_tag_name" %>
             <div id="search-result" class="mt-1"></div>
           </div>
+          <div class="mb-4 g-0">
+            <div class="d-flex align-items-center">
+              <i class="bi bi-image fs-4"></i>
+              <div class="fs-6 ms-1">ツイート画像</div>
+            </div>
+            <div class="form-text">「.png」または「.jpeg」の画像のみ</div>
+            <div class="form-text">選択できる画像は4枚まで</div>
+            <% if controller.action_name == "edit"%>
+              <div class="form-text">「ファイルを選択」しなければ元の画像のまま</div>
+            <% end %>
+            <div class="row g-1 mt-2">
+              <div class="col-11 click-upload">
+                <%= f.label :tweet_images, class: "visually-hidden" %>
+                <%= f.file_field :tweet_images, name: 'tweet_form[tweet_images][]', data: {index: 0}, class:"form-control mb-1"%>
+              </div>
+              <div class="col-1" id="deletes">
+              </div>
+            </div>
+            <div id="previews" class="mt-2 row g-0"></div>
+          </div>
         </div>
       </div>
     <% end %>
   </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const postForm = document.getElementById('new_tweet');
+  const previewList = document.getElementById('previews');
+  const deleteList = document.getElementById('deletes');
+  if (!postForm) return null;
+  const imageLimits = 4;
+
+  const buildPreviewImage = (dataIndex, blob) =>{
+    const previewWrapper = document.createElement('div');
+    previewWrapper.setAttribute('class', 'preview col-6 border rounded d-flex justify-content-center align-items-center');
+    previewWrapper.setAttribute('data-index', dataIndex);
+    const lightBox = document.createElement('a');
+    lightBox.setAttribute('href', blob);
+    lightBox.setAttribute('data-lightbox', 'tweet-image');
+    const previewImage = document.createElement('img');
+    previewImage.setAttribute('class', 'tweet-image-size');
+    previewImage.setAttribute('src', blob);
+    const deleteButton = document.createElement("div");
+    deleteButton.setAttribute("class", "delete-botton btn btn-secondary mb-1");
+    deleteButton.setAttribute('data-index', dataIndex);
+    const deleteIcon = document.createElement("i");
+    deleteIcon.setAttribute("class", "bi bi-trash");
+    deleteButton.addEventListener("click", () => deleteImage(dataIndex));
+    previewWrapper.appendChild(lightBox);
+    lightBox.appendChild(previewImage);
+    deleteList.appendChild(deleteButton);
+    deleteButton.appendChild(deleteIcon);
+    previewList.appendChild(previewWrapper);
+  };
+
+  const buildNewFileField = () => {
+    const newFileField = document.createElement('input');
+    newFileField.setAttribute('type', 'file');
+    newFileField.setAttribute('name', 'tweet_form[tweet_images][]');
+    newFileField.setAttribute('class', 'form-control mb-1');
+    const lastFileField = document.querySelector('input[type="file"][name="tweet_form[tweet_images][]"]:last-child');
+    const nextDataIndex = Number(lastFileField.getAttribute('data-index')) +1;
+    newFileField.setAttribute('data-index', nextDataIndex);
+    newFileField.addEventListener("change", changedFileField);
+    const fileFieldsArea = document.querySelector('.click-upload');
+    fileFieldsArea.appendChild(newFileField);
+  };
+
+  const deleteImage = (dataIndex) => {
+    const deletePreviewImage = document.querySelector(`.preview[data-index="${dataIndex}"]`);
+    deletePreviewImage.remove();
+    const deleteFileField = document.querySelector(`input[type="file"][data-index="${dataIndex}"]`);
+    deleteFileField.remove();
+    const deleteDeleteButton = document.querySelector(`.delete-botton[data-index="${dataIndex}"]`);
+    deleteDeleteButton.remove();
+    const imageCount = document.querySelectorAll(".preview").length;
+    if (imageCount == imageLimits - 1) buildNewFileField();
+  };
+
+  const changedFileField = (e) => {
+    const dataIndex = e.target.getAttribute('data-index');
+    const file = e.target.files[0];
+    if (!file) {
+      deleteImage(dataIndex);
+      return null;
+    };
+    const blob = window.URL.createObjectURL(file);
+    const alreadyPreview = document.querySelector(`.preview[data-index="${dataIndex}"]`);
+    if (alreadyPreview) {
+      const alreadyPreviewImage = alreadyPreview.querySelector("img");
+      alreadyPreviewImage.setAttribute("src", blob);
+      return null;
+    };
+    buildPreviewImage(dataIndex, blob);
+    const imageCount = document.querySelectorAll(".preview").length;
+    if (imageCount < imageLimits) buildNewFileField();
+  };
+  const fileField = document.querySelector('input[type="file"][name="tweet_form[tweet_images][]"]');
+
+  fileField.addEventListener('change', changedFileField);
+});
+</script>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {

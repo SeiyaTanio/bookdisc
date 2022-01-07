@@ -13,6 +13,7 @@ class TweetsController < ApplicationController
   def create
     @user = User.find(current_user.id)
     @tweet_form = TweetForm.new(tweet_form_params)
+    binding.pry
     if @tweet_form.valid?
       @tweet_form.save
       redirect_to root_path
@@ -66,7 +67,7 @@ class TweetsController < ApplicationController
   private
 
   def tweet_form_params
-    params.require(:tweet_form).permit(:content, :t_tag_name).merge(user_id: current_user.id)
+    params.require(:tweet_form).permit(:content, :t_tag_name, {tweet_images: []}).merge(user_id: current_user.id)
   end
 
   def set_tweet
