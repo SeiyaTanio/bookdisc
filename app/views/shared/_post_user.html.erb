@@ -1,6 +1,6 @@
 <div class="d-flex align-items-center">
   <div class="me-3">
-    <% if current_user&.profile&.image%>
+    <% if current_user&.profile&.image.present?%>
       <%= image_tag current_user.profile.image, class:"rounded-circle d-block user-icon" %>
     <% else %>
       <%= image_tag "bookdisc-icon-image.png", class:"rounded-circle mx-auto d-block user-icon" %>

@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 2022_01_04_033430) do
   end
 
   create_table "b_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "b_text"
+    t.text "b_text", null: false
     t.bigint "blog_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -58,11 +58,12 @@ ActiveRecord::Schema.define(version: 2022_01_04_033430) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["tweet_id"], name: "index_likes_on_tweet_id"
+    t.index ["user_id", "tweet_id"], name: "index_likes_on_user_id_and_tweet_id", unique: true
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "sentence"
+    t.text "sentence", null: false
     t.bigint "room_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -106,7 +107,7 @@ ActiveRecord::Schema.define(version: 2022_01_04_033430) do
   end
 
   create_table "t_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "t_text"
+    t.text "t_text", null: false
     t.bigint "tweet_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false

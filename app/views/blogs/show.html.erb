@@ -11,7 +11,7 @@
         <div class="row g-0 p-3 border-bottom" style="min-height: 150px">
           <h2><%= @blog.title %></h2>
           <p><small class="text-muted"><%= l @blog.updated_at %></small></p>
-          <% if @blog.blog_image.attached? %>
+          <% if @blog.blog_image.present? %>
             <%= image_tag @blog.blog_image, class:"my-4"%>
           <% else %>
             <%= image_tag "no-image.png", class:"my-4"%>
@@ -43,7 +43,7 @@
           <div class="row g-0 mt-3">
             <div class="col-3">
               <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
-                <% if comment.user&.profile&.image.attached? %>
+                <% if comment.user&.profile&.image.present? %>
                   <%= link_to image_tag(comment.user.profile.image, class:"rounded-circle mx-auto d-block user-icon"), user_path(comment.user_id) %>
                 <% else %>
                   <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded-circle mx-auto d-block user-icon"), user_path(comment.user_id) %>
@@ -101,7 +101,7 @@
           <h3 class="text-center fst-italic fw-light text-decoration-underline">Profile</h3>
           <div class="mt-2" >
             <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
-              <% if @blog.user&.profile&.image.attached? %>
+              <% if @blog.user&.profile&.image.present? %>
                 <%= link_to image_tag(@blog.user.profile.image, class:"rounded-circle mx-auto d-block user-icon"), user_path(@blog.user_id) %>
               <% else %>
                 <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded-circle mx-auto d-block user-icon"), user_path(@blog.user_id) %>
@@ -172,7 +172,7 @@
             <div class="row g-0 pb-2">
               <div class="col-1">
                 <div>
-                  <% if current_user&.profile&.image %>
+                  <% if current_user&.profile&.image.present? %>
                     <%= image_tag current_user.profile.image, class:"rounded-circle d-block", style:"height: 40px; width: 40px" %>
                   <% else %>
                     <%= image_tag "bookdisc-icon-image.png", class:"rounded-circle d-block", style:"height: 40px; width: 40px" %>

@@ -87,7 +87,7 @@
         <div class="row my-3">
           <div class="fs-5 mb-1">お気に入りの本</div>
           <div class="text-black-50">
-            <% if @user&.profile&.favorite_book%>
+            <% if @user&.profile&.favorite_book %>
               <%= @user.profile.favorite_book %>
             <% elsif @user&.profile %>
               お気に入りの本 未登録

@@ -9,20 +9,20 @@ class User < ApplicationRecord
   PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,}+\z/i.freeze
   validates_format_of :password, with: PASSWORD_REGEX, message: 'が無効です。8文字以上で半角英字と半角数字の両方が必要です。'
 
-  has_many :tweets
-  has_many :blogs
-  has_one :profile
-  has_many :user_rooms
+  has_many :tweets, dependent: :destroy
+  has_many :blogs, dependent: :destroy
+  has_one :profile, dependent: :destroy
+  has_many :user_rooms, dependent: :destroy
   has_many :rooms, through: :user_rooms
-  has_many :messages
-  has_many :t_comments
-  has_many :b_comments
+  has_many :messages, dependent: :destroy
+  has_many :t_comments, dependent: :destroy
+  has_many :b_comments, dependent: :destroy
   has_many :relationships, dependent: :destroy
-  has_many :followings, through: :relationships, source: :follower
+  has_many :followings, through: :relationships, source: :follower, dependent: :destroy
   has_many :passive_relationships, class_name: 'Relationship' , foreign_key: 'follower_id', dependent: :destroy
-  has_many :followers, through: :passive_relationships, source: :user
-  has_many :likes
-  has_many :favorites, through: :likes, source: :tweet
+  has_many :followers, through: :passive_relationships, source: :user, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :favorites, through: :likes, source: :tweet, dependent: :destroy
   has_many :sns_credentials
 
   def follow(other_user)

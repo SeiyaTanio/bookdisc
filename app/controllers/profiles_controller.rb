@@ -15,13 +15,13 @@ class ProfilesController < ApplicationController
   end
 
   def edit
-    @profile = Profile.find(params[:id])
+    set_profile
   end
 
   def update
-    @profile = Profile.find(params[:id])
+    set_profile
     @profile.image ||= @profile.image.blob
-    if @profile.update(profile_update_params)
+    if @profile.update(profile_params)
       redirect_to user_path(params[:id])
     else
       render :edit
@@ -31,10 +31,10 @@ class ProfilesController < ApplicationController
   private
 
   def profile_params
-    params.permit(:favorite_book, :self_introduction, :image).merge(user_id: current_user.id)
+    params.require(:profile).permit(:favorite_book, :self_introduction, :image).merge(user_id: current_user.id)
   end
 
-  def profile_update_params
-    params.require(:profile).permit(:favorite_book, :self_introduction, :image).merge(user_id: current_user.id)
+  def set_profile
+    @profile = Profile.find_by(user_id: params[:id])
   end
 end
