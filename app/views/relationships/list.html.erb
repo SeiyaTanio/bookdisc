@@ -37,14 +37,8 @@
                   <a href="/users/<%=follower.user_id%>/relationships/list" class="link-secondary text-decoration-none"><b>フォロワー</b>  <%= follower.user.followers.count %>人</a>
                 </div>
               </div>
-              <div class="col-3 d-flex justify-content-end align-items-center">
-                <% if user_signed_in? && current_user != follower.user %>
-                  <% if current_user.following?(follower.user) %>
-                      <%= link_to 'フォロー解除', user_relationship_path(current_user.id, current_user.relationships.find_by(follower: follower.user)), method: :delete , class:"btn btn-outline-primary" %>
-                  <% else %>
-                      <%= link_to 'フォロー', user_relationships_path(user_id: current_user.id, follower: follower.user), method: :post, class:"btn btn-outline-primary" %>
-                  <% end %>
-                <% end %>
+              <div class="col-3 d-flex justify-content-end align-items-center" id="follow-ajax-<%=follower.user_id%>">
+                <%= render "shared/follow", user: follower.user %>
               </div>
             </div>
           <% end %>
