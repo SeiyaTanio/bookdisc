@@ -61,14 +61,8 @@
             </div>
           </div>
           <div class="col-3">
-            <div class="d-flex justify-content-end">
-              <% if user_signed_in? && current_user != @user %>
-                <% if current_user.following?(@user) %>
-                    <%= link_to 'フォロー解除', user_relationship_path(current_user.id, current_user.relationships.find_by(follower: @user)), method: :delete , class:"btn btn-outline-primary" %>
-                <% else %>
-                    <%= link_to 'フォロー', user_relationships_path(user_id: current_user.id, follower: @user), method: :post, class:"btn btn-outline-primary" %>
-                <% end %>
-              <% end %>
+            <div class="d-flex justify-content-end" id="follow-ajax-<%=@user.id%>">
+              <%= render "shared/follow", user: @user %>
             </div>
           </div>
         </div>
