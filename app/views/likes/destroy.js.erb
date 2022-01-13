@@ -1,1 +1,3 @@
-document.getElementById('like-ajax-<%=@tweet.id%>').innerHTML = '<%= j(render partial: 'shared/like', locals: { tweet: @tweet }) %>'
+document.querySelectorAll('.like-ajax-<%=@tweet.id%>').forEach(function(likeIcon) {
+  likeIcon.innerHTML = '<%= j(render partial: 'shared/like', locals: { tweet: @tweet }) %>'
+})

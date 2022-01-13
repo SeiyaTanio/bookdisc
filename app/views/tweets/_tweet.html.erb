@@ -43,7 +43,7 @@
         <a href="/tweets/<%=tweet.id%>/t_comments/new"><i class="bi bi-chat-left" style="font-size: 25px;"></i></a>
       </div>
     </div>
-    <div class="col-4" id="like-ajax-<%=tweet.id%>">
+    <div class="col-4 like-ajax-<%=tweet.id%>">
       <%= render "shared/like", tweet: tweet %>
     </div>
     <% unless controller.controller_name == "tweets" && controller.action_name == "show" %>
