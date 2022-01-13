@@ -129,13 +129,13 @@
                   <%= render partial:'blogs/blog', collection: @blogs%>
                 <% else %>
                   <%= render partial: 'shared/none_data', locals: {data: 'ブログ', url: new_blog_path} %>
-                <%  end %>
+                <% end %>
               </div>
             </div>
             <div class="tab-pane fade" id="nav-like" role="tabpanel" aria-labelledby="nav-like-tab">
               <div class="px-3">
                 <% if @likes.present? %>
-                  <%= render partial:'tweets/tweet', collection: @likes%>
+                  <%= render partial:'tweets/tweet', collection: @likes %>
                 <% else %>
                   <h4 class="text-center mt-4 text-decoration-underline">いいねがありません</h4>
                 <% end %>
