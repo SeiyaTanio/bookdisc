@@ -1,9 +1,8 @@
 class LikesController < ApplicationController
 
   def create
-    resource, id = request.path.split('/')[1, 2]
-    @likeable = resource.singularize.classify.constantize.find(id)
-    current_user.like(@likeable)
+    @tweet = Tweet.find(params[:tweet])
+    current_user.like(@tweet)
     render formats: :js, layout: false
   end
 
