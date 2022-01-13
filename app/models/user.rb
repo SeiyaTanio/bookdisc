@@ -22,7 +22,7 @@ class User < ApplicationRecord
   has_many :passive_relationships, class_name: 'Relationship' , foreign_key: 'follower_id', dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :user, dependent: :destroy
   has_many :likes, dependent: :destroy
-  has_many :favorites, through: :likes, source: :tweet, dependent: :destroy
+  has_many :favorites, through: :likes, source: :likeable, dependent: :destroy
   has_many :sns_credentials
 
   def follow(other_user)
@@ -47,7 +47,7 @@ class User < ApplicationRecord
   end
 
   def like?(tweet)
-    favorites.include?(tweet)
+    likes.where(likeable_type: 'tweet').include?(tweet)
   end
 
   def unlike(tweet)

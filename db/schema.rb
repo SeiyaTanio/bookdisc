@@ -53,12 +53,12 @@ ActiveRecord::Schema.define(version: 2022_01_04_033430) do
   end
 
   create_table "likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "tweet_id", null: false
+    t.string "likeable_type"
+    t.bigint "likeable_id"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["tweet_id"], name: "index_likes_on_tweet_id"
-    t.index ["user_id", "tweet_id"], name: "index_likes_on_user_id_and_tweet_id", unique: true
+    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable_type_and_likeable_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
@@ -165,7 +165,6 @@ ActiveRecord::Schema.define(version: 2022_01_04_033430) do
   add_foreign_key "b_comments", "blogs"
   add_foreign_key "b_comments", "users"
   add_foreign_key "blogs", "users"
-  add_foreign_key "likes", "tweets"
   add_foreign_key "likes", "users"
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"

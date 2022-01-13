@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @tweets = @user.tweets.order('updated_at DESC')
     @blogs = @user.blogs.order('updated_at DESC')
-    @likes = @user.favorites.order('updated_at DESC')
+    @likes = @user.likes.where(likeable_type: 'tweet').order('updated_at DESC')
   end
 
   def destroy
