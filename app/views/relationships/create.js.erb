@@ -1,1 +1,5 @@
 document.getElementById("follow-ajax-<%=@other_user.id%>").innerHTML = '<%= j(render partial: 'shared/follow', locals: { user: @other_user }) %>'
+document.getElementById("follow-count-<%=@other_user.id%>").innerHTML = '<%= j(render partial: 'shared/follow_count', locals: {uri: @other_user.id, follow_count: @other_user.followings.count, follower_count: @other_user.followers.count}) %>'
+if (document.getElementById("follow-count-<%=current_user.id%>")) {
+  document.getElementById("follow-count-<%=current_user.id%>").innerHTML = '<%= j(render partial: 'shared/follow_count', locals: {uri: current_user.id, follow_count: current_user.followings.count, follower_count: current_user.followers.count}) %>'
+};

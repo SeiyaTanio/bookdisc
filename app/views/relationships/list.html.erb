@@ -12,7 +12,7 @@
           </div>
           <div class="col-4">
             <div class="text-end">
-              <i class="bi bi-person-circle"></i><%= @user.nickname %>
+              <i class="bi bi-person-circle pe-1"></i><%= @user.nickname %>
             </div>
           </div>
         </div>
@@ -32,9 +32,8 @@
               </div>
               <div class="col-6">
                 <h4 class="mt-2"><%= follower.user.nickname %></h4>
-                <div class="d-flex justify-content-around">
-                  <a href="/users/<%=follower.user_id%>/relationships" class="link-secondary text-decoration-none"><b>フォロー</b>  <%= follower.user.followings.count %>人</a>
-                  <a href="/users/<%=follower.user_id%>/relationships/list" class="link-secondary text-decoration-none"><b>フォロワー</b>  <%= follower.user.followers.count %>人</a>
+                <div class="d-flex justify-content-around" id="follow-count-<%=follower.user_id%>">
+                  <%= render "shared/follow_count", {uri: follower.user_id, follow_count: follower.user.followings.count, follower_count: follower.user.followers.count} %>
                 </div>
               </div>
               <div class="col-3 d-flex justify-content-end align-items-center" id="follow-ajax-<%=follower.user_id%>">
