@@ -90,3 +90,16 @@ textarea.form-control:focus{
   max-height: 15vw;
   max-width: 100%;
 }
+
+.message-area{
+  position: sticky;
+  top: 105px;
+  height: 75vh;
+  overflow: scroll;
+  background-color: #e2f2ff;
+}
+
+.message-field{
+  position: sticky;
+  background-color: #e2f2ff;
+}
