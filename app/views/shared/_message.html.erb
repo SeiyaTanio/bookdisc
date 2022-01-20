@@ -1,0 +1,30 @@
+<% messages.each do |message| %>
+  <% if message.user_id == current_user.id %>
+    <div class="row pb-4 justify-content-end" style="text-align: right;">
+      <p><small class="text-muted"><%= l message.updated_at %></small></p>
+      <div class="mycomment col-9">
+        <p class="text-start shadow"><%= message.sentence %></p>
+      </div>
+    </div>
+  <% else %>
+    <div class="row pb-4">
+      <div class="col-2" >
+        <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
+          <% if message.user&.profile&.image.present?%>
+            <%= link_to image_tag(message.user.profile.image, class:"rounded-circle mx-auto d-block user-icon"), user_path(message.user_id) %>
+          <% else %>
+            <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded-circle mx-auto d-block user-icon"), user_path(message.user_id) %>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-7 g-0 d-flex align-items-center">
+        <div><%= message.user.nickname %><br><small class="text-muted "><%= l message.updated_at %></small></div>
+      </div>
+      <div class="col-9 m-1">
+        <div class="says shadow">
+          <p><%= message.sentence %></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

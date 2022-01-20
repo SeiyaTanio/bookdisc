@@ -1,0 +1,2 @@
+document.getElementById("messages").innerHTML = '<%= j(render partial: 'shared/message', locals: {messages: @messages}) %>'
+document.getElementById("message-form").value = ""

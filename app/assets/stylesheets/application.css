@@ -87,6 +87,6 @@ textarea.form-control:focus{
 }
 
 .tweet-image-size{
-  height: 200px;
+  max-height: 15vw;
   max-width: 100%;
 }
