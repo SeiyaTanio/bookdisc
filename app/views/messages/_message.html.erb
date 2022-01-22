@@ -1,13 +1,13 @@
 <% messages.each do |message| %>
   <% if message.user_id == current_user.id %>
-    <div class="row pb-4 justify-content-end" style="text-align: right;">
-      <p><small class="text-muted"><%= l message.updated_at %></small></p>
+    <div class="row pb-3 justify-content-end" style="text-align: right;">
+      <div class="mb-1"><small class="text-muted"><%= l message.updated_at %></small></div>
       <div class="mycomment col-9">
         <p class="text-start shadow"><%= message.sentence %></p>
       </div>
     </div>
   <% else %>
-    <div class="row pb-4">
+    <div class="row pb-3">
       <div class="col-2" >
         <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
           <% if message.user&.profile&.image.present?%>
@@ -22,7 +22,7 @@
       </div>
       <div class="col-9 m-1">
         <div class="says shadow">
-          <p><%= message.sentence %></p>
+          <div><%= message.sentence %></div>
         </div>
       </div>
     </div>

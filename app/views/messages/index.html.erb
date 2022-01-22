@@ -5,12 +5,10 @@
     <div class="col-8 border-end border-start" style="background-color: #e2f2ff;">
       <div class="row sticky-nav p-1 bg-primary border-bottom">
         <div class="d-flex align-items-center">
-          <div class="col-4">
-          </div>
-          <div class="col-4 text-white text-center">
+          <div class="col-9 text-white max-1-line">
             <%= @room.room_name %>
           </div>
-          <div class="col-4 d-flex justify-content-end">
+          <div class="col-3 d-flex justify-content-end">
             <% if user_signed_in? && current_user.id == @host_id %>
               <a class="btn btn-outline-light me-2" href="/rooms/<%=@room.id%>/edit" role="button">編集</a>
               <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#destroyBackdrop">
@@ -22,7 +20,7 @@
       </div>
       <div class="row message-area">
         <div id="messages">
-          <%= render partial: 'shared/message', locals: {messages: @messages} %>
+          <%= render partial: 'message', locals: {messages: @messages} %>
         </div>
       </div>
       <%= form_with(model: [@room,@message], class: "needs-validation row justify-content-center", html: {novalidate: true}, remote: true) do |f| %>
@@ -44,59 +42,6 @@
 
 <!-- Modal -->
 <%= render partial: 'shared/destroy_modal', locals: {url: room_path(params[:room_id])} %>
-
-<style>
-.says {
-  display: inline-block;
-  position: relative; 
-  padding: 8px 8px 0 8px;
-  border-radius: 12px;
-  background: #edf1ee;
-}
-
-.says:after {
-  content: "";
-  display: inline-block;
-  position: absolute;
-  top: 3px; 
-  left: -19px;
-  border: 8px solid transparent;
-  border-right: 18px solid #edf1ee;
-  -webkit-transform: rotate(35deg);
-  transform: rotate(35deg);
-}
-
-.says p {
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-
-.mycomment {
-  margin-top: -15px;
-}
-
-.mycomment p {
-  display: inline-block;
-  position: relative; 
-  margin: 0 10px 0 0;
-  padding: 8px;
-  border-radius: 12px;
-  background: #30e852;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-
-.mycomment p:after {
-  content: "";
-  position: absolute;
-  top: 3px; 
-  right: -19px;
-  border: 8px solid transparent;
-  border-left: 18px solid #30e852;
-  -webkit-transform: rotate(-35deg);
-  transform: rotate(-35deg);
-}
-</style>
 
 <script>
 const target = document.getElementById('messages');
