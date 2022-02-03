@@ -20,6 +20,15 @@ class MessagesController < ApplicationController
     end
   end
 
+  def destroy
+    message = Message.find(params[:id])
+    message.destroy
+    room = Room.find(params[:room_id])
+    @messages = room.messages.includes(:user)
+    render formats: :js, layout: false
+    ## redirect_to room_messages_path(params[:room_id])
+  end
+
   private
 
   def message_params

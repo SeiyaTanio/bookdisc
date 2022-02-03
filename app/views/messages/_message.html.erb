@@ -1,7 +1,14 @@
 <% messages.each do |message| %>
   <% if message.user_id == current_user.id %>
     <div class="row pb-3 justify-content-end" style="text-align: right;">
-      <div class="mb-1"><small class="text-muted"><%= l message.updated_at %></small></div>
+      <div class="mb-1 message-date" style="visibility:hidden;">
+        <a href="/rooms/<%=message.room_id%>/messages/<%=message.id%>" class="text-decoration-none link-secondary" data-method="delete" data-remote="true" >
+          <i class="bi bi-trash fs-5" style="vertical-align: top;"></i>
+        </a>
+        <small class="text-muted" style="visibility:visible;">
+          <%= l message.updated_at %>
+        </small>
+      </div>
       <div class="mycomment col-9">
         <p class="text-start shadow"><%= message.sentence %></p>
       </div>
@@ -28,3 +35,18 @@
     </div>
   <% end %>
 <% end %>
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    const messageDate = document.querySelectorAll(".message-date");
+    if (messageDate == null) return null;
+    messageDate.forEach(function(date){
+      date.addEventListener("click", (e) => {
+        if (date.getAttribute("style") == "visibility:hidden;") {
+          date.removeAttribute("style", "visibility:hidden;")
+        } else {
+          date.setAttribute("style", "visibility:hidden;")
+        };
+      });
+    });
+  });
+</script>
