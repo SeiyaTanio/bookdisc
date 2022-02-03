@@ -7,7 +7,7 @@ RSpec.describe BComment, type: :model do
     @b_comment = FactoryBot.build(:b_comment, user_id: user.id, blog_id: blog.id)
   end
 
-  describe 'コメント投稿' do
+  describe 'ブログのコメント投稿' do
     context 'コメント投稿できる場合' do
       it '全ての情報が正しく存在すれば投稿できる' do
         expect(@b_comment).to be_valid
