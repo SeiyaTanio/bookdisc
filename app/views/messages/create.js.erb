@@ -1,0 +1,12 @@
+document.getElementById("messages").innerHTML = '<%= j(render partial: 'message', locals: {messages: @messages}) %>'
+document.getElementById("messages").scrollIntoView(false);
+document.getElementById("message-form").value = ""
+document.querySelectorAll(".message-date").forEach(function(date){
+  date.addEventListener("click", (e) => {
+    if (date.getAttribute("style") == "visibility:hidden;") {
+      date.removeAttribute("style", "visibility:hidden;")
+    } else {
+      date.setAttribute("style", "visibility:hidden;")
+    };
+  });
+});

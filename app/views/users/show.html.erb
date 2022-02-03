@@ -8,7 +8,7 @@
         </div>
         <div class="col-4 d-flex align-items-center justify-content-center h-100">
           <div class="text-white">
-            User Page
+            ユーザーページ
           </div>
         </div>
         <div class="col-4 g-0">
@@ -55,9 +55,8 @@
           </div>
           <div class="col-6">
             <h3><%= @user.nickname %></h3>
-            <div class="d-flex justify-content-around">
-              <a href="/users/<%=@user.id%>/relationships" class="link-secondary text-decoration-none"><b>フォロー</b>  <%= @user.followings.count %>人</a>
-              <a href="/users/<%=@user.id%>/relationships/list" class="link-secondary text-decoration-none"><b>フォロワー</b>  <%= @user.followers.count %>人</a>
+            <div class="d-flex justify-content-around" id="follow-count-<%=@user.id%>">
+              <%= render "shared/follow_count", {uri: @user.id, follow_count: @user.followings.count, follower_count: @user.followers.count} %>
             </div>
           </div>
           <div class="col-3">

@@ -9,7 +9,7 @@
           </div>
           <div class="col-4">
             <div class="text-center">
-              My Room
+              マイルーム一覧
             </div>
           </div>
           <div class="col-4">
@@ -21,7 +21,11 @@
           <% @rooms.each do |room|%>
             <div class="row g-0 border p-2 position-relative">
               <div class="col-2">
-                <%= image_tag 'bookdisc-icon-image.png', class:"rounded-circle mx-auto d-block user-icon" %>
+                <% if room&.room_image.present?%>
+                  <%= image_tag room&.room_image, class:"rounded-circle mx-auto d-block user-icon" %>
+                <% else %>
+                  <%= image_tag 'bookdisc-icon-image.png', class:"rounded-circle mx-auto d-block user-icon" %>
+                <% end %>
               </div>
               <div class="col-6 d-flex align-items-center">
                 <a href="/rooms/<%= room.id %>/messages" class="stretched-link text-decoration-none link-dark fs-5">

@@ -40,7 +40,7 @@ class TweetsController < ApplicationController
     @tweet_form = TweetForm.new(tweet_form_params)
     if @tweet_form.valid?
       @tweet_form.update(tweet_form_params, @tweet)
-      redirect_to root_path
+      redirect_to tweet_path(@user.id)
     else
       render :edit
     end

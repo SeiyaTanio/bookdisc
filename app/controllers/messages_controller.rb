@@ -11,13 +11,22 @@ class MessagesController < ApplicationController
   def create
     @room = Room.find(params[:room_id])
     @message = @room.messages.new(message_params)
+    @messages = @room.messages.includes(:user)
     if @message.save
-      redirect_to room_messages_path(@room)
+      render formats: :js, layout: false
     else
-      @messages = @room.messages.includes(:user)
       @host_id = @room.user_rooms[0].user_id
       render :index
     end
+  end
+
+  def destroy
+    message = Message.find(params[:id])
+    message.destroy
+    room = Room.find(params[:room_id])
+    @messages = room.messages.includes(:user)
+    render formats: :js, layout: false
+    ## redirect_to room_messages_path(params[:room_id])
   end
 
   private

@@ -39,6 +39,7 @@
   height: 80px;
   object-fit: contain;
   border: 1px solid lightgray;
+  background-color: white;
 }
 
 .bg-bookdisc{
@@ -87,6 +88,83 @@ textarea.form-control:focus{
 }
 
 .tweet-image-size{
-  height: 200px;
+  max-height: 15vw;
   max-width: 100%;
+}
+
+.message-area{
+  position: sticky;
+  top: 105px;
+  height: 75vh;
+  overflow: scroll;
+  background-color: #e2f2ff;
+}
+
+.message-field{
+  position: sticky;
+  background-color: #e2f2ff;
+}
+
+.max-1-line{
+  /** 4行以上で省略 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  
+  /** webkit以外のフォールバック */
+  line-height: 24px;
+  max-height: 24px;
+}
+
+.says {
+  display: inline-block;
+  position: relative; 
+  padding: 8px;
+  border-radius: 12px;
+  background: #f6faf7;
+}
+
+.says:after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 3px; 
+  left: -19px;
+  border: 8px solid transparent;
+  border-right: 18px solid #f6faf7;
+  -webkit-transform: rotate(35deg);
+  transform: rotate(35deg);
+}
+
+.says div {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.mycomment {
+  margin-top: -15px;
+}
+
+.mycomment p {
+  display: inline-block;
+  position: relative; 
+  margin: 0 10px 0 0;
+  padding: 8px;
+  border-radius: 12px;
+  background: #30e852;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.mycomment p:after {
+  content: "";
+  position: absolute;
+  top: 3px; 
+  right: -19px;
+  border: 8px solid transparent;
+  border-left: 18px solid #30e852;
+  -webkit-transform: rotate(-35deg);
+  transform: rotate(-35deg);
 }

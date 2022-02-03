@@ -9,7 +9,7 @@
           </div>
           <div class="col-4">
             <div class="text-center">
-              Search Result
+              検索一覧
             </div>
           </div>
           <div class="col-4">
@@ -31,9 +31,8 @@
             </div>
             <div class="col-6">
               <h4 class="mt-2"><%= user.nickname %></h4>
-              <div class="d-flex justify-content-around">
-                <a href="/users/<%=user.id%>/relationships" class="link-secondary text-decoration-none"><b>フォロー</b>  <%= user.followings.count %>人</a>
-                <a href="/users/<%=user.id%>/relationships/list" class="link-secondary text-decoration-none"><b>フォロワー</b>  <%= user.followers.count %>人</a>
+              <div class="d-flex justify-content-around" id="follow-count-<%=user.id%>">
+                <%= render "shared/follow_count", {uri: user.id, follow_count: user.followings.count, follower_count: user.followers.count} %>
               </div>
             </div>
             <div class="col-3 d-flex justify-content-end align-items-center" id="follow-ajax-<%=user.id%>">

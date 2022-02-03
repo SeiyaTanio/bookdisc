@@ -1,16 +1,14 @@
 <div class="container container-style">
-  <div class="row pb-3">
+  <div class="row">
     <div class="col-2">
     </div>
     <div class="col-8 border-end border-start" style="background-color: #e2f2ff;">
       <div class="row sticky-nav p-1 bg-primary border-bottom">
         <div class="d-flex align-items-center">
-          <div class="col-4">
-          </div>
-          <div class="col-4 text-white text-center">
+          <div class="col-9 text-white max-1-line">
             <%= @room.room_name %>
           </div>
-          <div class="col-4 d-flex justify-content-end">
+          <div class="col-3 d-flex justify-content-end">
             <% if user_signed_in? && current_user.id == @host_id %>
               <a class="btn btn-outline-light me-2" href="/rooms/<%=@room.id%>/edit" role="button">編集</a>
               <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#destroyBackdrop">
@@ -20,45 +18,16 @@
           </div>
         </div>
       </div>
-      <div class="row mt-3" style="height: 70vh; overflow: scroll;">
-        <div class="">
-          <% @messages.each do |message| %>
-            <% if message.user_id == current_user.id %>
-              <div class="row pb-4 justify-content-end" style="text-align: right;">
-                <p><small class="text-muted"><%= l message.updated_at %></small></p>
-                <div class="mycomment col-9">
-                  <p class="text-start shadow"><%= message.sentence %></p>
-                </div>
-              </div>
-            <% else%>
-              <div class="row pb-4">
-                <div class="col-2" >
-                  <div data-bs-toggle="tooltip" data-bs-placement="top" title="このユーザーのページに移動">
-                    <% if message.user&.profile&.image.present?%>
-                      <%= link_to image_tag(message.user.profile.image, class:"rounded-circle mx-auto d-block user-icon"), user_path(message.user_id) %>
-                    <% else %>
-                      <%= link_to image_tag("bookdisc-icon-image.png", class:"rounded-circle mx-auto d-block user-icon"), user_path(message.user_id) %>
-                    <% end %>
-                  </div>
-                </div>
-                <div class="col-7 g-0 d-flex align-items-center">
-                  <div><%= message.user.nickname %><br><small class="text-muted "><%= l message.updated_at %></small></div>
-                </div>
-                <div class="col-9 m-1">
-                  <div class="says shadow">
-                    <p><%= message.sentence %></p>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          <% end %>
+      <div class="row message-area">
+        <div id="messages">
+          <%= render partial: 'message', locals: {messages: @messages} %>
         </div>
       </div>
-      <%= form_with(model: [@room,@message], class: "needs-validation row justify-content-center", html: {novalidate: true}, local: true) do |f| %>
-        <div class="border-bottom pt-2">
+      <%= form_with(model: [@room,@message], class: "needs-validation row justify-content-center", html: {novalidate: true}, remote: true) do |f| %>
+        <div class="border-bottom pt-1 message-field">
           <div class="row g-0 align-items-center mb-3">
             <div class = "col-10">
-              <%= f.text_area :sentence, class: "form-control ", maxlength: "150", required: true ,placeholder: 'Message:150文字以内'%>
+              <%= f.text_area :sentence, class: "form-control ", id: "message-form", maxlength: "150", required: true ,placeholder: 'Message:150文字以内'%>
             </div>
             <div class = "col-2 text-center">
               <%= f.submit "送信", class:"btn btn-lg btn-primary" %>
@@ -74,55 +43,8 @@
 <!-- Modal -->
 <%= render partial: 'shared/destroy_modal', locals: {url: room_path(params[:room_id])} %>
 
-<style>
-.says {
-  display: inline-block;
-  position: relative; 
-  padding: 8px 8px 0 8px;
-  border-radius: 12px;
-  background: #edf1ee;
-}
 
-.says:after {
-  content: "";
-  display: inline-block;
-  position: absolute;
-  top: 3px; 
-  left: -19px;
-  border: 8px solid transparent;
-  border-right: 18px solid #edf1ee;
-  -webkit-transform: rotate(35deg);
-  transform: rotate(35deg);
-}
-
-.says p {
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-
-.mycomment {
-  margin-top: -15px;
-}
-
-.mycomment p {
-  display: inline-block;
-  position: relative; 
-  margin: 0 10px 0 0;
-  padding: 8px;
-  border-radius: 12px;
-  background: #30e852;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-
-.mycomment p:after {
-  content: "";
-  position: absolute;
-  top: 3px; 
-  right: -19px;
-  border: 8px solid transparent;
-  border-left: 18px solid #30e852;
-  -webkit-transform: rotate(-35deg);
-  transform: rotate(-35deg);
-}
-</style>
+<script>
+const target = document.getElementById('messages');
+target.scrollIntoView(false);
+</script>

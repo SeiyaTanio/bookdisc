@@ -1,8 +1,10 @@
 <div class="container container-style">
-  <div class="row p-4 p-md-5 my-4 text-white rounded bg-dark">
-    <div class="col-md-6 px-0">
-      <h1 class="display-4 fst-italic">Blog</h1>
-      <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
+  <div class="row my-4">
+    <div class="card g-0 bg-dark">
+      <div class="display-4 fst-italic  text-white text-center">
+        Blog
+      </div>
+      <%= image_tag "blog-title-img.png", class:"card-img img-fluid", style:"max-height: 70vh;"%>
     </div>
   </div>
   <div class="row pb-3">
@@ -12,9 +14,9 @@
           <h2><%= @blog.title %></h2>
           <p><small class="text-muted"><%= l @blog.updated_at %></small></p>
           <% if @blog.blog_image.present? %>
-            <%= image_tag @blog.blog_image, class:"my-4"%>
+            <%= image_tag @blog.blog_image, class:"my-4", style:"max-height:60vh;"%>
           <% else %>
-            <%= image_tag "no-image.png", class:"my-4"%>
+            <%= image_tag "no-image.png", class:"my-4", style:"max-height:60vh;"%>
           <% end %>
           <div class="new-line py-4"><%= @blog.article %></div>
         </div>
@@ -111,13 +113,8 @@
           <div class="mt-2">
             <h4 class="text-center"><%= @blog.user.nickname %></h4>
           </div>
-          <div class="text-center">
-            <div>
-              <a href="/users/<%=@blog.user_id%>/relationships" class="link-secondary text-decoration-none"><b>フォロー</b>  <%= @blog.user.followings.count %>人</a>
-            </div>
-            <div>
-              <a href="/users/<%=@blog.user_id%>/relationships/list" class="link-secondary text-decoration-none"><b>フォロワー</b>  <%= @blog.user.followers.count %>人</a>
-            </div>
+          <div class="text-center" id="follow-count-<%=@blog.user_id%>">
+            <%= render "shared/follow_count", {uri: @blog.user_id, follow_count: @blog.user.followings.count, follower_count: @blog.user.followers.count} %>
           </div>
           <div class="mt-3 d-flex justify-content-center" id="follow-ajax-<%=@blog.user_id%>">
             <%= render "shared/follow", user:@blog.user %>
